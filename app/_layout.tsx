@@ -5,7 +5,9 @@ import { store } from "./redux/store";
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <Stack />
+      <Stack>
+        <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+      </Stack>
     </Provider>
   );
 }
