@@ -6,6 +6,3 @@ export const store = configureStore({
     quote: quoteReducer
   }
 })
-
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Tabs } from 'expo-router';
-import { HapticTab } from '@/app/components/HapticTab';
+// import { HapticTab } from '@/app/components/HapticTab';
 import { IconSymbol } from '@/app/components/ui/IconSymbol';
 import TabBarBackground from '@/app/components/ui/TabBarBackground';
 import { Colors } from '@/app/constants/Colors';
 import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { useCustomSelector } from '../redux/hook';
+import { useSelector } from 'react-redux';
 
 export default function TabLayout() {
 
@@ -16,7 +16,7 @@ export default function TabLayout() {
   });
 
   const colorScheme = useColorScheme();
-  const currentScreen = useCustomSelector(state => state.quote.currentScreen);
+  const currentScreen = useSelector(state => state.quote.currentScreen);
 
   useEffect(() => {
     switch (currentScreen) {
@@ -45,7 +45,6 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: {
           display: books || settings ? 'flex' : 'none',

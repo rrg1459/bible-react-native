@@ -1,18 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
+import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
-import { useFocusEffect } from 'expo-router';
 import { changeScreen } from '../redux/quoteSlice';
-import { useCustomDispath } from "../redux/hook";
+import { useDispatch } from 'react-redux';
 
-const SettingsScreen = () => {
+const VersesScreen = () => {
 
-  const dispatch = useCustomDispath();
-
+  const dispatch = useDispatch();
   const route = useRoute();
   const ScreenName = route.name;
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
   });
+
+  const params = useLocalSearchParams();
+  const { chapters, label } = params;
 
   return (
     <View
@@ -22,12 +24,13 @@ const SettingsScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text style={{fontSize: 60, color: 'tomato'}}>Settings</Text>
-
+      <Text>VersesScreen</Text>
+      <Text style={{fontSize: 40, color: 'skyblue'}}>Verses</Text>
+      <Text>XXX: {chapters}</Text>
     </View>
   );
 }
 
-export default SettingsScreen
+export default VersesScreen
 
 const styles = StyleSheet.create({})

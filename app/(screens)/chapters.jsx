@@ -2,11 +2,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { changeScreen } from '../redux/quoteSlice';
-import { useCustomDispath } from "../redux/hook";
+import { useDispatch } from 'react-redux';
 
 const ChaptersScreen = () => {
 
-  const dispatch = useCustomDispath();
+  const dispatch = useDispatch();
 
   const route = useRoute();
   const ScreenName = route.name;
