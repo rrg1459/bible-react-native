@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import getColorByBookType from "../utils/getColorByBookType"
+import { useSelector } from "react-redux";
 // import { IfBook } from "../utils/Interfaces"
 
 const Index = (props) => {
-  // const Index: React.FC<IfBook> = (props) => {
 
+  const languageValue = useSelector(state => state.quote.language);
   const { book: { testament_id, label, abbreviation, type_id } } = props;
   const bookColor = getColorByBookType(type_id);
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
@@ -12,10 +13,10 @@ const Index = (props) => {
   return (
     <View style={[containerStyles, testament_id ? styles.withBorder : null]}>
       <Text style={styles.abbreviation}>
-        {abbreviation[1]}
+        {abbreviation[languageValue]}
       </Text>
       <Text style={styles.label}>
-        {label[1]}
+        {label[languageValue]}
       </Text>
     </View>
   );

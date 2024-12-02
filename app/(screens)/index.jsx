@@ -3,7 +3,7 @@ import { Link, useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
 import Book from "../components/Book.jsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { books } from '../bible/books.js';
 
 export default function Index() {
@@ -11,6 +11,7 @@ export default function Index() {
   const dispatch = useDispatch();
   const route = useRoute();
   const ScreenName = route.name;
+  const languageValue = useSelector(state => state.quote.language);
 
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
@@ -25,37 +26,10 @@ export default function Index() {
     "chapters": 5
   }
 
-  // interface Book {
-  //   // book: {
-
-  //     id: number;
-  //     testament_id: number;
-  //     type_id: number;
-  //     label: string[];
-  //     abbreviation: string[];
-  //     chapters: number;
-  //   // }
-  // }
-
-  // const readyBooks: Book[] = books;
-  // const Item: React.FC<Book> = ({ id }) => {
-  // // const Item = ({ item }) => {
-  // console.log('xxx id-->: ', id);
-  //   return <View style={styles.item}>{id}</View>;
-  // };
-
-  // const Item: Book = ({ item }) => {
-  //   // const Item = ({ item }) => {
-  //   console.log('xxx id-->: ', item.id);
-  //     return <View style={styles.item}>{item.id}</View>;
-
-  //   };
-
-
   return (
     <View style={styles.main} >
       <Text style={styles.header}>
-        Reina Valera 1960
+        {languageValue ? 'Reina Valera (1960)' : 'King James Version (KJV)'}
       </Text>
       <TouchableOpacity
         style={{
@@ -68,29 +42,15 @@ export default function Index() {
         <Link href={{
           pathname: "/chapters",
           params: book,
-        }} style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>{book.label[1]}</Link>
+        }} style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>{book.label[languageValue]}</Link>
       </TouchableOpacity>
-
-      {/* <Text style={styles.readyBooks}>
-
-      {readyBooks && (
-        readyBooks.map((book) => (
-          <Book key={book.id} book={book} />
-        ))
-      )}
-      </Text> */}
 
       <View style={styles.app}>
         <FlatList
           data={books}
           numColumns={4}
-          // horizontal={false}
-          // contentContainerStyle={{alignItems: "stretch"}}
-          // renderItem={Item}
-          // renderItem={({ item }) => item.testament_id ? <Book book={item} /> : <View />}
           renderItem={({ item }) => <Book book={item} />}
           keyExtractor={(book) => String(book.id)}
-
         />
       </View>
 

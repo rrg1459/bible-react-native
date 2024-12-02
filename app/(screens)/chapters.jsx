@@ -2,10 +2,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { changeScreen } from '../redux/quoteSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ChaptersScreen = () => {
 
+  const languageValue = useSelector(state => state.quote.language);
   const dispatch = useDispatch();
 
   const route = useRoute();
@@ -26,7 +27,9 @@ const ChaptersScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text>ChaptersScreen</Text>
+      <Text>
+        {languageValue ? 'Pantalla de capitulos' : 'Chapters Screen'}
+      </Text>
       <TouchableOpacity
         style={{
           backgroundColor: 'green',

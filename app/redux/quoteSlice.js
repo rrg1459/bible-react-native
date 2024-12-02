@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   currentScreen: "index",
-  bookColumns: 6
+  bookColumns: 6,
+  language: 1 // 0: english, 1: spanisch
 };
 
 const quoteSlice = createSlice({
@@ -15,9 +16,12 @@ const quoteSlice = createSlice({
     changeBookColumns: (state, action) => {
       state.bookColumns = action.payload;
     },
+    updateLanguage: (state, action) => {
+      state.language = action.payload;
+    },
   }
 });
 
-export const { changeScreen, changeBookColumns } = quoteSlice.actions;
+export const { changeScreen, changeBookColumns, updateLanguage } = quoteSlice.actions;
 
 export default quoteSlice.reducer;

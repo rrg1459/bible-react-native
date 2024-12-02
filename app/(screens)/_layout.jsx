@@ -17,6 +17,7 @@ export default function TabLayout() {
 
   const colorScheme = useColorScheme();
   const currentScreen = useSelector(state => state.quote.currentScreen);
+  const languageValue = useSelector(state => state.quote.language);
 
   useEffect(() => {
     switch (currentScreen) {
@@ -54,6 +55,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Books',
+          title: languageValue ? 'Libros' : 'Books',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
           href: books ? '/' : null
         }}
@@ -63,6 +65,7 @@ export default function TabLayout() {
         name="chapters"
         options={{
           title: 'Chapters',
+          title: languageValue ? 'Capítulos' : 'Chapters',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="chair.fill" color={color} />,
           href: chapters ? '/chapters' : null
         }}
@@ -73,7 +76,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'RETURN',
+          title: languageValue ? 'REGRESAR' : 'RETURN',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="car.fill" color={color} />,
           href: settings ? '/' : null
         }}
