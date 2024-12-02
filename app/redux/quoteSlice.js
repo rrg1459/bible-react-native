@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// interface QuoteSlice {
-//   currentScreen: String;
-// }
-
 const initialState = {
-  currentScreen: "index"
+  currentScreen: "index",
+  bookColumns: 6
 };
 
 const quoteSlice = createSlice({
@@ -15,10 +12,12 @@ const quoteSlice = createSlice({
     changeScreen: (state, action) => {
       state.currentScreen = action.payload;
     },
-
+    changeBookColumns: (state, action) => {
+      state.bookColumns = action.payload;
+    },
   }
 });
 
-export const { changeScreen } = quoteSlice.actions;
+export const { changeScreen, changeBookColumns } = quoteSlice.actions;
 
 export default quoteSlice.reducer;
