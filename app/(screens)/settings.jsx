@@ -28,7 +28,6 @@ const SettingsScreen = () => {
     <>
       <Text style={styles.labelHeader}>{languageValue ? 'Ajustes' : 'Settings'}</Text>
       <View style={styles.container}>
-
         <Separator />
         <TouchableOpacity
           onPress={onPress}
@@ -38,11 +37,7 @@ const SettingsScreen = () => {
             {languageValue ? 'Change to english' : 'Cambiar a español'}
           </Text>
         </TouchableOpacity>
-
-
         <Separator />
-
-
         <Text style={styles.labelBookColumns}>
           {languageValue ? 'Columnas de libros' : 'Book columns'} : {bookColumnsValue}
         </Text>
@@ -57,9 +52,7 @@ const SettingsScreen = () => {
           value={bookColumnsValue}
           onValueChange={item => dispatch(changeBookColumns(item))}
         />
-
-<Separator />
-
+        <Separator />
       </View>
     </>
   );
@@ -71,6 +64,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: '#ebf9f5',
     fontSize: 60,
+    paddingTop: 30,
     color: '#3acaa6'
   },
   labelLanguage: {
@@ -125,11 +119,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: '100%',
-    // height: 80,
     marginVertical: 40,
-    // borderBottomColor: 'black',
     borderBottomColor: '#b1b5b4',
-    // borderBottomColor: '#dddaaa',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
