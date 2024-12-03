@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Link, useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
@@ -14,7 +14,7 @@ export default function Index() {
   const ScreenName = route.name;
   const languageValue = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
-  const [books, setBooks] = useState(fillBox({screen: ScreenName, columnsValue: bookColumnsValue}));
+  const [books, setBooks] = useState(fillBox({ screen: ScreenName, columnsValue: bookColumnsValue }));
 
   useEffect(() => {
     setBooks(fillBox({ screen: ScreenName, columnsValue: bookColumnsValue }));
@@ -27,39 +27,43 @@ export default function Index() {
   const book = books[40]
 
   return (
-    <View style={styles.main} >
-      <Text style={styles.header}>
-        {languageValue ? 'Reina Valera (1960)' : 'King James Version (KJV)'}
-      </Text>
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'black',
-          padding: 10,
-          borderRadius: 5,
-          margin: 10,
-        }}
-      >
-        <Link href={{
-          pathname: "/chapters",
-          params: book,
-        }} style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>{book.label[languageValue]}</Link>
-      </TouchableOpacity>
+    <>
+      <StatusBar hidden />
+      <View style={styles.main} >
+        <Text style={styles.header}>
+          {languageValue ? 'Reina Valera (1960)' : 'King James Version (KJV)'}
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'black',
+            padding: 10,
+            borderRadius: 5,
+            margin: 10,
+          }}
+        >
+          <Link href={{
+            pathname: "/chapters",
+            params: book,
+          }} style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>{book.label[languageValue]}</Link>
+        </TouchableOpacity>
 
-      <View style={styles.app}>
-        <FlatList
-          data={books}
-          numColumns={bookColumnsValue}
-          key={bookColumnsValue}
-          renderItem={({ item }) => <Book book={item} />}
-          keyExtractor={(book) => String(book.id)}
-        />
+        <View style={styles.app}>
+          <FlatList
+            data={books}
+            numColumns={bookColumnsValue}
+            key={bookColumnsValue}
+            renderItem={({ item }) => <Book book={item} />}
+            keyExtractor={(book) => String(book.id)}
+          />
+        </View>
+
+        <Link href="/settings" style={styles.floatingMenuButtonStyle}>
+          {renderFloatingMenu()}
+        </Link>
+
       </View>
+    </>
 
-      <Link href="/settings" style={styles.floatingMenuButtonStyle}>
-        {renderFloatingMenu()}
-      </Link>
-
-    </View>
   );
 };
 
@@ -72,14 +76,15 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#7dfcd2',
     fontSize: 30,
-    padding: 5,
+    // padding: 5,
+    paddingTop: 30,
+    paddingBottom: 10,
     textAlign: "center",
-    margin: 5
   },
   floatingMenuButtonStyle: {
     alignSelf: 'flex-end',
     position: 'absolute',
-    bottom: 20,
+    bottom: 60,
     right: 20
   },
   app: {
