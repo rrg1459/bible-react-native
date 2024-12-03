@@ -5,16 +5,20 @@ import getColorByBookType from "../utils/getColorByBookType"
 const Book = (props) => {
 
   const languageValue = useSelector(state => state.quote.language);
+  const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const { book: { testament_id, label, abbreviation, type_id } } = props;
   const bookColor = getColorByBookType(type_id);
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
 
+  const abbreviationFont = [,,,25,24,22,20];
+  const labelFont = [,,,14,9,7,6];
+
   return (
     <View style={[containerStyles, testament_id ? styles.withBorder : null]}>
-      <Text style={styles.abbreviation}>
+      <Text style={{fontSize: abbreviationFont[bookColumnsValue]}}>
         {abbreviation[languageValue]}
       </Text>
-      <Text style={styles.label}>
+      <Text style={{fontSize: labelFont[bookColumnsValue]}}>
         {label[languageValue]}
       </Text>
     </View>
@@ -34,11 +38,5 @@ const styles = StyleSheet.create({
   },
   withBorder: {
     borderWidth: 1,
-  },
-  abbreviation: {
-    fontSize: 20
-  },
-  label: {
-    fontSize: 6
   },
 });
