@@ -1,10 +1,11 @@
+import { useEffect, useMemo, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Link, useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
 import Book from "../components/Book.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { books } from '../bible/books.js';
+import fillBox from "../utils/fillBox.js";
 
 export default function Index() {
 
@@ -12,19 +13,18 @@ export default function Index() {
   const route = useRoute();
   const ScreenName = route.name;
   const languageValue = useSelector(state => state.quote.language);
+  const bookColumnsValue = useSelector(state => state.quote.bookColumns);
+  const [books, setBooks] = useState(fillBox({screen: ScreenName, columnsValue: bookColumnsValue}));
+
+  useEffect(() => {
+    setBooks(fillBox({ screen: ScreenName, columnsValue: bookColumnsValue }));
+  }, [bookColumnsValue]);
 
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
   });
 
-  const book = {
-    "id": 62,
-    "testament_id": 2,
-    "type_id": 7,
-    "label": ["1 John", "1 Juan"],
-    "abbreviation": ["1Jhn", "1Jn"],
-    "chapters": 5
-  }
+  const book = books[40]
 
   return (
     <View style={styles.main} >
@@ -48,7 +48,8 @@ export default function Index() {
       <View style={styles.app}>
         <FlatList
           data={books}
-          numColumns={4}
+          numColumns={bookColumnsValue}
+          key={bookColumnsValue}
           renderItem={({ item }) => <Book book={item} />}
           keyExtractor={(book) => String(book.id)}
         />
