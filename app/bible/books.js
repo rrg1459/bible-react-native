@@ -526,22 +526,6 @@ export const books = [
     label: ["Revelation", "Apocalipsis"],
     abbreviation: ["Rev", "Ap"],
     chapters: 22
-  },
-  {
-    id: 67,
-    testament_id: null,
-    type_id: null,
-    label: [],
-    abbreviation: [],
-    chapters: null
-  },
-  {
-    id: 68,
-    testament_id: null,
-    type_id: null,
-    label: [],
-    abbreviation: [],
-    chapters: null
   }
 ];
 
