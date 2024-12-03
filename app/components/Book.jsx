@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import getColorByBookType from "../utils/getColorByBookType"
 import { useSelector } from "react-redux";
-// import { IfBook } from "../utils/Interfaces"
+import getColorByBookType from "../utils/getColorByBookType"
 
-const Index = (props) => {
+const Book = (props) => {
 
   const languageValue = useSelector(state => state.quote.language);
   const { book: { testament_id, label, abbreviation, type_id } } = props;
@@ -21,8 +20,7 @@ const Index = (props) => {
     </View>
   );
 }
-
-export default Index;
+export default Book;
 
 const styles = StyleSheet.create({
   container: {
@@ -40,7 +38,6 @@ const styles = StyleSheet.create({
   abbreviation: {
     fontSize: 20
   },
-
   label: {
     fontSize: 6
   },
