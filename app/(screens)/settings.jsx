@@ -9,7 +9,7 @@ const SettingsScreen = () => {
 
   const dispatch = useDispatch();
   const route = useRoute();
-  const sliderValue = useSelector(state => state.quote.bookColumns);
+  const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const languageValue = useSelector(state => state.quote.language);
   const ScreenName = route.name;
 
@@ -44,7 +44,7 @@ const SettingsScreen = () => {
 
 
         <Text style={styles.labelBookColumns}>
-          {languageValue ? 'Columnas de libros' : 'Book columns'} : {sliderValue}
+          {languageValue ? 'Columnas de libros' : 'Book columns'} : {bookColumnsValue}
         </Text>
         <Slider
           style={styles.sizeSlider}
@@ -54,7 +54,7 @@ const SettingsScreen = () => {
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
           thumbStyle={styles.thumb}
-          value={sliderValue}
+          value={bookColumnsValue}
           onValueChange={item => dispatch(changeBookColumns(item))}
         />
 
