@@ -54,8 +54,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Books',
           title: languageValue ? 'Libros' : 'Books',
+          headerTransparent: true,
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
           href: books ? '/' : null
         }}
@@ -64,7 +64,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="chapters"
         options={{
-          title: 'Chapters',
           title: languageValue ? 'Capítulos' : 'Chapters',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="chair.fill" color={color} />,
           href: chapters ? '/chapters' : null
