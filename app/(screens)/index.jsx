@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { FlatList, Image, StatusBar, StyleSheet, Text, View } from "react-native";
 import { Link, useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
@@ -24,29 +24,13 @@ export default function Index() {
     dispatch(changeScreen(ScreenName));
   });
 
-  const book = books[40]
-
   return (
     <>
       <StatusBar hidden />
       <View style={styles.main} >
         <Text style={styles.header}>
-          {languageValue ? 'Reina Valera (1960)' : 'King James Version (KJV)'}
+          {languageValue ? 'Biblia Reina Valera' : 'Bible King James Version'}
         </Text>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'black',
-            padding: 10,
-            borderRadius: 5,
-            margin: 10,
-          }}
-        >
-          <Link href={{
-            pathname: "/chapters",
-            params: book,
-          }} style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>{book.label[languageValue]}</Link>
-        </TouchableOpacity>
-
         <View style={styles.app}>
           <FlatList
             data={books}
@@ -56,11 +40,9 @@ export default function Index() {
             keyExtractor={(book) => String(book.id)}
           />
         </View>
-
         <Link href="/settings" style={styles.floatingMenuButtonStyle}>
           {renderFloatingMenu()}
         </Link>
-
       </View>
     </>
 
@@ -75,7 +57,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#7dfcd2',
-    fontSize: 30,
+    fontSize: 25,
     // padding: 5,
     paddingTop: 30,
     paddingBottom: 10,
@@ -92,22 +74,6 @@ const styles = StyleSheet.create({
     marginHorizontal: "auto",
     width: "98%"
   },
-  item: {
-    flex: 1,
-    maxWidth: "25%", // 100% devided by the number of rows you want
-    alignItems: "center",
-
-    // my visual styles; not important for the grid
-    padding: 10,
-    backgroundColor: "rgba(249, 180, 45, 0.25)",
-    borderWidth: 1.5,
-    borderColor: "#fff"
-  },
-  readyBooks: {
-    flex: 1, /* Ancho mínimo de 100px, crece y encoge proporcionalmente */
-    flexDirection: 'row',
-    height: 100, /* Altura fija */
-  }
 });
 
 function renderFloatingMenu() {
