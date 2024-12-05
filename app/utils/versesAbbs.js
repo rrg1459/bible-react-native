@@ -19,7 +19,7 @@ const versesAbbs = ({ numVerses, language }) => {
         }
         currentGroup = [arr[i]];
       }
-    }
+    };
     if (currentGroup.length === 1) {
       result.push(currentGroup[0]);
     } else if (currentGroup.length > 1) {
@@ -31,7 +31,7 @@ const versesAbbs = ({ numVerses, language }) => {
   const groups = consecutiveGroups(numVerses);
 
   groups.map((item, idx) => {
-    if (idx < 2) {
+    if (idx < 3) {
       if (typeof item === 'number') {
         abbreviations += item;
       } else {
@@ -41,7 +41,7 @@ const versesAbbs = ({ numVerses, language }) => {
     };
   });
   abbreviations = abbreviations.slice(0, -1)
-  if (groups.length > 2) {
+  if (groups.length > 3) {
     abbreviations += more[language];
   };
 

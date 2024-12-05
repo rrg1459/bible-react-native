@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native'
+import { Link, useFocusEffect } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen, updateVerses } from '../redux/quoteSlice';
@@ -21,7 +21,6 @@ const ChaptersScreen = () => {
   useEffect(() => {
     setChaptersVector(fillChapters({ screen: ScreenName, chapters: chapters }));
   }, [chapters]);
-
   useFocusEffect(() => {
     dispatch(updateVerses([]));
     dispatch(changeScreen(ScreenName));
@@ -32,9 +31,8 @@ const ChaptersScreen = () => {
       <Text style={styles.header}>
         {label[languageValue]}
       </Text>
-      <Text>
-        {chapters}
-        {languageValue ? 'Capítulo' : 'Chapter'}{chapters > 1 ? 's' : ''}
+      <Text style={styles.numberOfChapters}>
+        {chapters} {languageValue ? 'Capítulo' : 'Chapter'}{chapters > 1 ? 's' : ''}
       </Text>
       <View style={styles.app}>
         <FlatList
@@ -59,13 +57,19 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#7dfcd2',
     fontSize: 25,
-    // padding: 5,
-    paddingTop: 30,
-    paddingBottom: 10,
-    textAlign: "center",
+    paddingTop: 10,
+    paddingLeft: 10,
+  },
+  numberOfChapters: {
+    paddingBottom: 5,
+    backgroundColor: '#7dfcd2',
+
+    paddingLeft: 10,
+    fontSize: 15,
   },
   app: {
     flex: 4, // the number of columns you want to devide the screen into
+    paddingTop: 5,
     marginHorizontal: "auto",
     width: "98%"
   },

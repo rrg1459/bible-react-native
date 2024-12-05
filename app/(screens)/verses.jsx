@@ -35,7 +35,10 @@ const VersesScreen = () => {
   return (
     <View style={styles.main} >
       <Text style={styles.header}>
-        {book.label[languageValue]} {chapter}{ShowVersesAbbs}{/* imrpove this*/}
+        {book.label[languageValue]}
+      </Text>
+      <Text style={styles.quoteNumbers}>
+        {chapter}{ShowVersesAbbs}
       </Text>
       <View style={styles.app}>
         <FlatList
@@ -60,14 +63,16 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#7dfcd2',
     fontSize: 25,
-    // padding: 5,
-    paddingTop: 30,
-    paddingBottom: 10,
-    textAlign: "center",
+    paddingTop: 10,
+    paddingLeft: 10,
+  },
+  quoteNumbers: {
+    paddingBottom: 5,
+    backgroundColor: "#7dfcd2",
+    paddingHorizontal: 10,
+    fontSize: 18,
   },
   app: {
     cursor: "pointer",
-    // marginHorizontal: "auto",
-    // width: "98%"
   },
 });

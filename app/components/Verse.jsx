@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVerses } from "../redux/quoteSlice";
 import cleanAndTidy from "../utils/cleanAndTidy";
@@ -33,7 +33,7 @@ export default Verse;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     // textAlign: "center",
     fontSize:20,
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     borderColor: "#fff"
   },
   currentVerse: {
-    backgroundColor: 'aquamarine',
+    backgroundColor: "#E2FDF4",
   },
 });

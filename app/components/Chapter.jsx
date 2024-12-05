@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../redux/quoteSlice";
@@ -31,14 +31,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     fontSize:30,
-    padding: 4,
-    margin: 2,
+    padding: 8,
+    margin: 4,
     borderRadius: 5,
     borderColor: "#fff"
   },
   withBorder: {
     cursor: 'pointer',
-    backgroundColor: 'green',
+    backgroundColor: '#e8e8e8',
+    borderColor: '#e8e8e8',
     borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: 8,
+    fontSize: 28,
+    color: '#090909',
+    shadowOffset: {
+      width: 6,
+      height: 6,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 12,
+    elevation: 10, // For Android shadow
   },
 });
