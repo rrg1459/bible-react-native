@@ -1,20 +1,24 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { useNavigation } from "expo-router";
+import { useDispatch } from "react-redux";
+import { updateChapter } from "../redux/quoteSlice";
 
 const Chapter = (props) => {
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { chapter } = props;
 
   const goToChapters = () => {
-    navigation.navigate("verses", chapter);
+    dispatch(updateChapter(chapter.id));
+    navigation.navigate("verses");
   };
 
   return (
-    <TouchableWithoutFeedback onPress={goToChapters}>
-        <Text style={styles.container}>
-          {chapter.show ? chapter.id : ''}
+    <TouchableWithoutFeedback onPress={chapter.show ? goToChapters : null}>
+        <Text style={[styles.container, chapter.show ? styles.withBorder : null]}>
+          {chapter.show && chapter.id}
         </Text>
     </TouchableWithoutFeedback>
   );
@@ -27,14 +31,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     fontSize:30,
-    cursor: 'pointer',
-    backgroundColor: 'green',
     padding: 4,
     margin: 2,
     borderRadius: 5,
     borderColor: "#fff"
   },
   withBorder: {
+    cursor: 'pointer',
+    backgroundColor: 'green',
     borderWidth: 1,
   },
 });
