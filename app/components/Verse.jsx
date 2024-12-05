@@ -9,6 +9,7 @@ const Verse = (props) => {
   const dispatch = useDispatch();
   const { verse } = props;
   const languageValue = useSelector(state => state.quote.language);
+  const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
   const numVerses = useSelector(state => state.quote.numVerses);
   const [currentVerse, setCurrentVerse] = useState(false);
   
@@ -23,7 +24,7 @@ const Verse = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={onPressVerse}>
-        <Text style={[styles.container, currentVerse ? styles.currentVerse : null]}>
+        <Text style={[{fontSize: fontSizeVerse}, styles.container, currentVerse ? styles.currentVerse : null]}>
           {verse.verse}. {verse.text[languageValue]}
         </Text>
     </TouchableWithoutFeedback>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: "center",
     // textAlign: "center",
-    fontSize:20,
+    // fontSize:30,
     padding: 4,
     margin: 2,
     borderRadius: 5,
