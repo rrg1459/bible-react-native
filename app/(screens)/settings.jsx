@@ -75,15 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   button: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // paddingVertical: 6,
     paddingHorizontal: 12,
-    // marginBottom: 60,
     borderRadius: 8,
     elevation: 6,
     backgroundColor: '#FCFCFD',
-
     shadowOpacity: 0.3,
     shadowRadius: 5,
     shadowOffset: {
@@ -110,9 +105,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ebf9f5',
   },
   thumb: {
-    // width: 40,
-    // height: 50,
-    transform: [{ scaleX: 3 }, { scaleY: 3 }],
+    width: 40,
+    height: 50,
+    // transform: [{ scaleX: 3 }, { scaleY: 3 }],
     backgroundColor: 'skyblue',
     borderWidth: 1,
     borderColor: "orange"

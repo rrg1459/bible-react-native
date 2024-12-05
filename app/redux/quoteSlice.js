@@ -8,7 +8,7 @@ const initialState = {
     id: null,
     testament_id: null,
     type_id: null,
-    label: [],
+    name: [],
     abbreviation: [],
     chapters: null
   },

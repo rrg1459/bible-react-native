@@ -3,7 +3,7 @@ export const books = [
     id: 1,
     testament_id: 1,
     type_id: 1,
-    label: ["Genesis", "Génesis"],
+    name: ["Genesis", "Génesis"],
     abbreviation: ["Gen", "Gen"],
     chapters: 50
   },
@@ -11,7 +11,7 @@ export const books = [
     id: 2,
     testament_id: 1,
     type_id: 1,
-    label: ["Exodus", "Éxodo"],
+    name: ["Exodus", "Éxodo"],
     abbreviation: ["Ex", "Ex"],
     chapters: 40
   },
@@ -19,7 +19,7 @@ export const books = [
     id: 3,
     testament_id: 1,
     type_id: 1,
-    label: ["Leviticus", "Levítico"],
+    name: ["Leviticus", "Levítico"],
     abbreviation: ["Lev", "Lev"],
     chapters: 27
   },
@@ -27,7 +27,7 @@ export const books = [
     id: 4,
     testament_id: 1,
     type_id: 1,
-    label: ["Numbers", "Números"],
+    name: ["Numbers", "Números"],
     abbreviation: ["Num", "Num"],
     chapters: 36
   },
@@ -35,7 +35,7 @@ export const books = [
     id: 5,
     testament_id: 1,
     type_id: 1,
-    label: ["Deuteronomy", "Deuteronomio"],
+    name: ["Deuteronomy", "Deuteronomio"],
     abbreviation: ["Dt", "Deu"],
     chapters: 34
   },
@@ -43,7 +43,7 @@ export const books = [
     id: 6,
     testament_id: 1,
     type_id: 2,
-    label: ["Joshua", "Josué"],
+    name: ["Joshua", "Josué"],
     abbreviation: ["Jos", "Jos"],
     chapters: 24
   },
@@ -51,7 +51,7 @@ export const books = [
     id: 7,
     testament_id: 1,
     type_id: 2,
-    label: ["Judges", "Jueces"],
+    name: ["Judges", "Jueces"],
     abbreviation: ["Jdg", "Jue"],
     chapters: 21
   },
@@ -59,7 +59,7 @@ export const books = [
     id: 8,
     testament_id: 1,
     type_id: 2,
-    label: ["Ruth", "Rut"],
+    name: ["Ruth", "Rut"],
     abbreviation: ["Rth", "Rut"],
     chapters: 4
   },
@@ -67,7 +67,7 @@ export const books = [
     id: 9,
     testament_id: 1,
     type_id: 2,
-    label: ["1 Samuel", "1 Samuel"],
+    name: ["1 Samuel", "1 Samuel"],
     abbreviation: ["1Sa", "1Sa"],
     chapters: 31
   },
@@ -75,7 +75,7 @@ export const books = [
     id: 10,
     testament_id: 1,
     type_id: 2,
-    label: ["2 Samuel", "2 Samuel"],
+    name: ["2 Samuel", "2 Samuel"],
     abbreviation: ["2Sa", "2Sa"],
     chapters: 24
   },
@@ -83,7 +83,7 @@ export const books = [
     id: 11,
     testament_id: 1,
     type_id: 2,
-    label: ["1 Kings", "1 Reyes"],
+    name: ["1 Kings", "1 Reyes"],
     abbreviation: ["1Kgs", "1Re"],
     chapters: 22
   },
@@ -91,7 +91,7 @@ export const books = [
     id: 12,
     testament_id: 1,
     type_id: 2,
-    label: ["2 Kings", "2 Reyes"],
+    name: ["2 Kings", "2 Reyes"],
     abbreviation: ["2Kgs", "2Re"],
     chapters: 25
   },
@@ -99,7 +99,7 @@ export const books = [
     id: 13,
     testament_id: 1,
     type_id: 2,
-    label: ["1 Chronicles", "1 Crónicas"],
+    name: ["1 Chronicles", "1 Crónicas"],
     abbreviation: ["1Ch", "1Cr"],
     chapters: 29
   },
@@ -107,7 +107,7 @@ export const books = [
     id: 14,
     testament_id: 1,
     type_id: 2,
-    label: ["2 Chronicles", "2 Crónicas"],
+    name: ["2 Chronicles", "2 Crónicas"],
     abbreviation: ["2Ch", "2Cr"],
     chapters: 36
   },
@@ -115,7 +115,7 @@ export const books = [
     id: 15,
     testament_id: 1,
     type_id: 2,
-    label: ["Ezra", "Esdras"],
+    name: ["Ezra", "Esdras"],
     abbreviation: ["Ezr", "Esd"],
     chapters: 10
   },
@@ -123,7 +123,7 @@ export const books = [
     id: 16,
     testament_id: 1,
     type_id: 2,
-    label: ["Nehemiah", "Nehemías"],
+    name: ["Nehemiah", "Nehemías"],
     abbreviation: ["Neh", "Neh"],
     chapters: 13
   },
@@ -131,7 +131,7 @@ export const books = [
     id: 17,
     testament_id: 1,
     type_id: 2,
-    label: ["Esther", "Ester"],
+    name: ["Esther", "Ester"],
     abbreviation: ["Est", "Est"],
     chapters: 10
   },
@@ -139,7 +139,7 @@ export const books = [
     id: 18,
     testament_id: 1,
     type_id: 3,
-    label: ["Job", "Job"],
+    name: ["Job", "Job"],
     abbreviation: ["Job", "Job"],
     chapters: 42
   },
@@ -147,7 +147,7 @@ export const books = [
     id: 19,
     testament_id: 1,
     type_id: 3,
-    label: ["Psalms", "Salmos"],
+    name: ["Psalms", "Salmos"],
     abbreviation: ["Psal", "Sal"],
     chapters: 150
   },
@@ -155,7 +155,7 @@ export const books = [
     id: 20,
     testament_id: 1,
     type_id: 3,
-    label: ["Proverbs", "Proverbios"],
+    name: ["Proverbs", "Proverbios"],
     abbreviation: ["Pro", "Pro"],
     chapters: 31
   },
@@ -163,7 +163,7 @@ export const books = [
     id: 21,
     testament_id: 1,
     type_id: 3,
-    label: ["Ecclesiastes", "Eclesiastés"],
+    name: ["Ecclesiastes", "Eclesiastés"],
     abbreviation: ["Ecc", "Ecl"],
     chapters: 12
   },
@@ -171,7 +171,7 @@ export const books = [
     id: 22,
     testament_id: 1,
     type_id: 3,
-    label: ["Song of Solomon", "cantares"],
+    name: ["Song of Solomon", "cantares"],
     abbreviation: ["SoS", "cant"],
     chapters: 8
   },
@@ -179,7 +179,7 @@ export const books = [
     id: 23,
     testament_id: 1,
     type_id: 4,
-    label: ["Isaiah", "Isaías"],
+    name: ["Isaiah", "Isaías"],
     abbreviation: ["Isa", "Isa"],
     chapters: 66
   },
@@ -187,7 +187,7 @@ export const books = [
     id: 24,
     testament_id: 1,
     type_id: 4,
-    label: ["Jeremiah", "Jeremías"],
+    name: ["Jeremiah", "Jeremías"],
     abbreviation: ["Jer", "Jer"],
     chapters: 52
   },
@@ -195,7 +195,7 @@ export const books = [
     id: 25,
     testament_id: 1,
     type_id: 4,
-    label: ["Lamentations", "Lamentaciones"],
+    name: ["Lamentations", "Lamentaciones"],
     abbreviation: ["Lam", "Lam"],
     chapters: 5
   },
@@ -203,7 +203,7 @@ export const books = [
     id: 26,
     testament_id: 1,
     type_id: 4,
-    label: ["Ezekiel", "Ezequiel"],
+    name: ["Ezekiel", "Ezequiel"],
     abbreviation: ["Eze", "Eze"],
     chapters: 48
   },
@@ -211,7 +211,7 @@ export const books = [
     id: 27,
     testament_id: 1,
     type_id: 4,
-    label: ["Daniel", "Daniel"],
+    name: ["Daniel", "Daniel"],
     abbreviation: ["Dan", "Dan"],
     chapters: 12
   },
@@ -219,7 +219,7 @@ export const books = [
     id: 28,
     testament_id: 1,
     type_id: 4,
-    label: ["Hosea", "Oseas"],
+    name: ["Hosea", "Oseas"],
     abbreviation: ["Hos", "Os"],
     chapters: 14
   },
@@ -227,7 +227,7 @@ export const books = [
     id: 29,
     testament_id: 1,
     type_id: 4,
-    label: ["Joel", "Joel"],
+    name: ["Joel", "Joel"],
     abbreviation: ["Jl", "Joe"],
     chapters: 3
   },
@@ -235,7 +235,7 @@ export const books = [
     id: 30,
     testament_id: 1,
     type_id: 4,
-    label: ["Amos", "Amós"],
+    name: ["Amos", "Amós"],
     abbreviation: ["Am", "Am"],
     chapters: 9
   },
@@ -243,7 +243,7 @@ export const books = [
     id: 31,
     testament_id: 1,
     type_id: 4,
-    label: ["Obadiah", "Abdías"],
+    name: ["Obadiah", "Abdías"],
     abbreviation: ["Ob", "Abd"],
     chapters: 1
   },
@@ -251,7 +251,7 @@ export const books = [
     id: 32,
     testament_id: 1,
     type_id: 4,
-    label: ["Jonah", "Jonás"],
+    name: ["Jonah", "Jonás"],
     abbreviation: ["Jnh", "Jon"],
     chapters: 4
   },
@@ -259,7 +259,7 @@ export const books = [
     id: 33,
     testament_id: 1,
     type_id: 4,
-    label: ["Micah", "Miqueas"],
+    name: ["Micah", "Miqueas"],
     abbreviation: ["Mic", "Miq"],
     chapters: 7
   },
@@ -267,7 +267,7 @@ export const books = [
     id: 34,
     testament_id: 1,
     type_id: 4,
-    label: ["Nahum", "Nahum"],
+    name: ["Nahum", "Nahum"],
     abbreviation: ["Nah", "Nah"],
     chapters: 3
   },
@@ -275,7 +275,7 @@ export const books = [
     id: 35,
     testament_id: 1,
     type_id: 4,
-    label: ["Habakkuk", "Habacuc"],
+    name: ["Habakkuk", "Habacuc"],
     abbreviation: ["Hab", "Hab"],
     chapters: 3
   },
@@ -283,7 +283,7 @@ export const books = [
     id: 36,
     testament_id: 1,
     type_id: 4,
-    label: ["Zephaniah", "Sofonías"],
+    name: ["Zephaniah", "Sofonías"],
     abbreviation: ["Zep", "Sof"],
     chapters: 3
   },
@@ -291,7 +291,7 @@ export const books = [
     id: 37,
     testament_id: 1,
     type_id: 4,
-    label: ["Haggai", "Hageo"],
+    name: ["Haggai", "Hageo"],
     abbreviation: ["Hag", "Hag"],
     chapters: 2
   },
@@ -299,7 +299,7 @@ export const books = [
     id: 38,
     testament_id: 1,
     type_id: 4,
-    label: ["Zechariah", "Zacarías"],
+    name: ["Zechariah", "Zacarías"],
     abbreviation: ["Zec", "Zac"],
     chapters: 14
   },
@@ -307,7 +307,7 @@ export const books = [
     id: 39,
     testament_id: 1,
     type_id: 4,
-    label: ["Malachi", "Malaquías"],
+    name: ["Malachi", "Malaquías"],
     abbreviation: ["Mal", "Mal"],
     chapters: 4
   },
@@ -315,7 +315,7 @@ export const books = [
     id: 40,
     testament_id: 2,
     type_id: 5,
-    label: ["Matthew", "Mateo"],
+    name: ["Matthew", "Mateo"],
     abbreviation: ["Mt", "Mt"],
     chapters: 28
   },
@@ -323,7 +323,7 @@ export const books = [
     id: 41,
     testament_id: 2,
     type_id: 5,
-    label: ["Mark", "Marcos"],
+    name: ["Mark", "Marcos"],
     abbreviation: ["Mrk", "Mr"],
     chapters: 16
   },
@@ -331,7 +331,7 @@ export const books = [
     id: 42,
     testament_id: 2,
     type_id: 5,
-    label: ["Luke", "Lucas"],
+    name: ["Luke", "Lucas"],
     abbreviation: ["Luk", "Lc"],
     chapters: 24
   },
@@ -339,7 +339,7 @@ export const books = [
     id: 43,
     testament_id: 2,
     type_id: 5,
-    label: ["John", "Juan"],
+    name: ["John", "Juan"],
     abbreviation: ["Jn", "Jn"],
     chapters: 21
   },
@@ -347,7 +347,7 @@ export const books = [
     id: 44,
     testament_id: 2,
     type_id: 6,
-    label: ["Acts", "Hechos"],
+    name: ["Acts", "Hechos"],
     abbreviation: ["Act", "Hch"],
     chapters: 28
   },
@@ -355,7 +355,7 @@ export const books = [
     id: 45,
     testament_id: 2,
     type_id: 7,
-    label: ["Romans", "Romanos"],
+    name: ["Romans", "Romanos"],
     abbreviation: ["Rom", "Rom"],
     chapters: 16
   },
@@ -363,7 +363,7 @@ export const books = [
     id: 46,
     testament_id: 2,
     type_id: 7,
-    label: ["1 Corinthians", "1 Corintios"],
+    name: ["1 Corinthians", "1 Corintios"],
     abbreviation: ["1Cor", "1Cor"],
     chapters: 16
   },
@@ -371,7 +371,7 @@ export const books = [
     id: 47,
     testament_id: 2,
     type_id: 7,
-    label: ["2 Corinthians", "2 Corintios"],
+    name: ["2 Corinthians", "2 Corintios"],
     abbreviation: ["2Cor", "2Cor"],
     chapters: 13
   },
@@ -379,7 +379,7 @@ export const books = [
     id: 48,
     testament_id: 2,
     type_id: 7,
-    label: ["Galatians", "Gálatas"],
+    name: ["Galatians", "Gálatas"],
     abbreviation: ["Gal", "Gal"],
     chapters: 6
   },
@@ -387,7 +387,7 @@ export const books = [
     id: 49,
     testament_id: 2,
     type_id: 7,
-    label: ["Ephesians", "Efesios"],
+    name: ["Ephesians", "Efesios"],
     abbreviation: ["Eph", "Efe"],
     chapters: 6
   },
@@ -395,7 +395,7 @@ export const books = [
     id: 50,
     testament_id: 2,
     type_id: 7,
-    label: ["Philippians", "Filipenses"],
+    name: ["Philippians", "Filipenses"],
     abbreviation: ["Phil", "Fil"],
     chapters: 4
   },
@@ -403,7 +403,7 @@ export const books = [
     id: 51,
     testament_id: 2,
     type_id: 7,
-    label: ["colossians", "colosenses"],
+    name: ["colossians", "colosenses"],
     abbreviation: ["col", "col"],
     chapters: 4
   },
@@ -411,7 +411,7 @@ export const books = [
     id: 52,
     testament_id: 2,
     type_id: 7,
-    label: ["1 Thessalonians", "1 Tesalonicenses"],
+    name: ["1 Thessalonians", "1 Tesalonicenses"],
     abbreviation: ["1Th", "1Tes"],
     chapters: 5
   },
@@ -419,7 +419,7 @@ export const books = [
     id: 53,
     testament_id: 2,
     type_id: 7,
-    label: ["2 Thessalonians", "2 Tesalonicenses"],
+    name: ["2 Thessalonians", "2 Tesalonicenses"],
     abbreviation: ["2Th", "2Tes"],
     chapters: 3
   },
@@ -427,7 +427,7 @@ export const books = [
     id: 54,
     testament_id: 2,
     type_id: 7,
-    label: ["1 Timothy", "1 Timoteo"],
+    name: ["1 Timothy", "1 Timoteo"],
     abbreviation: ["1Tim", "1Tim"],
     chapters: 6
   },
@@ -435,7 +435,7 @@ export const books = [
     id: 55,
     testament_id: 2,
     type_id: 7,
-    label: ["2 Timothy", "2 Timoteo"],
+    name: ["2 Timothy", "2 Timoteo"],
     abbreviation: ["2Tim", "2Tim"],
     chapters: 4
   },
@@ -443,7 +443,7 @@ export const books = [
     id: 56,
     testament_id: 2,
     type_id: 7,
-    label: ["titus", "tito"],
+    name: ["titus", "tito"],
     abbreviation: ["tit", "tit"],
     chapters: 3
   },
@@ -451,7 +451,7 @@ export const books = [
     id: 57,
     testament_id: 2,
     type_id: 7,
-    label: ["Philemon", "Filemón"],
+    name: ["Philemon", "Filemón"],
     abbreviation: ["Phm", "Flm"],
     chapters: 1
   },
@@ -459,7 +459,7 @@ export const books = [
     id: 58,
     testament_id: 2,
     type_id: 7,
-    label: ["Hebrews", "Hebreos"],
+    name: ["Hebrews", "Hebreos"],
     abbreviation: ["Heb", "Heb"],
     chapters: 13
   },
@@ -467,7 +467,7 @@ export const books = [
     id: 59,
     testament_id: 2,
     type_id: 7,
-    label: ["James", "Santiago"],
+    name: ["James", "Santiago"],
     abbreviation: ["Jas", "Stg"],
     chapters: 5
   },
@@ -475,7 +475,7 @@ export const books = [
     id: 60,
     testament_id: 2,
     type_id: 7,
-    label: ["1 Peter", "1 Pedro"],
+    name: ["1 Peter", "1 Pedro"],
     abbreviation: ["1Pet", "1Ped"],
     chapters: 5
   },
@@ -483,7 +483,7 @@ export const books = [
     id: 61,
     testament_id: 2,
     type_id: 7,
-    label: ["2 Peter", "2 Pedro"],
+    name: ["2 Peter", "2 Pedro"],
     abbreviation: ["2Pet", "2Ped"],
     chapters: 3
   },
@@ -491,7 +491,7 @@ export const books = [
     id: 62,
     testament_id: 2,
     type_id: 7,
-    label: ["1 John", "1 Juan"],
+    name: ["1 John", "1 Juan"],
     abbreviation: ["1Jhn", "1Jn"],
     chapters: 5
   },
@@ -499,7 +499,7 @@ export const books = [
     id: 63,
     testament_id: 2,
     type_id: 7,
-    label: ["2 John", "2 Juan"],
+    name: ["2 John", "2 Juan"],
     abbreviation: ["2Jhn", "2Jn"],
     chapters: 1
   },
@@ -507,7 +507,7 @@ export const books = [
     id: 64,
     testament_id: 2,
     type_id: 7,
-    label: ["3 John", "3 Juan"],
+    name: ["3 John", "3 Juan"],
     abbreviation: ["2Jhn", "3Jn"],
     chapters: 1
   },
@@ -515,7 +515,7 @@ export const books = [
     id: 65,
     testament_id: 2,
     type_id: 7,
-    label: ["Jude", "Judas"],
+    name: ["Jude", "Judas"],
     abbreviation: ["Jud", "Jud"],
     chapters: 1
   },
@@ -523,7 +523,7 @@ export const books = [
     id: 66,
     testament_id: 2,
     type_id: 8,
-    label: ["Revelation", "Apocalipsis"],
+    name: ["Revelation", "Apocalipsis"],
     abbreviation: ["Rev", "Ap"],
     chapters: 22
   }

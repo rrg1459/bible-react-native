@@ -13,7 +13,7 @@ const ChaptersScreen = () => {
   const languageValue = useSelector(state => state.quote.language);
   const book = useSelector(state => state.quote.book);
   const dispatch = useDispatch();
-  const { chapters, label } = book;
+  const { chapters, name } = book;
   const route = useRoute();
   const ScreenName = route.name;
   const [chaptersVector, setChaptersVector] = useState([]);
@@ -29,7 +29,7 @@ const ChaptersScreen = () => {
   return (
     <View style={styles.main} >
       <Text style={styles.header}>
-        {label[languageValue]}
+        {name[languageValue]}
       </Text>
       <Text style={styles.numberOfChapters}>
         {chapters} {languageValue ? 'Capítulo' : 'Chapter'}{chapters > 1 ? 's' : ''}

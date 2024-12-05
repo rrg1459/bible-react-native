@@ -35,7 +35,7 @@ const VersesScreen = () => {
   return (
     <View style={styles.main} >
       <Text style={styles.header}>
-        {book.label[languageValue]}
+        {book.name[languageValue]}
       </Text>
       <Text style={styles.quoteNumbers}>
         {chapter}{ShowVersesAbbs}

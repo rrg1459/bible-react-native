@@ -13,7 +13,7 @@ const fillBooks = ({ screen, columnsValue}) => {
     id: totalBooks + idx + 1,
     testament_id: null,
     type_id: null,
-    label: [],
+    name: [],
     abbreviation: [],
     chapters: null
   }));

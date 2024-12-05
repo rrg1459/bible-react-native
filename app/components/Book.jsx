@@ -11,13 +11,13 @@ const Book = (props) => {
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const navigation = useNavigation();
 
-  // const { book: { testament_id, label, abbreviation, type_id } } = props;
+  // const { book: { testament_id, name, abbreviation, type_id } } = props;
   const { book } = props;
   const bookColor = getColorByBookType(book.type_id);
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
 
   const abbreviationFont = [, , , 25, 24, 22, 20];
-  const labelFont = [, , , 14, 9, 7, 6];
+  const nameFont = [, , , 14, 9, 7, 6];
 
   const goToChapters = () => {
     dispatch(updateBook(book));
@@ -30,8 +30,8 @@ const Book = (props) => {
         <Text style={{ fontSize: abbreviationFont[bookColumnsValue] }}>
           {book.abbreviation[languageValue]}
         </Text>
-        <Text style={{ fontSize: labelFont[bookColumnsValue] }}>
-          {book.label[languageValue]}
+        <Text style={{ fontSize: nameFont[bookColumnsValue] }}>
+          {book.name[languageValue]}
         </Text>
       </View>
     </TouchableWithoutFeedback>
