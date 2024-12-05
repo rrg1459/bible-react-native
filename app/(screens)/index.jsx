@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
 import Book from "../components/Book.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import fillBox from "../utils/fillBox.js";
+import fillBooks from "../utils/fillBooks.js";
 
 export default function Index() {
 
@@ -14,10 +14,10 @@ export default function Index() {
   const ScreenName = route.name;
   const languageValue = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
-  const [books, setBooks] = useState(fillBox({ screen: ScreenName, columnsValue: bookColumnsValue }));
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    setBooks(fillBox({ screen: ScreenName, columnsValue: bookColumnsValue }));
+    setBooks(fillBooks({ screen: ScreenName, columnsValue: bookColumnsValue }));
   }, [bookColumnsValue]);
 
   useFocusEffect(() => {

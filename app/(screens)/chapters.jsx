@@ -4,7 +4,7 @@ import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen, updateVerses } from '../redux/quoteSlice';
-import fillBox from "../utils/fillBox.js";
+import fillChapters from "../utils/fillChapters.js";
 import { FlatList } from 'react-native';
 import Chapter from "../components/Chapter.jsx";
 
@@ -19,11 +19,9 @@ const ChaptersScreen = () => {
   const [chaptersVector, setChaptersVector] = useState([]);
 
   useEffect(() => {
-    
-    setChaptersVector(fillBox({ screen: ScreenName, chapters: chapters }));
+    setChaptersVector(fillChapters({ screen: ScreenName, chapters: chapters }));
   }, [chapters]);
-  
-  
+
   useFocusEffect(() => {
     dispatch(updateVerses([]));
     dispatch(changeScreen(ScreenName));
