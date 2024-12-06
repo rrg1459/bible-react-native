@@ -10,16 +10,16 @@ const Chapter = (props) => {
 
   const { chapter } = props;
 
-  const goToChapters = () => {
+  const goToVerses = () => {
     dispatch(updateChapter(chapter.id));
     navigation.navigate("verses");
   };
 
   return (
-    <TouchableWithoutFeedback onPress={chapter.show ? goToChapters : null}>
-        <Text style={[styles.container, chapter.show ? styles.withBorder : null]}>
-          {chapter.show && chapter.id}
-        </Text>
+    <TouchableWithoutFeedback onPress={chapter.show ? goToVerses : null}>
+      <Text style={[styles.container, chapter.show ? styles.withBorder : null]}>
+        {chapter.show && chapter.id}
+      </Text>
     </TouchableWithoutFeedback>
   );
 }
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     textAlign: "center",
-    fontSize:30,
+    fontSize: 30,
     padding: 8,
     margin: 4,
     borderRadius: 5,
