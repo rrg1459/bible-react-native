@@ -8,6 +8,10 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "androidNavigationBar": {
+      "visible": "sticky-immersive"
+    },
+    "backgroundColor": "#000000",
     "ios": {
       "supportsTablet": true
     },
