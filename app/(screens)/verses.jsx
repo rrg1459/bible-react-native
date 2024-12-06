@@ -68,14 +68,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     paddingTop: 5,
     paddingLeft: 10,
-    // padding: 5,
-    // paddingVertical: 10,
-    // textAlign: "center",
   },
   header: {
     backgroundColor: '#7dfcd2',
     fontSize: 25,
-    // paddingTop: 10,
     paddingLeft: 10,
   },
   quoteNumbers: {
