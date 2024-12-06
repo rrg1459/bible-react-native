@@ -18,15 +18,15 @@ const VersesScreen = () => {
   const route = useRoute();
   const ScreenName = route.name;
   const [verses, setVerses] = useState([]);
-  const [ShowVersesAbbs, setShowVersesAbbs] = useState('');
+  const [verseAbbs, setVerseAbbs] = useState('');
 
   useEffect(() => {
-    setShowVersesAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
-  }, [numVerses])
+    setVerseAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
+  }, [numVerses]);
 
   useEffect(() => {
     setVerses(fillVerses({ book_id: book.id, chapter: chapter }));
-  }, [chapter])
+  }, [chapter]);
 
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
@@ -34,16 +34,21 @@ const VersesScreen = () => {
 
   return (
     <View style={styles.main} >
-      <Text style={styles.headerBible}>
-        {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
-      </Text>
-      <Text style={styles.header}>
-        {book.name[languageValue]}
-      </Text>
-      <Text style={styles.quoteNumbers}>
-        {chapter}{ShowVersesAbbs}
-      </Text>
-      <View style={styles.app}>
+      <View style={styles.header}>
+        <Text style={styles.headerBible}>
+          {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
+        </Text>
+        <Text style={styles.headerBook}>
+          {book.name[languageValue]}
+        </Text>
+        <View style={styles.headerQuote}>
+          <Text style={styles.headerChapter}>
+            {chapter}
+          </Text>
+          {versesAbbs && <Text style={styles.headerAbbs}>{verseAbbs}</Text>}
+        </View>
+      </View>
+      <View style={styles.verses}>
         <FlatList
           data={verses}
           numColumns={1}
@@ -53,8 +58,7 @@ const VersesScreen = () => {
       </View>
     </View>
   );
-}
-
+};
 export default VersesScreen
 
 const styles = StyleSheet.create({
@@ -63,24 +67,34 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
-  headerBible: {
-    backgroundColor: '#7dfcd2',
-    fontSize: 13,
-    paddingTop: 5,
-    paddingLeft: 10,
-  },
   header: {
     backgroundColor: '#7dfcd2',
-    fontSize: 25,
     paddingLeft: 10,
   },
-  quoteNumbers: {
-    paddingBottom: 5,
-    backgroundColor: "#7dfcd2",
-    paddingHorizontal: 10,
-    fontSize: 18,
+  headerBible: {
+    fontSize: 13,
+    paddingTop: 5,
   },
-  app: {
+  headerBook: {
+    fontSize: 25,
+  },
+  headerQuote: {
+    flexDirection: 'row',
+    alignContent: 'space-between', // Align to the left
+  },
+  headerChapter: {
+    width: 'auto',
+    fontWeight: '500',
+    paddingBottom: 5,
+    fontSize: 16,
+  },
+  headerAbbs: {
+    flex: 1,
+    paddingTop: 1,
+    paddingBottom: 5,
+    fontSize: 15,
+  },
+  verses: {
     cursor: "pointer",
     paddingBottom: 100,
   },

@@ -28,16 +28,23 @@ const ChaptersScreen = () => {
 
   return (
     <View style={styles.main} >
-      <Text style={styles.headerBible}>
-        {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
-      </Text>
-      <Text style={styles.header}>
-        {name[languageValue]}
-      </Text>
-      <Text style={styles.numberOfChapters}>
-        {chapters} {languageValue ? 'Capítulo' : 'Chapter'}{chapters > 1 ? 's' : ''}
-      </Text>
-      <View style={styles.app}>
+      <View style={styles.header}>
+        <Text style={styles.headerBible}>
+          {languageValue ?
+            'Santa Biblia Reina Valera'
+            : 'Holy Bible King James Version'
+          }
+        </Text>
+        <Text style={styles.headerBook}>
+          {name[languageValue]}
+        </Text>
+        <Text style={styles.headerQuote}>
+          {chapters} {languageValue ?
+            'Capítulo' : 'Chapter'}{chapters > 1 ? 's' : ''
+          }
+        </Text>
+      </View>
+      <View style={styles.chapters}>
         <FlatList
           data={chaptersVector}
           numColumns={5}
@@ -47,8 +54,7 @@ const ChaptersScreen = () => {
       </View>
     </View>
   );
-}
-
+};
 export default ChaptersScreen
 
 const styles = StyleSheet.create({
@@ -57,25 +63,24 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
-  headerBible: {
-    backgroundColor: '#7dfcd2',
-    fontSize: 13,
-    paddingTop: 5,
-    paddingLeft: 10,
-  },
   header: {
     backgroundColor: '#7dfcd2',
-    fontSize: 25,
     paddingLeft: 10,
   },
-  numberOfChapters: {
+  headerBible: {
+    fontSize: 13,
+    paddingTop: 5,
+  },
+  headerBook: {
+    fontSize: 25,
+  },
+  headerQuote: {
     paddingBottom: 5,
     backgroundColor: '#7dfcd2',
-
-    paddingLeft: 10,
+    fontStyle: 'italic',
     fontSize: 12,
   },
-  app: {
+  chapters: {
     flex: 4, // the number of columns you want to devide the screen into
     paddingTop: 5,
     marginHorizontal: "auto",
