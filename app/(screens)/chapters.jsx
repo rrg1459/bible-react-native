@@ -28,6 +28,9 @@ const ChaptersScreen = () => {
 
   return (
     <View style={styles.main} >
+      <Text style={styles.headerBible}>
+        {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
+      </Text>
       <Text style={styles.header}>
         {name[languageValue]}
       </Text>
@@ -54,10 +57,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
+  headerBible: {
+    backgroundColor: '#7dfcd2',
+    fontSize: 13,
+    paddingTop: 5,
+    paddingLeft: 10,
+    // padding: 5,
+    // paddingVertical: 10,
+    // textAlign: "center",
+  },
   header: {
     backgroundColor: '#7dfcd2',
     fontSize: 25,
-    paddingTop: 10,
     paddingLeft: 10,
   },
   numberOfChapters: {
@@ -65,12 +76,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#7dfcd2',
 
     paddingLeft: 10,
-    fontSize: 15,
+    fontSize: 12,
   },
   app: {
     flex: 4, // the number of columns you want to devide the screen into
     paddingTop: 5,
     marginHorizontal: "auto",
-    width: "98%"
+    width: "98%",
+    paddingBottom: 5,
   },
 });
