@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, Image, StatusBar, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { Link, useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
@@ -25,27 +25,23 @@ export default function Index() {
   });
 
   return (
-    <>
-      <StatusBar hidden />
-      <View style={styles.main} >
-        <Text style={styles.header}>
-          {languageValue ? 'Biblia Reina Valera' : 'Bible King James Version'}
-        </Text>
-        <View style={styles.app}>
-          <FlatList
-            data={books}
-            numColumns={bookColumnsValue}
-            key={bookColumnsValue}
-            renderItem={({ item }) => <Book book={item} />}
-            keyExtractor={(book) => String(book.id)}
-          />
-        </View>
-        <Link href="/settings" style={styles.floatingMenuButtonStyle}>
-          {renderFloatingMenu()}
-        </Link>
+    <View style={styles.main} >
+      <Text style={styles.headerBible}>
+        {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
+      </Text>
+      <View style={styles.app}>
+        <FlatList
+          data={books}
+          numColumns={bookColumnsValue}
+          key={bookColumnsValue}
+          renderItem={({ item }) => <Book book={item} />}
+          keyExtractor={(book) => String(book.id)}
+        />
       </View>
-    </>
-
+      <Link href="/settings" style={styles.floatingMenuButtonStyle}>
+        {renderFloatingMenu()}
+      </Link>
+    </View>
   );
 };
 
@@ -55,23 +51,30 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
-  header: {
+  headerBible: {
     backgroundColor: '#7dfcd2',
-    fontSize: 25,
+    fontSize: 23,
     // padding: 5,
-    paddingTop: 30,
-    paddingBottom: 10,
+    paddingVertical: 10,
     textAlign: "center",
   },
+
+  // content: {
+  // height: '100%',
+  // width: '100%',
+  // marginHorizontal: 20,
+  // marginTop: 43,
+  // },
   floatingMenuButtonStyle: {
     alignSelf: 'flex-end',
     position: 'absolute',
-    bottom: 60,
-    right: 20
+    bottom: 10,
+    right: 10
   },
   app: {
     flex: 4, // the number of columns you want to devide the screen into
     marginHorizontal: "auto",
+    paddingTop: 5,
     width: "98%"
   },
 });
