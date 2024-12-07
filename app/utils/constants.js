@@ -18,7 +18,7 @@ const BOOK_TYPE_COLORS = (type) => {
     gospels: "#FFFF49",
     facts: "#2E90FA",
     letters: "#06EEEE",
-    revelations: "#FF593B",
+    revelations: "#FF4500",
   };
   return type_colors[type];
 };
