@@ -21,7 +21,7 @@ export default function TabLayout() {
 
   useEffect(() => {
     switch (currentScreen) {
-      case 'index':
+      case 'books':
         setShowState({ books: false, chapters: false, settings: false });
         break;
       case 'chapters':
@@ -31,7 +31,7 @@ export default function TabLayout() {
         setShowState({ books: true, chapters: true, settings: false });
         break;
       case 'settings':
-        setShowState({ books: false, chapters: false, settings: true });
+        setShowState({ books: false, chapters: false, settings: false });
         break;
       default:
         // Handle unexpected cases or default state
@@ -48,11 +48,11 @@ export default function TabLayout() {
         headerShown: false,
         tabBarBackground: TabBarBackground,
         tabBarStyle: {
-          display: books || settings ? 'flex' : 'none',
+          display: books ? 'flex' : 'none',
         }
       }}>
       <Tabs.Screen
-        name="index"
+        name="books"
         options={{
           title: languageValue ? 'Libros' : 'Books',
           headerTransparent: true,
@@ -70,16 +70,10 @@ export default function TabLayout() {
         }}
       />
 
+      <Tabs.Screen name="index" options={{href: null}} />
       <Tabs.Screen name="verses" options={{href: null}} />
+      <Tabs.Screen name="settings" options={{ href: null }} />
 
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: languageValue ? 'REGRESAR' : 'RETURN',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="car.fill" color={color} />,
-          href: settings ? '/' : null
-        }}
-      />
     </Tabs>
   );
 }
