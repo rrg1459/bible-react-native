@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "bible-react-native",
-    "slug": "bible-react-native",
+    "name": "Bible-KJV Biblia-RV",
+    "slug": "Bible-KJV Biblia-RV",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/bible.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,14 +12,13 @@
       "visible": "sticky-immersive"
     },
     "backgroundColor": "#000000",
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/bible.png",
+        "backgroundColor": "#7dfcd2"
+      },
+      "package": "com.elorat.biblereactnative",
+      "versionCode": 2
     },
     "web": {
       "bundler": "metro",
@@ -31,15 +30,23 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/bible.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#7dfcd2"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7d53b729-8c36-40d3-ac05-bf29bd4a393c"
+      }
     }
   }
 }
