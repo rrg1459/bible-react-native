@@ -2,7 +2,7 @@ import { books } from '../bible/books.js';
 
 const fillBooks = ({ screen, columnsValue}) => {
 
-  if (screen !== 'index') return books;
+  if (screen !== 'books') return books;
 
   const totalBooks = books.length;
   const desiredColumns = columnsValue;
