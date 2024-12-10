@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   language: 1, // 0: english, 1: spanisch
-  currentScreen: "index",
+  currentScreen: "books",
   bookColumns: 6,
   book: {
     id: null,
