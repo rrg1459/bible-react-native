@@ -14,7 +14,7 @@
     "backgroundColor": "#000000",
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/bible.png",
+        "foregroundImage": "./assets/images/bible-android.png",
         "backgroundColor": "#7dfcd2"
       },
       "package": "com.elorat.biblereactnative",
