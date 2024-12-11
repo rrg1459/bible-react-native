@@ -29,7 +29,7 @@ export default function ComponentBooks() {
       <Text style={styles.headerBible}>
         {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
       </Text>
-      <View style={styles.app}>
+      <View style={styles.books}>
         <FlatList
           data={books}
           numColumns={bookColumnsValue}
@@ -71,10 +71,11 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10
   },
-  app: {
+  books: {
     flex: 4, // the number of columns you want to devide the screen into
     marginHorizontal: "auto",
     paddingTop: 5,
+    paddingBottom: 50,
     width: "98%"
   },
 });
