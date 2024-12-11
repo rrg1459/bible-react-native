@@ -11,6 +11,7 @@ import Chapter from "../components/Chapter.jsx";
 const ComponentChapters = () => {
 
   const languageValue = useSelector(state => state.quote.language);
+  const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const book = useSelector(state => state.quote.book);
   const dispatch = useDispatch();
   const { chapters, name } = book;
@@ -19,8 +20,13 @@ const ComponentChapters = () => {
   const [chaptersVector, setChaptersVector] = useState([]);
 
   useEffect(() => {
-    setChaptersVector(fillChapters({ screen: ScreenName, chapters: chapters }));
-  }, [chapters]);
+    setChaptersVector(
+      fillChapters({
+        screen: ScreenName,
+        chapters: chapters,
+        columnsValue: chapterColumnsValue
+      }));
+  }, [chapters, chapterColumnsValue]);
 
   useFocusEffect(() => {
     dispatch(updateVerses([]));
@@ -48,7 +54,8 @@ const ComponentChapters = () => {
       <View style={styles.chapters}>
         <FlatList
           data={chaptersVector}
-          numColumns={5}
+          numColumns={chapterColumnsValue}
+          key={chapterColumnsValue}
           renderItem={({ item }) => <Chapter chapter={item} />}
           keyExtractor={(chapter) => String(chapter.id)}
         />
