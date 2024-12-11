@@ -4,6 +4,7 @@ const initialState = {
   language: 1, // 0: english, 1: spanisch
   currentScreen: "books",
   bookColumns: 6,
+  chapterColumns: 5,
   book: {
     id: null,
     testament_id: null,
@@ -27,6 +28,9 @@ const quoteSlice = createSlice({
     changeBookColumns: (state, action) => {
       state.bookColumns = action.payload;
     },
+    changeChapterColumns: (state, action) => {
+      state.chapterColumns = action.payload;
+    },
     updateLanguage: (state, action) => {
       state.language = action.payload;
     },
@@ -48,6 +52,7 @@ const quoteSlice = createSlice({
 export const {
   changeScreen,
   changeBookColumns,
+  changeChapterColumns,
   updateLanguage,
   updateBook,
   updateChapter,
