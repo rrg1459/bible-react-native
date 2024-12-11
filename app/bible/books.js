@@ -403,8 +403,8 @@ export const books = [
     id: 51,
     testament_id: 2,
     type_id: 7,
-    name: ["colossians", "colosenses"],
-    abbreviation: ["col", "col"],
+    name: ["Colossians", "Colosenses"],
+    abbreviation: ["Col", "Col"],
     chapters: 4
   },
   {
@@ -443,8 +443,8 @@ export const books = [
     id: 56,
     testament_id: 2,
     type_id: 7,
-    name: ["titus", "tito"],
-    abbreviation: ["tit", "tit"],
+    name: ["Titus", "Tito"],
+    abbreviation: ["Tit", "Tit"],
     chapters: 3
   },
   {
