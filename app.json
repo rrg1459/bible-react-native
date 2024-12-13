@@ -4,9 +4,14 @@
     "slug": "bible-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/bible.png",
+    "icon": "./assets/images/bible512.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/bible512.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#7dfcd2"
+    },
     "newArchEnabled": true,
     "androidNavigationBar": {
       "visible": "sticky-immersive"
@@ -14,7 +19,7 @@
     "backgroundColor": "#000000",
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/bible-android.png",
+        "foregroundImage": "./assets/images/bible3.png",
         "backgroundColor": "#7dfcd2"
       },
       "package": "com.elorat.biblereactnative",
@@ -30,8 +35,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/bible.png",
-          "imageWidth": 200,
+          "image": "./assets/images/bible3.png",
           "resizeMode": "contain",
           "backgroundColor": "#7dfcd2"
         }
