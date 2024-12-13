@@ -11,7 +11,7 @@ const SettingsRemember = ({ language, currentScreen }) => {
   const Fingers = () => (
     <Image
       source={require("../../images/swipe-right.png")}
-      style={{ width: 45, height: 45 }}
+      style={styles.image}
     />
   );
 
@@ -37,7 +37,6 @@ const SettingsRemember = ({ language, currentScreen }) => {
 export default SettingsRemember
 
 const styles = StyleSheet.create({
-
   labelSubHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -50,4 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: 'italic',
   },
+  image: {
+    width: 65,
+    height: 65,
+  }
 });
