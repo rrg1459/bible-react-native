@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useFocusEffect } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice';
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import fillVerses from '../utils/fillVerses';
 import versesAbbs from '../utils/versesAbbs';
 import Verse from "../components/Verse.jsx";
+
+import * as Clipboard from 'expo-clipboard';
 
 const ComponentVerses = () => {
 
@@ -19,6 +21,10 @@ const ComponentVerses = () => {
   const ScreenName = route.name;
   const [verses, setVerses] = useState([]);
   const [verseAbbs, setVerseAbbs] = useState('');
+  const [bible, setBible] = useState('');
+  const [bibleShort, setBibleShort] = useState('');
+  const [actionStatus, setActionStatus] = useState('');
+  const [delayDuration, setDelayDuration] = useState(1500);
 
   useEffect(() => {
     setVerseAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
@@ -28,26 +34,68 @@ const ComponentVerses = () => {
     setVerses(fillVerses({ book_id: book.id, chapter: chapter }));
   }, [chapter]);
 
+  useEffect(() => {
+    setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version');
+    setBibleShort(languageValue ? 'Biblia Reina Valera' : 'Bible King James');
+  }, [languageValue]);
+
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
   });
 
+  const handleCopy = async () => {
+    setActionStatus(languageValue ? 'copiado!' : 'copied!');
+    // Use setTimeout to simulate a delayed action
+    setTimeout(() => {
+      setActionStatus('');
+    }, delayDuration);
+    let quote = `${bibleShort.toUpperCase()}\n`;
+    quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
+    for (const num of numVerses) {
+      const text = verses.find((item) => item.verse === num).text;
+      quote += `\n${num}. ${text[languageValue]}`;
+    };
+    await Clipboard.setStringAsync(quote);
+  };
+
+  const handleShare = () => {
+    console.log('xxx KABUMMM');
+  }
+
   return (
-    <View style={styles.main} >
+    <View style={styles.main}>
       <View style={styles.header}>
-        <Text style={styles.headerBible}>
-          {languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version'}
-        </Text>
-        <Text style={styles.headerBook}>
-          {book.name[languageValue]}
-        </Text>
-        <View style={styles.headerQuote}>
-          <Text style={styles.headerChapter}>
-            {chapter}
+        <View style={styles.headerLeft}>
+          <Text style={styles.headerBible}>{bible}</Text>
+          <Text style={styles.headerBook}>
+            {book.name[languageValue]}
           </Text>
-          {versesAbbs && <Text style={styles.headerAbbs}>{verseAbbs}</Text>}
+          <View style={styles.headerQuote}>
+            <Text style={styles.headerChapter}>
+              {chapter}
+            </Text>
+            <Text style={styles.headerAbbs}>{verseAbbs}</Text>
+          </View>
         </View>
+        {verseAbbs !== '' &&
+          <View style={styles.headerRight}>
+            <Text style={styles.actionStatus}>{actionStatus}</Text>
+            <TouchableOpacity onPress={handleCopy}>
+              <Image
+                source={require("../images/copy.png")}
+                style={styles.headerImages}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleShare}>
+              <Image
+                source={require("../images/share.png")}
+                style={styles.headerImages}
+              />
+            </TouchableOpacity>
+          </View>
+        }
       </View>
+
       <View style={styles.verses}>
         <FlatList
           data={verses}
@@ -64,12 +112,30 @@ export default ComponentVerses
 const styles = StyleSheet.create({
   main: {
     backgroundColor: 'skyblue',
-    flexDirection: 'column',
-    flex: 1
   },
   header: {
     backgroundColor: '#7dfcd2',
     paddingLeft: 10,
+    flexDirection: 'row',
+  },
+  headerLeft: {
+    flex: 3,
+  },
+  headerRight: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: 'flex-end',
+  },
+  actionStatus: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: 'red',
+  },
+  headerImages: {
+    height: 35,
+    width: 35,
+    marginRight: 20,
   },
   headerBible: {
     fontSize: 13,
