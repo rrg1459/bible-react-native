@@ -5,10 +5,8 @@ const fillBooks = ({ screen, columnsValue}) => {
   if (screen !== 'books') return books;
 
   const totalBooks = books.length;
-  const desiredColumns = columnsValue;
-  const remainingSlots = desiredColumns - (totalBooks % desiredColumns);
-
-  // Create dummy book objects to fill remaining slots
+  const rest = totalBooks % columnsValue;
+  const remainingSlots = rest === 0 ? rest : (columnsValue - rest);
   const dummyBooks = [...new Array(remainingSlots)].map((_, idx) => ({
     id: totalBooks + idx + 1,
     testament_id: null,
