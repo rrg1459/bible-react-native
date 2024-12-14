@@ -6,14 +6,14 @@ import { updateBook } from "../redux/quoteSlice";
 
 const Book = (props) => {
 
+  const { book } = props;
+
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const navigation = useNavigation();
 
-  // const { book: { testament_id, name, abbreviation, type_id } } = props;
-  const { book } = props;
-  const bookColor = getColorByBookType(book.type_id);
+  const bookColor = book.type_id ? getColorByBookType(book.type_id) : 'none';
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
 
   const abbreviationFont = [, , , 25, 24, 22, 20];
