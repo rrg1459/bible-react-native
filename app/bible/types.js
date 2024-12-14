@@ -1,13 +1,13 @@
 const types = (id) => {
   const types = {
-    1: "pentateuch",
-    2: "historicals" ,
-    3: "poetics" ,
-    4: "prophetics" ,
-    5: "gospels" ,
-    6: "facts" ,
-    7: "letters" ,
-    8: "revelations"}
+    1: ["pentateuch", "pentateuco"],
+    2: ["historicals", "históricos"],
+    3: ["poetics", "poéticos"],
+    4: ["prophetics", "proféticos"],
+    5: ["gospels", "evangelios"],
+    6: ["facts", "hechos"],
+    7: ["letters", "cartas"],
+    8: ["revelations", "revelaciones"]}
   return types[id];
 };
 
