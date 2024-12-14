@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
-import { Link, useFocusEffect } from "expo-router";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice.js';
 import Book from "./Book.jsx";
@@ -38,9 +38,6 @@ export default function ComponentBooks() {
           keyExtractor={(book) => String(book.id)}
         />
       </View>
-      {/* <Link href="/settings" style={styles.floatingMenuButtonStyle}>
-        {renderFloatingMenu()}
-      </Link> */}
     </View>
   );
 };
@@ -54,17 +51,10 @@ const styles = StyleSheet.create({
   headerBible: {
     backgroundColor: '#7dfcd2',
     fontSize: 23,
-    // padding: 5,
     paddingVertical: 10,
     textAlign: "center",
   },
 
-  // content: {
-  // height: '100%',
-  // width: '100%',
-  // marginHorizontal: 20,
-  // marginTop: 43,
-  // },
   floatingMenuButtonStyle: {
     alignSelf: 'flex-end',
     position: 'absolute',
@@ -72,19 +62,10 @@ const styles = StyleSheet.create({
     right: 10
   },
   books: {
-    flex: 4, // the number of columns you want to devide the screen into
+    flex: 1, // the number of columns you want to devide the screen into
     marginHorizontal: "auto",
     paddingTop: 5,
     paddingBottom: 50,
     width: "98%"
   },
 });
-
-function renderFloatingMenu() {
-  return (
-    <Image
-      source={require("../images/configuraciones.png")}
-      style={{ width: 45, height: 45 }}
-    />
-  );
-}
