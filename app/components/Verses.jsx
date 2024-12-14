@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useFocusEffect } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen } from '../redux/quoteSlice';
@@ -24,7 +24,7 @@ const ComponentVerses = () => {
   const [bible, setBible] = useState('');
   const [bibleShort, setBibleShort] = useState('');
   const [actionStatus, setActionStatus] = useState('');
-  const [delayDuration, setDelayDuration] = useState(1500);
+  const [delayDuration] = useState(1500);
 
   useEffect(() => {
     setVerseAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
@@ -58,9 +58,21 @@ const ComponentVerses = () => {
     await Clipboard.setStringAsync(quote);
   };
 
-  const handleShare = () => {
-    console.log('xxx KABUMMM');
-  }
+  const handleShare = async () => {
+    let quote = `${bibleShort.toUpperCase()}\n`;
+    quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
+    for (const num of numVerses) {
+      const text = verses.find((item) => item.verse === num).text;
+      quote += `\n${num}. ${text[languageValue]}`;
+    };
+    try {
+      await Share.share({
+        message: quote
+      });
+    } catch (error) {
+      console.error('Error sharing:', error);
+    };
+  };
 
   return (
     <View style={styles.main}>
@@ -80,12 +92,6 @@ const ComponentVerses = () => {
         {verseAbbs !== '' &&
           <View style={styles.headerRight}>
             <Text style={styles.actionStatus}>{actionStatus}</Text>
-            <TouchableOpacity onPress={handleCopy}>
-              <Image
-                source={require("../images/copy.png")}
-                style={styles.headerImages}
-              />
-            </TouchableOpacity>
             <TouchableOpacity onPress={handleShare}>
               <Image
                 source={require("../images/share.png")}
@@ -133,9 +139,9 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   headerImages: {
-    height: 35,
-    width: 35,
-    marginRight: 20,
+    height: 45,
+    width: 45,
+    marginRight: 30,
   },
   headerBible: {
     fontSize: 13,
@@ -162,6 +168,6 @@ const styles = StyleSheet.create({
   },
   verses: {
     cursor: "pointer",
-    paddingBottom: 100,
+    paddingBottom: 190,
   },
 });
