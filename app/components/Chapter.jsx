@@ -8,7 +8,9 @@ const Chapter = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { chapter } = props;
+  const { chapter, columnsValue, amountChapters } = props;
+
+  const columns = { fontSize: columnsValue === 6 && amountChapters > 99 ? 22 : 28};
 
   const goToVerses = () => {
     dispatch(updateChapter(chapter.id));
@@ -17,7 +19,7 @@ const Chapter = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={chapter.show ? goToVerses : null}>
-      <Text style={[styles.container, chapter.show ? styles.withBorder : null]}>
+      <Text style={[styles.container, columns, chapter.show ? styles.withBorder : null]}>
         {chapter.show && chapter.id}
       </Text>
     </TouchableWithoutFeedback>
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingVertical: 8,
-    fontSize: 28,
     color: '#090909',
     shadowOffset: {
       width: 6,

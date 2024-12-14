@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native'
-import { Link, useFocusEffect } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen, updateVerses } from '../redux/quoteSlice';
@@ -56,7 +56,11 @@ const ComponentChapters = () => {
           data={chaptersVector}
           numColumns={chapterColumnsValue}
           key={chapterColumnsValue}
-          renderItem={({ item }) => <Chapter chapter={item} />}
+          renderItem={({ item }) => <Chapter
+                                      chapter={item}
+                                      columnsValue={chapterColumnsValue}
+                                      amountChapters={chaptersVector.length}
+                                    />}
           keyExtractor={(chapter) => String(chapter.id)}
         />
       </View>
