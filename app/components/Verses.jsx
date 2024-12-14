@@ -117,6 +117,7 @@ export default ComponentVerses
 
 const styles = StyleSheet.create({
   main: {
+    flex: 1,
     backgroundColor: 'skyblue',
   },
   header: {
@@ -168,6 +169,6 @@ const styles = StyleSheet.create({
   },
   verses: {
     cursor: "pointer",
-    paddingBottom: 190,
+    paddingBottom: 100,
   },
 });
