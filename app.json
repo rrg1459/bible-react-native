@@ -7,11 +7,6 @@
     "icon": "./assets/images/bible512.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/bible512.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#7dfcd2"
-    },
     "newArchEnabled": true,
     "androidNavigationBar": {
       "visible": "sticky-immersive"
@@ -35,7 +30,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/bible3.png",
+          "image": "./assets/images/bible512.png",
           "resizeMode": "contain",
           "backgroundColor": "#7dfcd2"
         }
