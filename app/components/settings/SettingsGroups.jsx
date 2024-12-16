@@ -37,11 +37,11 @@ const SettingsGroups = ({ language, type_id }) => {
         {isOpen ?
           <Image
             source={require("../../images/double-arrow.png")}
-            style={styles.image}
+            style={styles.imageDobleArrow}
           /> :
           <Image
             source={require("../../images/arrow.png")}
-            style={styles.image}
+            style={styles.imageArrow}
           />
         }
       </TouchableOpacity>
@@ -110,9 +110,14 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '500',
   },
-  image: {
+  imageArrow: {
     marginLeft: 20,
-    width: 20,
-    height: 20,
+    width: 17,
+    height: 17,
+  },
+  imageDobleArrow: {
+    marginLeft: 20,
+    width: 15,
+    height: 15,
   },
 });
