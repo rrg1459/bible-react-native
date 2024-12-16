@@ -32,7 +32,7 @@ export default SettingsBooks
 const styles = StyleSheet.create({
   labelBookColumns: {
     color: '#000000', fontSize: 25,
-    marginBottom: 65,
+    marginBottom: 5,
     textAlign: 'center',
   },
   sizeSlider: {
