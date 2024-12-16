@@ -16,6 +16,7 @@ const initialState = {
   numChapter: null,
   numVerses: [],
   fontSizeVerse: 20,
+  type_id: 11,
 };
 
 const quoteSlice = createSlice({
@@ -46,6 +47,9 @@ const quoteSlice = createSlice({
     updateFontSizeVerse: (state, action) => {
       state.fontSizeVerse = action.payload;
     },
+    changeType: (state, action) => {
+      state.type_id = action.payload;
+    },
   }
 });
 
@@ -58,6 +62,7 @@ export const {
   updateChapter,
   updateVerses,
   updateFontSizeVerse,
+  changeType
  } = quoteSlice.actions;
 
 export default quoteSlice.reducer;
