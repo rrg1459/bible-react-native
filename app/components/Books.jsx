@@ -18,7 +18,7 @@ export default function ComponentBooks() {
   const type_id = useSelector(state => state.quote.type_id);
   const [books, setBooks] = useState([]);
   const [typeName, setTypeName] = useState('');
-  const [bible] = useState(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version');
+  const [bible, setBible] = useState('');
 
   useEffect(() => {
     setBooks(fillBooks({
@@ -27,6 +27,10 @@ export default function ComponentBooks() {
       type_id: type_id
     }));
   }, [bookColumnsValue, type_id]);
+
+  useEffect(() => {
+    setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version')
+  }, [languageValue]);
 
   useEffect(() => {
     if (typeof type_id !== 'number') return;
