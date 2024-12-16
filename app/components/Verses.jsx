@@ -105,6 +105,7 @@ const ComponentVerses = () => {
         <FlatList
           data={verses}
           numColumns={1}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => <Verse verse={item} />}
           keyExtractor={(verse) => String(verse.id)}
         />

@@ -55,6 +55,7 @@ export default function ComponentBooks() {
           data={books}
           numColumns={bookColumnsValue}
           key={bookColumnsValue}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => <Book book={item} />}
           keyExtractor={(book) => String(book.id)}
         />

@@ -56,11 +56,13 @@ const ComponentChapters = () => {
           data={chaptersVector}
           numColumns={chapterColumnsValue}
           key={chapterColumnsValue}
-          renderItem={({ item }) => <Chapter
-                                      chapter={item}
-                                      columnsValue={chapterColumnsValue}
-                                      amountChapters={chaptersVector.length}
-                                    />}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Chapter
+              chapter={item}
+              columnsValue={chapterColumnsValue}
+              amountChapters={chaptersVector.length}
+            />)}
           keyExtractor={(chapter) => String(chapter.id)}
         />
       </View>
