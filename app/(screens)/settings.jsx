@@ -5,6 +5,7 @@ import SettingsBooks from '../components/settings/SettingsBooks';
 import SettingsChapters from '../components/settings/SettingsChapters';
 import SettingsVerses from '../components/settings/SettingsVerses';
 import SettingsRemember from '../components/settings/SettingsRemember';
+import SettingsGroups from '../components/settings/SettingsGroups';
 
 const SettingsScreen = () => {
 
@@ -13,6 +14,7 @@ const SettingsScreen = () => {
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const languageValue = useSelector(state => state.quote.language);
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
+  const type_id = useSelector(state => state.quote.type_id);
 
   const Separator = () => <View style={styles.separator} />;
 
@@ -29,6 +31,8 @@ const SettingsScreen = () => {
 
         {currentScreen === 'books' &&
           <>
+            <SettingsGroups language={languageValue} type_id={type_id} />
+            <Separator />
             <SettingsBooks language={languageValue} columns={bookColumnsValue} />
             <Separator />
           </>
