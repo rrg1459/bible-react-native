@@ -22,7 +22,6 @@ const ComponentVerses = () => {
   const [verses, setVerses] = useState([]);
   const [verseAbbs, setVerseAbbs] = useState('');
   const [bible, setBible] = useState('');
-  const [bibleShort, setBibleShort] = useState('');
   const [actionStatus, setActionStatus] = useState('');
   const [delayDuration] = useState(1500);
 
@@ -36,7 +35,6 @@ const ComponentVerses = () => {
 
   useEffect(() => {
     setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version');
-    setBibleShort(languageValue ? 'Biblia Reina Valera' : 'Bible King James');
   }, [languageValue]);
 
   useFocusEffect(() => {
@@ -49,7 +47,7 @@ const ComponentVerses = () => {
     setTimeout(() => {
       setActionStatus('');
     }, delayDuration);
-    let quote = `${bibleShort.toUpperCase()}\n`;
+    let quote = `${bible.toUpperCase()}\n`;
     quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
     for (const num of numVerses) {
       const text = verses.find((item) => item.verse === num).text;
@@ -59,11 +57,12 @@ const ComponentVerses = () => {
   };
 
   const handleShare = async () => {
-    let quote = `${bibleShort.toUpperCase()}\n`;
+    let quote = `${bible}\n`;
     quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
     for (const num of numVerses) {
       const text = verses.find((item) => item.verse === num).text;
-      quote += `\n${num}. ${text[languageValue]}`;
+      const before = numVerses.length > 1 ? `\n${num}. ` : '\n';
+      quote += before + text[languageValue];
     };
     try {
       await Share.share({
@@ -140,8 +139,8 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   headerImages: {
-    height: 45,
-    width: 45,
+    height: 35,
+    width: 35,
     marginRight: 30,
   },
   headerBible: {
