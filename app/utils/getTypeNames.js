@@ -1,8 +1,8 @@
-const getTypeNames = ({ language, types }) => {
+const getTypeNames = ({ types }) => {
 
   const transformedTypes = [];
   for (const key in types()) {
-    const value = types()[key][language].toLowerCase();
+    const value = types()[key];
     transformedTypes.push({ key: parseInt(key), value });
   };
   const sortedTypes = [
