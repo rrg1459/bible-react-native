@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { useFocusEffect } from "expo-router";
 import { useRoute } from '@react-navigation/native';
-import { changeScreen } from '../redux/quoteSlice.js';
-import Book from "./Book.jsx";
+import { useFocusEffect } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
-import fillBooks from "../utils/fillBooks.js";
+import { changeScreen } from '../redux/quoteSlice.js';
+import getTypeNames from '../utils/getTypeNames.js';
 import getTypeName from "../utils/getTypeName.js";
+import fillBooks from "../utils/fillBooks.js";
+import types from '../bible/types.js';
+import Book from "./Book.jsx";
 
 export default function ComponentBooks() {
 
   const dispatch = useDispatch();
   const route = useRoute();
   const ScreenName = route.name;
-  const languageValue = useSelector(state => state.quote.language);
+  const language = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const type_id = useSelector(state => state.quote.type_id);
   const [books, setBooks] = useState([]);
   const [typeName, setTypeName] = useState('');
   const [bible, setBible] = useState('');
+  const [getTypes, setGetTypes] = useState('');
+
+  const getType = (id) => {
+    if (id === null) return;
+    return getTypes.find((item) => item.key === id).value[language];
+  };
 
   useEffect(() => {
     setBooks(fillBooks({
@@ -29,16 +37,14 @@ export default function ComponentBooks() {
   }, [bookColumnsValue, type_id]);
 
   useEffect(() => {
-    setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version')
-  }, [languageValue]);
+    setGetTypes(getTypeNames({ language, types }));
+    setBible(language ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version')
+  }, [language]);
 
   useEffect(() => {
     if (typeof type_id !== 'number') return;
-    setTypeName(getTypeName({
-      language: languageValue,
-      type_id: type_id,
-    }));
-  }, [languageValue, type_id]);
+    setTypeName(getTypeName({ language, type_id, }));
+  }, [language, type_id]);
 
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
@@ -47,16 +53,16 @@ export default function ComponentBooks() {
   return (
     <View style={styles.main} >
       <Text style={styles.headerBible}>{bible}</Text>
-        { typeName !== '' &&
-          <Text style={styles.type}>{typeName}</Text>
-        }
+      {typeName !== '' &&
+        <Text style={styles.type}>{typeName}</Text>
+      }
       <View style={styles.books}>
         <FlatList
           data={books}
           numColumns={bookColumnsValue}
           key={bookColumnsValue}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <Book book={item} />}
+          renderItem={({ item }) => <Book book={item} type={getType(item.type_id)} />}
           keyExtractor={(book) => String(book.id)}
         />
       </View>

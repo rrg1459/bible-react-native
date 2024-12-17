@@ -1,23 +1,29 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { updateBook } from "../redux/quoteSlice";
 import { useNavigation } from "expo-router";
 import getColorByBookType from "../utils/getColorByBookType"
-import { updateBook } from "../redux/quoteSlice";
 
-const Book = (props) => {
-
-  const { book } = props;
+const Book = ({ book, type }) => {
 
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
+  const type_id = useSelector(state => state.quote.type_id);
   const navigation = useNavigation();
+  const [bookColor] = useState(book.type_id ? getColorByBookType(book.type_id) : 'none');
+  const [typeName, setTypeName] = useState('');
 
-  const bookColor = book.type_id ? getColorByBookType(book.type_id) : 'none';
+  useEffect(() => {
+    if (type === undefined) return;
+    setTypeName(bookColumnsValue > 1 ? type.substr(0, 4) : type);
+  }, [type])
+
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
-
-  const abbreviationFont = [, , , 25, 24, 22, 20];
-  const nameFont = [, , , 14, 9, 7, 6];
+  const abbreviationFont = [, , 30, 25, 24, 22, 20];
+  const nameFont = [, 30, 20, 14, 9, 7, 6];
+  const typeFont = [, , 17, 10, 8];
 
   const goToChapters = () => {
     dispatch(updateBook(book));
@@ -27,9 +33,14 @@ const Book = (props) => {
   return (
     <TouchableWithoutFeedback onPress={book.testament_id ? goToChapters : null}>
       <View style={[containerStyles, book.testament_id ? styles.withBorder : styles.noShow]} >
-        <Text style={{ fontSize: abbreviationFont[bookColumnsValue] }}>
-          {book.abbreviation[languageValue]}
-        </Text>
+        {bookColumnsValue > 1 &&
+          <Text style={{ fontSize: abbreviationFont[bookColumnsValue] }}>
+            {book.abbreviation[languageValue]}
+          </Text>
+        }
+        {bookColumnsValue < 5 && type_id > 8 &&
+          <Text style={[styles.type, { fontSize: typeFont[bookColumnsValue] }]}>{typeName}</Text>
+        }
         <Text style={{ fontSize: nameFont[bookColumnsValue] }}>
           {book.name[languageValue]}
         </Text>
@@ -48,6 +59,13 @@ const styles = StyleSheet.create({
     margin: 2,
     borderRadius: 5,
     borderColor: "#fff"
+  },
+  type: {
+    fontSize: 12,
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    fontStyle: 'italic',
   },
   withBorder: {
     cursor: 'pointer',
