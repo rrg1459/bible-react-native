@@ -10,7 +10,7 @@ const SettingsVerses = ({language, fontSizeVerse}) => {
   return (
     <View>
       <Text style={styles.label}>
-        {language ? 'Tamaño de fuente (versículo)' : 'Font Size (verse)'}
+        {language ? 'Tamaño de texto (versículo)' : 'Text size (verse)'}
       </Text>
       <Text style={{ fontSize: fontSizeVerse, textAlign: 'center' }}>
         {language ? 'Jesús Te Ama' : 'Jesus Love You'}
@@ -35,11 +35,11 @@ export default SettingsVerses
 const styles = StyleSheet.create({
   label: {
     color: '#000000', fontSize: 25,
-    marginBottom: 55,
+    marginBottom: 20,
     textAlign: 'center',
   },
   sizeSlider: {
-    marginTop: 45,
+    marginTop: 25,
     width: 300,
     height: 40
   },
