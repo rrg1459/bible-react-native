@@ -14,7 +14,7 @@ const SettingsBooks = ({language, columns}) => {
       </Text>
       <Slider
         style={styles.sizeSlider}
-        minimumValue={3}
+        minimumValue={1}
         maximumValue={6}
         step={1}
         minimumTrackTintColor="#FFFFFF"
