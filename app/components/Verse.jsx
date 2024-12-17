@@ -12,11 +12,11 @@ const Verse = (props) => {
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
   const numVerses = useSelector(state => state.quote.numVerses);
   const [currentVerse, setCurrentVerse] = useState(false);
-  
+
   const onPressVerse = () => {
     dispatch(
       updateVerses(
-        cleanAndTidy({verses: numVerses, verse: verse.verse, remove: currentVerse})
+        cleanAndTidy({ verses: numVerses, verse: verse.verse, remove: currentVerse })
       )
     );
     setCurrentVerse(!currentVerse);
@@ -24,9 +24,9 @@ const Verse = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={onPressVerse}>
-        <Text style={[{fontSize: fontSizeVerse}, styles.container, currentVerse ? styles.currentVerse : null]}>
-          {verse.verse}. {verse.text[languageValue]}
-        </Text>
+      <Text style={[{ fontSize: fontSizeVerse }, styles.container, currentVerse ? styles.currentVerse : null]}>
+        {verse.verse}. {verse.text[languageValue]}
+      </Text>
     </TouchableWithoutFeedback>
   );
 }
@@ -34,10 +34,7 @@ export default Verse;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     justifyContent: "center",
-    // textAlign: "center",
-    // fontSize:30,
     padding: 4,
     margin: 2,
     borderRadius: 5,
