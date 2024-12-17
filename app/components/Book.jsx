@@ -26,7 +26,7 @@ const Book = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={book.testament_id ? goToChapters : null}>
-      <View style={[containerStyles, book.testament_id ? styles.withBorder : null]} >
+      <View style={[containerStyles, book.testament_id ? styles.withBorder : styles.noShow]} >
         <Text style={{ fontSize: abbreviationFont[bookColumnsValue] }}>
           {book.abbreviation[languageValue]}
         </Text>
@@ -53,4 +53,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
     borderWidth: 1,
   },
+  noShow: {
+    backgroundColor: 'transparent',
+  }
 });
