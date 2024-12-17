@@ -12,20 +12,19 @@ const SettingsGroups = ({ language, type_id }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const names = getTypeNames({ language, types });
+    const names = getTypeNames({ types });
     setItems(names);
-    setSelectedValue(names.find((n) => n.key === type_id).value);
+    setSelectedValue(names.find((n) => n.key === type_id).value[language]);
   }, [language]);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const onSelect = (key) => dispatch(changeType(key));
 
   const handleItemSelect = (item) => {
-    setSelectedValue(item.value);
+    setSelectedValue(item.value[language]);
     setIsOpen(false);
     onSelect(item.key);
   };
-
 
   return (
     <View>
@@ -53,7 +52,9 @@ const SettingsGroups = ({ language, type_id }) => {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => handleItemSelect(item)}>
-                <Text style={[styles.itemValue, item.key === type_id ? styles.currentGroup : '']}>{item.value}</Text>
+                <Text style={[styles.itemValue, item.key === type_id ? styles.currentGroup : '']}>
+                  {item.value[language]}
+                </Text>
               </TouchableOpacity>
             )}
           />
@@ -74,7 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 12,
     borderRadius: 8,
-    margin: 15,
+    marginTop: 15,
+    marginBottom: 5,
     elevation: 6,
     justifyContent: 'space-between',
     backgroundColor: '#FCFCFD',
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: '#e2e2e3',
     borderWidth: 2,
-    maxHeight: 150,
+    maxHeight: 165,
     backgroundColor: '#ededf3',
   },
   itemValue: {
