@@ -8,8 +8,6 @@ import fillVerses from '../utils/fillVerses';
 import versesAbbs from '../utils/versesAbbs';
 import Verse from "../components/Verse.jsx";
 
-import * as Clipboard from 'expo-clipboard';
-
 const ComponentVerses = () => {
 
   const languageValue = useSelector(state => state.quote.language);
@@ -22,8 +20,6 @@ const ComponentVerses = () => {
   const [verses, setVerses] = useState([]);
   const [verseAbbs, setVerseAbbs] = useState('');
   const [bible, setBible] = useState('');
-  const [actionStatus, setActionStatus] = useState('');
-  const [delayDuration] = useState(1500);
 
   useEffect(() => {
     setVerseAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
@@ -40,21 +36,6 @@ const ComponentVerses = () => {
   useFocusEffect(() => {
     dispatch(changeScreen(ScreenName));
   });
-
-  const handleCopy = async () => {
-    setActionStatus(languageValue ? 'copiado!' : 'copied!');
-    // Use setTimeout to simulate a delayed action
-    setTimeout(() => {
-      setActionStatus('');
-    }, delayDuration);
-    let quote = `${bible.toUpperCase()}\n`;
-    quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
-    for (const num of numVerses) {
-      const text = verses.find((item) => item.verse === num).text;
-      quote += `\n${num}. ${text[languageValue]}`;
-    };
-    await Clipboard.setStringAsync(quote);
-  };
 
   const handleShare = async () => {
     let quote = `${bible}\n`;
@@ -90,7 +71,6 @@ const ComponentVerses = () => {
         </View>
         {verseAbbs !== '' &&
           <View style={styles.headerRight}>
-            <Text style={styles.actionStatus}>{actionStatus}</Text>
             <TouchableOpacity onPress={handleShare}>
               <Image
                 source={require("../images/share.png")}
@@ -133,11 +113,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: "center",
     justifyContent: 'flex-end',
-  },
-  actionStatus: {
-    fontSize: 12,
-    fontStyle: 'italic',
-    color: 'red',
   },
   headerImages: {
     height: 35,
