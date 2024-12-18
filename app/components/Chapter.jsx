@@ -3,14 +3,12 @@ import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../redux/quoteSlice";
 
-const Chapter = (props) => {
+const Chapter = ({ chapter, columnsValue, amountChapters }) => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { chapter, columnsValue, amountChapters } = props;
-
-  const columns = { fontSize: columnsValue === 6 && amountChapters > 99 ? 22 : 28};
+  const columns = { fontSize: columnsValue === 6 && amountChapters > 99 ? 16 : 22 };
 
   const goToVerses = () => {
     dispatch(updateChapter(chapter.id));

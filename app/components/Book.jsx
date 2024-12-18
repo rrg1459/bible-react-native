@@ -21,9 +21,9 @@ const Book = ({ book, type }) => {
   }, [type])
 
   const containerStyles = { backgroundColor: bookColor, ...styles.container };
-  const abbreviationFont = [, , 30, 25, 24, 22, 20];
-  const nameFont = [, 30, 20, 14, 9, 7, 6];
-  const typeFont = [, , 17, 10, 8];
+  const abbreviationFont = [, , 29, 25, 22, 20, 16];
+  const nameFont = [, 28, 15, 10, 7, 5, 4];
+  const typeFont = [, 11, 16, 9, 8];
 
   const goToChapters = () => {
     dispatch(updateBook(book));
