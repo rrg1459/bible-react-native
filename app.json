@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/bible512.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#7dfcd2"
     },
     "newArchEnabled": true,
@@ -36,7 +36,8 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/bible512.png",
-          "resizeMode": "contain",
+          "imageWidth": 150,
+          "resizeMode": "cover",
           "backgroundColor": "#7dfcd2"
         }
       ]
