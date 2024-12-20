@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux';
-import SettingsLAnguage from '../components/settings/SettingsLAnguage';
+import SettingsLanguage from '../components/settings/SettingsLanguage';
 import SettingsBooks from '../components/settings/SettingsBooks';
 import SettingsChapters from '../components/settings/SettingsChapters';
 import SettingsVerses from '../components/settings/SettingsVerses';
@@ -26,7 +26,7 @@ const SettingsScreen = () => {
 
       <View style={styles.container}>
         <Separator />
-        <SettingsLAnguage language={languageValue} />
+        <SettingsLanguage language={languageValue} />
         <Separator />
 
         {currentScreen === 'books' &&
