@@ -41,9 +41,11 @@ const Book = ({ book, type }) => {
         {bookColumnsValue < 5 && type_id > 8 &&
           <Text style={[styles.type, { fontSize: typeFont[bookColumnsValue] }]}>{typeName}</Text>
         }
-        <Text style={{ fontSize: nameFont[bookColumnsValue] }}>
-          {book.name[languageValue]}
-        </Text>
+        {bookColumnsValue < 6 &&
+          <Text style={{ fontSize: nameFont[bookColumnsValue] }}>
+            {book.name[languageValue]}
+          </Text>
+        }
       </View>
     </TouchableWithoutFeedback>
   );
