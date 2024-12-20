@@ -1,14 +1,25 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/quoteSlice';
+import { Storage } from '../../utils/storage';
+import { KEY } from '../../constants/storageKeys';
 
-const SettingsLAnguage = ({ language }) => {
+const SettingsLanguage = ({ language }) => {
 
   const dispatch = useDispatch();
+
+  const saveLanguage = async (lang) => {
+    try {
+      await Storage.setItem(KEY.Language, lang);
+    } catch (error) {
+      console.error('Failed to save language:', error);
+    }
+  };
 
   const onPress = () => {
     const lang = language ? 0 : 1;
     dispatch(updateLanguage(lang));
+    saveLanguage(lang);
   };
 
   return (
@@ -23,7 +34,7 @@ const SettingsLAnguage = ({ language }) => {
   )
 };
 
-export default SettingsLAnguage
+export default SettingsLanguage
 
 const styles = StyleSheet.create({
   button: {

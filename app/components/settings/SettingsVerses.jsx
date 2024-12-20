@@ -2,10 +2,25 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Slider from '@react-native-community/slider';
 import { updateFontSizeVerse } from '../../redux/quoteSlice';
+import { Storage } from '../../utils/storage';
+import { KEY } from '../../constants/storageKeys';
 
-const SettingsVerses = ({language, fontSizeVerse}) => {
+const SettingsVerses = ({ language, fontSizeVerse }) => {
 
   const dispatch = useDispatch();
+
+  const saveFontSizeVerse = async (size) => {
+    try {
+      await Storage.setItem(KEY.FontSizeVerse, size);
+    } catch (error) {
+      console.error('Failed to save font size verse:', error);
+    }
+  };
+
+  const handleSliderChange = (size) => {
+    dispatch(updateFontSizeVerse(size));
+    saveFontSizeVerse(size);
+  };
 
   return (
     <View>
@@ -24,7 +39,7 @@ const SettingsVerses = ({language, fontSizeVerse}) => {
         maximumTrackTintColor="#000000"
         thumbStyle={styles.thumb}
         value={fontSizeVerse}
-        onSlidingComplete={item => dispatch(updateFontSizeVerse(item))}
+        onSlidingComplete={item => handleSliderChange(item)}
       />
     </View>
   )

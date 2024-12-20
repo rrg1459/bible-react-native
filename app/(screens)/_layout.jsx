@@ -1,13 +1,24 @@
 import { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { Tabs } from 'expo-router';
-// import { HapticTab } from '@/app/components/HapticTab';
 import { IconSymbol } from '@/app/components/ui/IconSymbol';
 import TabBarBackground from '@/app/components/ui/TabBarBackground';
 import { Colors } from '@/app/constants/Colors';
 import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Storage } from '../utils/storage.js';
+import { KEY } from '../constants/storageKeys.js';
+import {
+  changeBookColumns,
+  changeChapterColumns,
+  changeType,
+  updateFontSizeVerse,
+  updateLanguage
+} from '../redux/quoteSlice';
 
 export default function TabLayout() {
+
+  const dispatch = useDispatch();
 
   const [showState, setShowState] = useState({
     books: false,
@@ -18,6 +29,48 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const currentScreen = useSelector(state => state.quote.currentScreen);
   const languageValue = useSelector(state => state.quote.language);
+
+  const [isLoadingBooks, setIsLoadingBooks] = useState(true);
+  const [isLoadingLanguage, setIsLoadingLanguage] = useState(true);
+  const [isLoadingTypeID, setIsLoadingTypeID] = useState(true);
+
+  const fetchBookColumns = async () => {
+    const bookColumns = await Storage.getItem(KEY.BookColumns);
+    setIsLoadingBooks(false);
+    if (bookColumns) dispatch(changeBookColumns(bookColumns));
+  };
+
+  const fetchLanguage = async () => {
+    const lang = await Storage.getItem(KEY.Language);
+    setIsLoadingLanguage(false);
+    if (lang || lang === 0) {
+      dispatch(updateLanguage(lang));
+    }
+  };
+
+  const fetchTypeID = async () => {
+    const typeID = await Storage.getItem(KEY.TypeID);
+    setIsLoadingTypeID(false);
+    if (typeID) dispatch(changeType(typeID));
+  };
+
+  const fetchChapterColumns = async () => {
+    const chapterColumns = await Storage.getItem(KEY.ChapterColumns);
+    if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
+  };
+
+  const fetchSizeVerse = async () => {
+    const sizeVerse = await Storage.getItem(KEY.FontSizeVerse);
+    if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
+  };
+
+  useEffect(() => {
+    fetchLanguage();
+    fetchBookColumns();
+    fetchChapterColumns();
+    fetchSizeVerse();
+    fetchTypeID();
+  }, []);
 
   useEffect(() => {
     switch (currentScreen) {
@@ -34,12 +87,19 @@ export default function TabLayout() {
         setShowState({ books: false, chapters: false, settings: false });
         break;
       default:
-        // Handle unexpected cases or default state
         break;
     }
   }, [currentScreen]);
 
   const { books, chapters, settings } = showState;
+
+  if (isLoadingBooks || isLoadingLanguage || isLoadingTypeID) {
+    return (
+      <View>
+        <ActivityIndicator size='large' color='blue' />
+      </View>
+    )
+  };
 
   return (
     <Tabs
@@ -51,6 +111,7 @@ export default function TabLayout() {
           display: books ? 'flex' : 'none',
         }
       }}>
+
       <Tabs.Screen
         name="books"
         options={{
@@ -70,10 +131,9 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen name="index" options={{href: null}} />
-      <Tabs.Screen name="verses" options={{href: null}} />
+      <Tabs.Screen name="index" options={{ href: null }} />
+      <Tabs.Screen name="verses" options={{ href: null }} />
       <Tabs.Screen name="settings" options={{ href: null }} />
-
     </Tabs>
   );
-}
+};

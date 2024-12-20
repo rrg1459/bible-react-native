@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { changeType } from '../../redux/quoteSlice';
 import getTypeNames from '../../utils/getTypeNames.js';
 import types from '../../bible/types.js';
+import { Storage } from '../../utils/storage';
+import { KEY } from '../../constants/storageKeys';
 
 const SettingsGroups = ({ language, type_id }) => {
   const dispatch = useDispatch();
@@ -18,7 +20,19 @@ const SettingsGroups = ({ language, type_id }) => {
   }, [language]);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
-  const onSelect = (key) => dispatch(changeType(key));
+
+  const saveTypeID = async (key) => {
+    try {
+      await Storage.setItem(KEY.TypeID, key);
+    } catch (error) {
+      console.error('Failed to save type ID:', error);
+    }
+  };
+
+  const onSelect = (key) => {
+    dispatch(changeType(key));
+    saveTypeID(key);
+  };
 
   const handleItemSelect = (item) => {
     setSelectedValue(item.value[language]);
