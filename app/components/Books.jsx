@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     flex: 1, // the number of columns you want to devide the screen into
     marginHorizontal: 4,
     paddingTop: 5,
-    paddingBottom: 50,
+    paddingBottom: 5,
   },
 });
