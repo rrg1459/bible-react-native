@@ -27,7 +27,7 @@ const ComponentVerses = () => {
 
   useEffect(() => {
     setVerses(fillVerses({ book_id: book.id, chapter: chapter }));
-  }, [chapter]);
+  }, [chapter, book]);
 
   useEffect(() => {
     setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version');
