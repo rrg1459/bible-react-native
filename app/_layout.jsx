@@ -2,6 +2,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import * as NavigationBar from "expo-navigation-bar"
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -23,6 +24,16 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
+  const hideNavBar = async () => {
+    await NavigationBar.setPositionAsync('absolute');
+    await NavigationBar.setVisibilityAsync("hidden");
+    await NavigationBar.setBehaviorAsync('overlay-swipe');
+  };
+
+  useEffect(() => {
+    hideNavBar();
+  }, [])
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -31,7 +42,7 @@ export default function RootLayout() {
 
   if (!loaded) {
     return null;
-  }
+  };
 
   return (
     <Provider store={store}>
@@ -43,7 +54,6 @@ export default function RootLayout() {
           <StatusBar hidden />
         </ThemeProvider>
       </SafeAreaView>
-
     </Provider>
   );
 };
