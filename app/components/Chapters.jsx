@@ -13,6 +13,7 @@ const ComponentChapters = () => {
   const languageValue = useSelector(state => state.quote.language);
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const book = useSelector(state => state.quote.book);
+  const chapter = useSelector(state => state.quote.numChapter);
   const dispatch = useDispatch();
   const { chapters, name } = book;
   const route = useRoute();
@@ -28,8 +29,12 @@ const ComponentChapters = () => {
       }));
   }, [chapters, chapterColumnsValue]);
 
-  useFocusEffect(() => {
+  useEffect(() => {
     dispatch(updateVerses([]));
+  }, [book, chapter])
+  
+  useFocusEffect(() => {
+    // dispatch(updateVerses([]));
     dispatch(changeScreen(ScreenName));
   });
 
