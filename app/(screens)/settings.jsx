@@ -52,10 +52,24 @@ const SettingsScreen = () => {
           </>
         }
       </View>
+        <View style={styles.footer}>
+          <Text style={styles.author}>
+            rafaDev
+          </Text>
+          <Text style={styles.version}>
+            V4360.1
+          </Text>
+        </View>
     </>
   );
 };
 export default SettingsScreen
+
+// const today = new Date();
+// const startOfYear = new Date(today.getFullYear(), 0, 0);
+// const diff = today - startOfYear;
+// const oneDay = 1000 * 60 * 60 * 24;
+// const julianDay = Math.floor(diff / oneDay);
 
 const styles = StyleSheet.create({
   labelHeader: {
@@ -77,5 +91,24 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderBottomColor: '#b1b5b4',
     borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  footer: {
+    flex: 0,
+    backgroundColor: '#ebf9f5',
+    paddingBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  author: {
+    fontSize: 7,
+    color: 'grey',
+    marginLeft: 10,
+    fontStyle: 'italic',
+  },
+  version: {
+    fontSize: 8,
+    color: 'black',
+    marginRight: 10,
   },
 });
