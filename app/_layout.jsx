@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { AppState, SafeAreaView, StyleSheet } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,14 +24,29 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  const hideNavBar = async () => {
-    await NavigationBar.setPositionAsync('absolute');
-    await NavigationBar.setVisibilityAsync("hidden");
-    await NavigationBar.setBehaviorAsync('overlay-swipe');
-  };
-
   useEffect(() => {
+    const hideNavBar = async () => {
+      await NavigationBar.setPositionAsync('absolute');
+      await NavigationBar.setVisibilityAsync("hidden");
+      await NavigationBar.setBehaviorAsync('overlay-swipe');
+    };
+
     hideNavBar();
+
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'active') {
+        hideNavBar();
+      }
+    };
+
+    // Add event listener for app state changes
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      subscription.remove();
+    };
+
   }, [])
 
   useEffect(() => {
@@ -64,4 +79,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
