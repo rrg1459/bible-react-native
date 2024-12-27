@@ -57,7 +57,7 @@ const SettingsScreen = () => {
             rafaDev
           </Text>
           <Text style={styles.version}>
-            V4360.1
+            D361.1
           </Text>
         </View>
     </>
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   author: {
-    fontSize: 7,
+    fontSize: 8,
     color: 'grey',
     marginLeft: 10,
     fontStyle: 'italic',
   },
   version: {
-    fontSize: 8,
+    fontSize: 9,
     color: 'black',
     marginRight: 10,
   },
