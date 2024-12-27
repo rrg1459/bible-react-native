@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../redux/quoteSlice";
@@ -16,11 +16,11 @@ const Chapter = ({ chapter, columnsValue, amountChapters }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={chapter.show ? goToVerses : null}>
+    <TouchableOpacity style={{flex: 1}} onPress={chapter.show ? goToVerses : null}>
       <Text style={[styles.container, columns, chapter.show ? styles.withBorder : null]}>
         {chapter.show && chapter.id}
       </Text>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 }
 export default Chapter;

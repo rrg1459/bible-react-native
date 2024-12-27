@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBook } from "../redux/quoteSlice";
 import { useNavigation } from "expo-router";
@@ -31,7 +31,7 @@ const Book = ({ book, type }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={book.testament_id ? goToChapters : null}>
+    <TouchableOpacity style={{flex: 1}} onPress={book.testament_id ? goToChapters : null}>
       <View style={[containerStyles, book.testament_id ? styles.withBorder : styles.noShow]} >
         {bookColumnsValue > 1 &&
           <Text style={{ fontSize: abbreviationFont[bookColumnsValue] }}>
@@ -47,7 +47,7 @@ const Book = ({ book, type }) => {
           </Text>
         }
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 }
 export default Book;
