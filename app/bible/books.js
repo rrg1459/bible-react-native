@@ -12,7 +12,7 @@ export const books = [
     testament_id: 1,
     type_id: 1,
     name: ["Exodus", "Éxodo"],
-    abbreviation: ["Ex", "Ex"],
+    abbreviation: ["Exo", "Exo"],
     chapters: 40
   },
   {
@@ -524,7 +524,7 @@ export const books = [
     testament_id: 2,
     type_id: 8,
     name: ["Revelation", "Apocalipsis"],
-    abbreviation: ["Rev", "Ap"],
+    abbreviation: ["Rev", "Apo"],
     chapters: 22
   }
 ];
