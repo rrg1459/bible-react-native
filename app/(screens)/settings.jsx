@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { useRef, useState } from 'react';
+import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { useSelector } from 'react-redux';
 import SettingsLanguage from '../components/settings/SettingsLanguage';
 import SettingsBooks from '../components/settings/SettingsBooks';
@@ -16,11 +17,46 @@ const SettingsScreen = () => {
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
   const type_id = useSelector(state => state.quote.type_id);
 
+  const lastTapTimeRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const Separator = () => <View style={styles.separator} />;
+
+  const closeModal = () => {
+    {
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 3000)
+    }
+  }
+
+  const handleTap = () => {
+    const now = new Date().getTime();
+    const DOUBLE_TAP_DELAY = 500; // Adjust as needed for your use case (in milliseconds)
+    if (now - lastTapTimeRef.current < DOUBLE_TAP_DELAY) {
+      setModalVisible(true);
+    };
+    lastTapTimeRef.current = now;
+  };
 
   return (
     <>
-      <Text style={styles.labelHeader}>{languageValue ? 'Ajustes' : 'Settings'}</Text>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.author}>
+              {languageValue ? 'desarrollado con ❤️ por rafaDev' : 'developed with ❤️ by rafaDev'}
+            </Text>
+          </View>
+        </View>
+        {closeModal()}
+      </Modal>
+      <TouchableWithoutFeedback onPress={handleTap}>
+        <Text style={styles.labelHeader}>{languageValue ? 'Ajustes' : 'Settings'}</Text>
+      </TouchableWithoutFeedback>
 
       <SettingsRemember language={languageValue} currentScreen={currentScreen} />
 
@@ -52,14 +88,14 @@ const SettingsScreen = () => {
           </>
         }
       </View>
-        <View style={styles.footer}>
-          <Text style={styles.author}>
-            rafaDev
-          </Text>
-          <Text style={styles.version}>
-            D361.1
-          </Text>
-        </View>
+      <View style={styles.footer}>
+        <Text style={styles.version}>
+          D366.1
+        </Text>
+      </View>
+
+
+
     </>
   );
 };
@@ -98,10 +134,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
   },
   author: {
-    fontSize: 8,
     color: 'grey',
     marginLeft: 10,
     fontStyle: 'italic',
@@ -110,5 +145,19 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: 'black',
     marginRight: 10,
+  },
+  centeredView: {
+    flex: 1,
+    width: 'auto',
+    marginHorizontal: 'auto',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  modalView: {
+    padding: 10,
+    borderRadius: 4,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 2,
   },
 });
