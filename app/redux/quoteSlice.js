@@ -17,6 +17,7 @@ const initialState = {
   numVerses: [],
   fontSizeVerse: 20,
   type_id: 11,
+  favorites: {},
 };
 
 const quoteSlice = createSlice({
@@ -50,6 +51,10 @@ const quoteSlice = createSlice({
     changeType: (state, action) => {
       state.type_id = action.payload;
     },
+    updateFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
+
   }
 });
 
@@ -62,7 +67,8 @@ export const {
   updateChapter,
   updateVerses,
   updateFontSizeVerse,
-  changeType
+  changeType,
+  updateFavorites,
  } = quoteSlice.actions;
 
 export default quoteSlice.reducer;
