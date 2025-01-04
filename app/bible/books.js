@@ -508,7 +508,7 @@ export const books = [
     testament_id: 2,
     type_id: 7,
     name: ["3 John", "3 Juan"],
-    abbreviation: ["2Jhn", "3Jn"],
+    abbreviation: ["3Jhn", "3Jn"],
     chapters: 1
   },
   {
