@@ -11,7 +11,7 @@ export const books = [
     id: 2,
     testament_id: 1,
     type_id: 1,
-    name: ["Exodus", "Éxodo"],
+    name: ["Exodus", "Exodo"],
     abbreviation: ["Exo", "Exo"],
     chapters: 40
   },
