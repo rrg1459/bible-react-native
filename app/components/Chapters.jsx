@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { useFocusEffect } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { changeScreen, updateVerses } from '../redux/quoteSlice';
-import fillChapters from "../utils/fillChapters.js";
-import { FlatList } from 'react-native';
 import Chapter from "../components/Chapter.jsx";
+import favoriteChaptersInTheBook from '../utils/favoriteChaptersInTheBook.js';
+import fillChapters from "../utils/fillChapters.js";
 
 const ComponentChapters = () => {
 
@@ -14,11 +14,17 @@ const ComponentChapters = () => {
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const book = useSelector(state => state.quote.book);
   const chapter = useSelector(state => state.quote.numChapter);
+  const favorites = useSelector(state => state.quote.favorites);
   const dispatch = useDispatch();
   const { chapters, name } = book;
   const route = useRoute();
   const ScreenName = route.name;
   const [chaptersVector, setChaptersVector] = useState([]);
+  const [favoriteChapters, setFavoriteChapters] = useState([]);
+
+  useEffect(() => {
+    setFavoriteChapters(favoriteChaptersInTheBook({ favorites, book_id: book.id }));
+  }, [book, favorites]);
 
   useEffect(() => {
     setChaptersVector(
@@ -32,11 +38,12 @@ const ComponentChapters = () => {
   useEffect(() => {
     dispatch(updateVerses([]));
   }, [book, chapter])
-  
+
   useFocusEffect(() => {
-    // dispatch(updateVerses([]));
     dispatch(changeScreen(ScreenName));
   });
+
+  // console.log('ComponentChapters favoriteChapters-->: ', favoriteChapters);
 
   return (
     <View style={styles.main} >
@@ -65,6 +72,7 @@ const ComponentChapters = () => {
           renderItem={({ item }) => (
             <Chapter
               chapter={item}
+              chapterFavorite={favoriteChapters.includes(item.id)}
               columnsValue={chapterColumnsValue}
               amountChapters={chaptersVector.length}
             />)}
@@ -100,10 +108,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   chapters: {
-    flex: 4, // the number of columns you want to devide the screen into
+    flex: 1,
+    marginHorizontal: 4,
     paddingTop: 5,
-    marginHorizontal: "auto",
-    width: "98%",
     paddingBottom: 5,
   },
 });

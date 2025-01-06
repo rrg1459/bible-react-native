@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Storage } from '../utils/storage.js';
 import { KEY } from '../constants/storageKeys.js';
 import {
-  changeBookColumns,
   changeChapterColumns,
-  changeType,
   updateFontSizeVerse,
-  updateLanguage
+  changeBookColumns,
+  updateFavorites,
+  updateLanguage,
+  changeType,
 } from '../redux/quoteSlice';
 
 export default function TabLayout() {
@@ -25,15 +26,16 @@ export default function TabLayout() {
     chapters: false,
     settings: false,
   });
-
+  
   const colorScheme = useColorScheme();
   const currentScreen = useSelector(state => state.quote.currentScreen);
   const languageValue = useSelector(state => state.quote.language);
-
+  
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
   const [isLoadingLanguage, setIsLoadingLanguage] = useState(true);
   const [isLoadingTypeID, setIsLoadingTypeID] = useState(true);
 
+  useEffect(() => {
   const fetchBookColumns = async () => {
     const bookColumns = await Storage.getItem(KEY.BookColumns);
     setIsLoadingBooks(false);
@@ -64,13 +66,18 @@ export default function TabLayout() {
     if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
   };
 
-  useEffect(() => {
+  const fetchFavorites = async () => {
+    const favorites = await Storage.getItem(KEY.Favorites);
+    if (favorites) dispatch(updateFavorites(favorites));
+  };
+
     fetchLanguage();
     fetchBookColumns();
     fetchChapterColumns();
     fetchSizeVerse();
+    fetchFavorites();
     fetchTypeID();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     switch (currentScreen) {
@@ -91,7 +98,7 @@ export default function TabLayout() {
     }
   }, [currentScreen]);
 
-  const { books, chapters, settings } = showState;
+  const { books, chapters } = showState;
 
   if (isLoadingBooks || isLoadingLanguage || isLoadingTypeID) {
     return (

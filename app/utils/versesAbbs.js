@@ -1,5 +1,7 @@
 const versesAbbs = ({ numVerses, language }) => {
 
+  const verses = numVerses.map((verse) => verse / 10);
+
   let abbreviations = '';
   const more = [' and more...', ' y más...'];
 
@@ -28,7 +30,7 @@ const versesAbbs = ({ numVerses, language }) => {
 
     return result;
   };
-  const groups = consecutiveGroups(numVerses);
+  const groups = consecutiveGroups(verses);
 
   groups.map((item, idx) => {
     if (idx < 3) {

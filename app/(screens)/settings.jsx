@@ -7,10 +7,13 @@ import SettingsChapters from '../components/settings/SettingsChapters';
 import SettingsVerses from '../components/settings/SettingsVerses';
 import SettingsRemember from '../components/settings/SettingsRemember';
 import SettingsGroups from '../components/settings/SettingsGroups';
+import SettingsFavorite from '../components/settings/SettingsFavorite';
+import empty from '../utils/emptyObject';
 
 const SettingsScreen = () => {
 
   const currentScreen = useSelector(state => state.quote.currentScreen);
+  const favorites = useSelector(state => state.quote.favorites);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const languageValue = useSelector(state => state.quote.language);
@@ -65,6 +68,13 @@ const SettingsScreen = () => {
         <SettingsLanguage language={languageValue} />
         <Separator />
 
+        {empty(favorites) === false &&
+          <>
+            <SettingsFavorite language={languageValue} />
+            <Separator />
+          </>
+        }
+
         {currentScreen === 'books' &&
           <>
             <SettingsGroups language={languageValue} type_id={type_id} />
@@ -90,7 +100,7 @@ const SettingsScreen = () => {
       </View>
       <View style={styles.footer}>
         <Text style={styles.version}>
-          D366.1
+          E5.3
         </Text>
       </View>
 

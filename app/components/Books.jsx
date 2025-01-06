@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { useFocusEffect } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeScreen } from '../redux/quoteSlice.js';
+import favoriteInTheBooks from "../utils/favoriteInTheBooks.js";
 import getTypeNames from '../utils/getTypeNames.js';
 import getTypeName from "../utils/getTypeName.js";
 import fillBooks from "../utils/fillBooks.js";
@@ -17,16 +18,22 @@ export default function ComponentBooks() {
   const ScreenName = route.name;
   const language = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
+  const favorites = useSelector(state => state.quote.favorites);
   const type_id = useSelector(state => state.quote.type_id);
   const [books, setBooks] = useState([]);
   const [typeName, setTypeName] = useState('');
   const [bible, setBible] = useState('');
   const [getTypes, setGetTypes] = useState('');
+  const [favoriteBooks, setFavoriteBooks] = useState([]);
 
   const getType = (id) => {
     if (id === null) return;
     return getTypes.find((item) => item.key === id).value[language];
   };
+
+  useEffect(() => {
+    setFavoriteBooks(favoriteInTheBooks({ favorites }));
+  }, [favorites]);
 
   useEffect(() => {
     setBooks(fillBooks({
@@ -50,6 +57,8 @@ export default function ComponentBooks() {
     dispatch(changeScreen(ScreenName));
   });
 
+  // console.log('ComponentBooks favoriteBooks-->: ', favoriteBooks);
+
   return (
     <View style={styles.main} >
       <Text style={styles.headerBible}>{bible}</Text>
@@ -62,7 +71,14 @@ export default function ComponentBooks() {
           numColumns={bookColumnsValue}
           key={bookColumnsValue}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <Book book={item} type={getType(item.type_id)} />}
+          renderItem={({ item }) => (
+            <Book
+              book={item}
+              type={getType(item.type_id)}
+              bookFavorite={favoriteBooks.includes(item.id)}
+              />)}
+
+
           keyExtractor={(book) => String(book.id)}
         />
       </View>
