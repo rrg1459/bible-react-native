@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Tabs } from 'expo-router';
 import { IconSymbol } from '@/app/components/ui/IconSymbol';
 import TabBarBackground from '@/app/components/ui/TabBarBackground';
@@ -102,7 +102,7 @@ export default function TabLayout() {
 
   if (isLoadingBooks || isLoadingLanguage || isLoadingTypeID) {
     return (
-      <View>
+      <View style={styles.activityIndicator}>
         <ActivityIndicator size='large' color='blue' />
       </View>
     )
@@ -144,3 +144,11 @@ export default function TabLayout() {
     </Tabs>
   );
 };
+
+const styles = StyleSheet.create({
+  activityIndicator: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
