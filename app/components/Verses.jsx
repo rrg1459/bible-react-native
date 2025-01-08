@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
-import { FlatList, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useFocusEffect } from 'expo-router';
-import { useRoute } from '@react-navigation/native';
-import { changeScreen, updateFavorites } from '../redux/quoteSlice';
+import { useEffect, useState, useCallback } from 'react';
+import { FlatList, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { KEY } from '../constants/storageKeys.js';
-import { Storage } from '../utils/storage.js';
+import { changeScreen, updateFavorites } from '../redux/quoteSlice';
+import { KEY } from '../constants/storageKeys';
+import { Storage } from '../utils/storage';
 import fillVerses from '../utils/fillVerses';
 import versesAbbs from '../utils/versesAbbs';
-import Verse from "../components/Verse.jsx";
-import handleVersesFavorites from '../utils/handleVersesFavorites.js';
-import favoriteVersesInTheChapter from '../utils/favoriteVersesInTheChapter.js';
+import Verse from '../components/Verse';
+import handleVersesFavorites from '../utils/handleVersesFavorites';
+import favoriteVersesInTheChapter from '../utils/favoriteVersesInTheChapter';
 
 const ComponentVerses = () => {
-
   const languageValue = useSelector(state => state.quote.language);
   const numVerses = useSelector(state => state.quote.numVerses);
   const book = useSelector(state => state.quote.book);
@@ -22,6 +20,7 @@ const ComponentVerses = () => {
   const dispatch = useDispatch();
   const route = useRoute();
   const ScreenName = route.name;
+
   const [verses, setVerses] = useState([]);
   const [verseAbbs, setVerseAbbs] = useState('');
   const [bible, setBible] = useState('');
@@ -29,107 +28,97 @@ const ComponentVerses = () => {
   const [favoriteVerses, setFavoriteVerses] = useState([]);
 
   useEffect(() => {
-    console.log('xxx KABUMMM');
     setFavoriteVerses(favoriteVersesInTheChapter({ favorites, book_id: book.id, chapter }));
   }, [book, chapter, favorites]);
-  //}, [book, chapter, favorites, favoriteVerses]);
 
   useEffect(() => {
     setShowFavorite(favoriteVerses.length > 0);
-  }, [book, chapter, favoriteVerses]);
+  }, [favoriteVerses]);
 
   useEffect(() => {
-    setVerseAbbs(versesAbbs({ numVerses: numVerses, language: languageValue }));
-  }, [numVerses]);
+    setVerseAbbs(versesAbbs({ numVerses, language: languageValue }));
+  }, [numVerses, languageValue]);
 
   useEffect(() => {
-    setVerses(fillVerses({ book_id: book.id, chapter: chapter }));
-  }, [chapter, book]);
+    setVerses(fillVerses({ book_id: book.id, chapter }));
+  }, [book.id, chapter]);
 
   useEffect(() => {
     setBible(languageValue ? 'Santa Biblia Reina Valera' : 'Holy Bible King James Version');
   }, [languageValue]);
 
-  useFocusEffect(() => {
-    dispatch(changeScreen(ScreenName));
-  });
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(changeScreen(ScreenName));
+    }, [dispatch, ScreenName])
+  );
 
-  const saveFavorites = async (favorites) => {
+  const saveFavorites = useCallback(async (favorites) => {
     try {
       await Storage.setItem(KEY.Favorites, favorites);
     } catch (error) {
       console.error('Failed to save font favorites verse:', error);
     }
-  };
+  }, []);
 
-  const handleFavorites = () => {
-    setShowFavorite(!showFavorite);
+  const handleFavorites = useCallback(() => {
+    setShowFavorite(prevShowFavorite => !prevShowFavorite);
 
-    const getCurrentFavorites = handleVersesFavorites({
+    const updatedFavorites = handleVersesFavorites({
       favorites,
       book_id: book.id,
-      chapter, numVerses,
+      chapter,
+      numVerses,
       removeAll: showFavorite
-    })
-    dispatch(updateFavorites(getCurrentFavorites));
-    saveFavorites(getCurrentFavorites);
-  };
+    });
 
-  const handleShare = async () => {
-    let quote = `${bible}\n`;
-    quote += `${book.name[languageValue]} ${chapter}${verseAbbs}`;
-    for (const num of numVerses) {
-      const text = verses.find((item) => item.verse === num).text;
-      const before = numVerses.length > 1 ? `\n${num / 10}. ` : '\n';
-      quote += before + text[languageValue];
-    };
+    dispatch(updateFavorites(updatedFavorites));
+    saveFavorites(updatedFavorites);
+  }, [favorites, book.id, chapter, numVerses, showFavorite, dispatch, saveFavorites]);
+
+  const handleShare = useCallback(async () => {
+    let quote = `${bible}\n${book.name[languageValue]} ${chapter}${verseAbbs}`;
+    numVerses.forEach(num => {
+      const text = verses.find(item => item.verse === num).text;
+      const prefix = numVerses.length > 1 ? `\n${num / 10}. ` : '\n';
+      quote += prefix + text[languageValue];
+    });
+
     try {
-      await Share.share({
-        message: quote
-      });
+      await Share.share({ message: quote });
     } catch (error) {
       console.error('Error sharing:', error);
-    };
-  };
+    }
+  }, [bible, book.name, chapter, verseAbbs, numVerses, verses, languageValue]);
 
   return (
     <View style={styles.main}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Text style={styles.headerBible}>{bible}</Text>
-          <Text style={styles.headerBook}>
-            {book.name[languageValue]}
-          </Text>
+          <Text style={styles.headerBook}>{book.name[languageValue]}</Text>
           <View style={styles.headerQuote}>
-            <Text style={styles.headerChapter}>
-              {chapter}
-            </Text>
+            <Text style={styles.headerChapter}>{chapter}</Text>
             <Text style={styles.headerAbbs}>{verseAbbs}</Text>
           </View>
         </View>
         <View style={styles.headerRight}>
-
           <TouchableOpacity onPress={handleFavorites}>
             <Image
-              source={
-                showFavorite
-                  ? require("../images/heart.png")
-                  : verseAbbs !== '' && require("../images/empty.png")
-              }
-              style={[styles.headerImages, { display: verseAbbs === '' ? 'none' : 'flex' }]}
+              source={showFavorite ? require('../images/heart.png') : require('../images/empty.png')}
+              style={[styles.headerImages, { display: verseAbbs ? 'flex' : 'none' }]}
             />
           </TouchableOpacity>
-          {verseAbbs !== '' &&
+          {verseAbbs !== '' && (
             <TouchableOpacity onPress={handleShare}>
               <Image
-                source={require("../images/share.png")}
+                source={require('../images/share.png')}
                 style={styles.headerImages}
               />
             </TouchableOpacity>
-          }
+          )}
         </View>
       </View>
-
       <View style={styles.verses}>
         <FlatList
           data={verses}
@@ -139,14 +128,16 @@ const ComponentVerses = () => {
             <Verse
               verse={item}
               verseFavorite={favoriteVerses.includes(item.verse)}
-            />)}
-          keyExtractor={(verse) => String(verse.id)}
+            />
+          )}
+          keyExtractor={verse => String(verse.id)}
         />
       </View>
     </View>
   );
 };
-export default ComponentVerses
+
+export default ComponentVerses;
 
 const styles = StyleSheet.create({
   main: {
@@ -164,15 +155,12 @@ const styles = StyleSheet.create({
   headerRight: {
     flex: 2,
     flexDirection: 'row',
-    alignItems: "center",
-    // backgroundColor: 'green',
+    alignItems: 'center',
     justifyContent: 'space-around',
   },
   headerImages: {
     height: 35,
     width: 35,
-    // marginHorizontal: 30,
-    // paddingHorizontal: 30,
   },
   headerBible: {
     fontSize: 13,
@@ -183,10 +171,8 @@ const styles = StyleSheet.create({
   },
   headerQuote: {
     flexDirection: 'row',
-    alignContent: 'space-between', // Align to the left
   },
   headerChapter: {
-    width: 'auto',
     fontWeight: '500',
     paddingBottom: 5,
     fontSize: 16,
@@ -198,7 +184,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   verses: {
-    cursor: "pointer",
     paddingBottom: 100,
   },
 });

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { useFocusEffect } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,15 +33,17 @@ const ComponentChapters = () => {
         chapters: chapters,
         columnsValue: chapterColumnsValue
       }));
-  }, [chapters, chapterColumnsValue]);
+  }, [chapters, chapterColumnsValue, ScreenName]);
 
   useEffect(() => {
     dispatch(updateVerses([]));
-  }, [book, chapter])
+  }, [book, chapter, dispatch])
 
-  useFocusEffect(() => {
-    dispatch(changeScreen(ScreenName));
-  });
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(changeScreen(ScreenName));
+    }, [dispatch, ScreenName])
+  );
 
   // console.log('ComponentChapters favoriteChapters-->: ', favoriteChapters);
 

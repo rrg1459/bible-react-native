@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useRoute } from '@react-navigation/native';
 import { useFocusEffect } from "expo-router";
@@ -26,11 +26,6 @@ export default function ComponentBooks() {
   const [getTypes, setGetTypes] = useState('');
   const [favoriteBooks, setFavoriteBooks] = useState([]);
 
-  const getType = (id) => {
-    if (id === null) return;
-    return getTypes.find((item) => item.key === id).value[language];
-  };
-
   useEffect(() => {
     setFavoriteBooks(favoriteInTheBooks({ favorites }));
   }, [favorites]);
@@ -41,7 +36,7 @@ export default function ComponentBooks() {
       columnsValue: bookColumnsValue,
       type_id: type_id
     }));
-  }, [bookColumnsValue, type_id]);
+  }, [bookColumnsValue, type_id, ScreenName]);
 
   useEffect(() => {
     setGetTypes(getTypeNames({ language, types }));
@@ -53,9 +48,17 @@ export default function ComponentBooks() {
     setTypeName(getTypeName({ language, type_id, }));
   }, [language, type_id]);
 
-  useFocusEffect(() => {
-    dispatch(changeScreen(ScreenName));
-  });
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(changeScreen(ScreenName));
+    }, [dispatch, ScreenName])
+  );
+
+  const getType = useCallback((id) => {
+    if (id === null) return;
+    return getTypes.find((item) => item.key === id)?.value[language];
+  }, [getTypes, language]);
+
 
   // console.log('ComponentBooks favoriteBooks-->: ', favoriteBooks);
 
@@ -97,12 +100,6 @@ const styles = StyleSheet.create({
     fontSize: 23,
     paddingVertical: 10,
     textAlign: "center",
-  },
-  floatingMenuButtonStyle: {
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    bottom: 10,
-    right: 10
   },
   type: {
     paddingTop: 5,

@@ -1,46 +1,45 @@
+import React, { useMemo, useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../redux/quoteSlice";
 
 const Chapter = ({ chapter, columnsValue, amountChapters, chapterFavorite }) => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const columns = { fontSize: columnsValue === 6 && amountChapters > 99 ? 16 : 22 };
+  // Memoize styles based on columns value and amount of chapters
+  const columnsStyles = useMemo(() => ({
+    justifyContent: "center",
+    textAlign: "center",
+    fontSize: columnsValue === 6 && amountChapters > 99 ? 16 : 22,
+  }), [columnsValue, amountChapters]);
 
-  const fontSizeFavorite = [, , , , 12, 10, 9];
-  const topFontFavorite = [, , , , 1, 0, 0];
-  const topLeftFavorite = [, , , , 4, 3, 3];
+  const favoriteStyles = useMemo(() => ({
+    color: '#4278f5',
+    position: 'absolute',
+    fontSize: [, , , , 12, 10, 9][columnsValue],
+    top: [, , , , 1, 0, 0][columnsValue],
+    left: [, , , , 4, 3, 3][columnsValue],
+  }), [columnsValue]);
 
-  const goToVerses = () => {
+  const goToVerses = useCallback(() => {
     dispatch(updateChapter(chapter.id));
     navigation.navigate("verses");
-  };
+  }, [dispatch, navigation, chapter.id]);
 
   return (
     <TouchableOpacity style={{ flex: 1 }} onPress={chapter.show ? goToVerses : null}>
-      <View style={[styles.container, columns, chapter.show ? styles.withBorder : null]}>
-        {chapterFavorite &&
-          <Text style={{
-            color: '#4278f5',
-            position: 'absolute',
-            fontSize: fontSizeFavorite[columnsValue],
-            top: topFontFavorite[columnsValue],
-            left: topLeftFavorite[columnsValue],
-          }}>
-            ★
-          </Text>
-        }
-
-        <Text style={styles.id}>
+      <View style={[styles.container, chapter.show ? styles.withBorder : null]}>
+        {chapterFavorite && <Text style={favoriteStyles}>★</Text>}
+        <Text style={ columnsStyles }>
           {chapter.show && chapter.id}
         </Text>
       </View>
     </TouchableOpacity>
   );
-}
+};
+
 export default Chapter;
 
 const styles = StyleSheet.create({
@@ -49,12 +48,7 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 4,
     borderRadius: 5,
-    borderColor: "#fff"
-  },
-  id: {
-    justifyContent: "center",
-    textAlign: "center",
-    fontSize: 18,
+    borderColor: "#fff",
   },
   withBorder: {
     cursor: 'pointer',
@@ -68,12 +62,4 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 17, // For Android shadow, little box inside
   },
-  image: {
-    height: 21,
-    width: 21,
-  },
-  favorite: {
-    color: '#4278f5',
-    position: 'absolute',
-  }
 });
