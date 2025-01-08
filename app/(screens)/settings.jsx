@@ -99,13 +99,8 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>
-          E5.3
-        </Text>
+        <Text style={styles.version}>E7.1</Text>
       </View>
-
-
-
     </>
   );
 };
