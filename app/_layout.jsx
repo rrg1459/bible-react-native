@@ -12,7 +12,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { AppState, SafeAreaView, StyleSheet } from 'react-native';
+import { AppState, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -61,14 +62,14 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.content}>
+      <SafeAreaProvider style={styles.content}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(screens)" options={{ headerShown: false }} />
           </Stack>
           <StatusBar hidden />
         </ThemeProvider>
-      </SafeAreaView>
+      </SafeAreaProvider>
     </Provider>
   );
 };
