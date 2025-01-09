@@ -17,7 +17,7 @@ const SettingsGroups = ({ language, type_id }) => {
     const names = getTypeNames({ types });
     setItems(names);
     setSelectedValue(names.find((n) => n.key === type_id).value[language]);
-  }, [language]);
+  }, [language, type_id]);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
