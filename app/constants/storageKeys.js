@@ -5,5 +5,4 @@ export const KEY = {
   BookColumns: 'bookColumns',
   FontSizeVerse: 'fontSizeVerse',
   ChapterColumns: ' chapterColumns',
-  RetrieveFavorites: 'retrieveFavorites',
 };
