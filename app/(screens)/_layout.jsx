@@ -26,50 +26,50 @@ export default function TabLayout() {
     chapters: false,
     settings: false,
   });
-  
+
   const colorScheme = useColorScheme();
   const currentScreen = useSelector(state => state.quote.currentScreen);
   const languageValue = useSelector(state => state.quote.language);
-  
+
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
   const [isLoadingLanguage, setIsLoadingLanguage] = useState(true);
   const [isLoadingTypeID, setIsLoadingTypeID] = useState(true);
 
   useEffect(() => {
-  const fetchBookColumns = async () => {
-    const bookColumns = await Storage.getItem(KEY.BookColumns);
-    setIsLoadingBooks(false);
-    if (bookColumns) dispatch(changeBookColumns(bookColumns));
-  };
+    const fetchBookColumns = async () => {
+      const bookColumns = await Storage.getItem(KEY.BookColumns);
+      setIsLoadingBooks(false);
+      if (bookColumns) dispatch(changeBookColumns(bookColumns));
+    };
 
-  const fetchLanguage = async () => {
-    const lang = await Storage.getItem(KEY.Language);
-    setIsLoadingLanguage(false);
-    if (lang || lang === 0) {
-      dispatch(updateLanguage(lang));
-    }
-  };
+    const fetchLanguage = async () => {
+      const lang = await Storage.getItem(KEY.Language);
+      setIsLoadingLanguage(false);
+      if (lang || lang === 0) {
+        dispatch(updateLanguage(lang));
+      }
+    };
 
-  const fetchTypeID = async () => {
-    const typeID = await Storage.getItem(KEY.TypeID);
-    setIsLoadingTypeID(false);
-    if (typeID) dispatch(changeType(typeID));
-  };
+    const fetchTypeID = async () => {
+      const typeID = await Storage.getItem(KEY.TypeID);
+      setIsLoadingTypeID(false);
+      if (typeID) dispatch(changeType(typeID));
+    };
 
-  const fetchChapterColumns = async () => {
-    const chapterColumns = await Storage.getItem(KEY.ChapterColumns);
-    if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
-  };
+    const fetchChapterColumns = async () => {
+      const chapterColumns = await Storage.getItem(KEY.ChapterColumns);
+      if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
+    };
 
-  const fetchSizeVerse = async () => {
-    const sizeVerse = await Storage.getItem(KEY.FontSizeVerse);
-    if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
-  };
+    const fetchSizeVerse = async () => {
+      const sizeVerse = await Storage.getItem(KEY.FontSizeVerse);
+      if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
+    };
 
-  const fetchFavorites = async () => {
-    const favorites = await Storage.getItem(KEY.Favorites);
-    if (favorites) dispatch(updateFavorites(favorites));
-  };
+    const fetchFavorites = async () => {
+      const favorites = await Storage.getItem(KEY.Favorites);
+      if (favorites) dispatch(updateFavorites(favorites));
+    };
 
     fetchLanguage();
     fetchBookColumns();
