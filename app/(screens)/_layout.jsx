@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Storage } from '../utils/storage.js';
 import { KEY } from '../constants/storageKeys.js';
 import {
-  changeChapterColumns,
-  updateFontSizeVerse,
-  changeBookColumns,
-  updateFavorites,
-  updateLanguage,
   changeType,
+  updateLanguage,
+  updateFavorites,
+  changeBookColumns,
+  updateFontSizeVerse,
+  changeChapterColumns,
+  updateRetrieveFavorites,
 } from '../redux/quoteSlice';
 
 export default function TabLayout() {
@@ -68,15 +69,18 @@ export default function TabLayout() {
 
     const fetchFavorites = async () => {
       const favorites = await Storage.getItem(KEY.Favorites);
-      if (favorites) dispatch(updateFavorites(favorites));
+      if (favorites) {
+        dispatch(updateFavorites(favorites));
+        dispatch(updateRetrieveFavorites(favorites));
+      }
     };
 
+    fetchTypeID();
     fetchLanguage();
-    fetchBookColumns();
-    fetchChapterColumns();
     fetchSizeVerse();
     fetchFavorites();
-    fetchTypeID();
+    fetchBookColumns();
+    fetchChapterColumns();
   }, [dispatch]);
 
   useEffect(() => {

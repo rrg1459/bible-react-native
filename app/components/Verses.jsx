@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { FlatList, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeScreen, updateFavorites } from '../redux/quoteSlice';
+import { changeScreen, updateFavorites, updateRetrieveFavorites } from '../redux/quoteSlice';
 import { KEY } from '../constants/storageKeys';
 import { Storage } from '../utils/storage';
 import fillVerses from '../utils/fillVerses';
@@ -56,7 +56,6 @@ const ComponentVerses = () => {
   const saveFavorites = useCallback(async (favorites) => {
     try {
       await Storage.setItem(KEY.Favorites, favorites);
-      await Storage.setItem(KEY.RetrieveFavorites, favorites);
     } catch (error) {
       console.error('Failed to save font favorites verse:', error);
     }
@@ -74,6 +73,7 @@ const ComponentVerses = () => {
     });
 
     dispatch(updateFavorites(updatedFavorites));
+    dispatch(updateRetrieveFavorites(updatedFavorites));
     saveFavorites(updatedFavorites);
   }, [favorites, book.id, chapter, numVerses, showFavorite, dispatch, saveFavorites]);
 

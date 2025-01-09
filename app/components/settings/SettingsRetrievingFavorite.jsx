@@ -1,37 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateFavorites } from '../../redux/quoteSlice';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
 
 const SettingsRetrievingFavorite = ({ language }) => {
 
   const dispatch = useDispatch();
-
-  const [retrieveFavorites, setRetrieveFavorites] = useState({})
-
-  useEffect(() => {
-    const fetchRetrieveFavorites = async () => {
-      const retrieve = await Storage.getItem(KEY.RetrieveFavorites);
-      if (retrieve) setRetrieveFavorites(retrieve);
-    };
-
-    fetchRetrieveFavorites();
-  }, []);
-
-  const saveFavorites = useCallback(async (retrieve) => {
-    try {
-      await Storage.setItem(KEY.Favorites, retrieve);
-    } catch (error) {
-      console.error('Failed to save favorites:', error);
-    }
-  }, []);
+  const retrieveFavorites = useSelector(state => state.quote.retrieveFavorites);
 
   const onPress = useCallback(() => {
     dispatch(updateFavorites(retrieveFavorites));
-    saveFavorites(retrieveFavorites);
-  }, [dispatch, saveFavorites, retrieveFavorites]);
+  }, [dispatch, retrieveFavorites]);
 
   return (
     <TouchableOpacity
@@ -44,7 +23,6 @@ const SettingsRetrievingFavorite = ({ language }) => {
     </TouchableOpacity>
   )
 }
-
 export default SettingsRetrievingFavorite
 
 const styles = StyleSheet.create({

@@ -14,13 +14,14 @@ import empty from '../utils/emptyObject';
 
 const SettingsScreen = () => {
 
-  const currentScreen = useSelector(state => state.quote.currentScreen);
+  const type_id = useSelector(state => state.quote.type_id);
   const favorites = useSelector(state => state.quote.favorites);
-  const bookColumnsValue = useSelector(state => state.quote.bookColumns);
-  const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const languageValue = useSelector(state => state.quote.language);
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
-  const type_id = useSelector(state => state.quote.type_id);
+  const currentScreen = useSelector(state => state.quote.currentScreen);
+  const bookColumnsValue = useSelector(state => state.quote.bookColumns);
+  const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
+  const retrieveFavorites = useSelector(state => state.quote.retrieveFavorites);
 
   const lastTapTimeRef = useRef(null);
   const [isModalVisible, setModealVisible] = useState(false);
@@ -74,18 +75,17 @@ const SettingsScreen = () => {
         <SettingsLanguage language={languageValue} />
         {separator}
 
-        {empty(favorites) === true
-          ?
+        {empty(favorites) && !empty(retrieveFavorites) ? (
           <>
             <SettingsRetrievingFavorite language={languageValue} />
             {separator}
           </>
-          :
+        ) : (
           <>
             <SettingsFavorite language={languageValue} />
             {separator}
           </>
-        }
+        )}
 
         {currentScreen === 'books' &&
           <>
