@@ -1,8 +1,9 @@
 export const KEY = {
+  TypeID: 'type_id',
   Language: 'language',
   Favorites: 'favorites',
   BookColumns: 'bookColumns',
-  ChapterColumns: ' chapterColumns',
   FontSizeVerse: 'fontSizeVerse',
-  TypeID: 'type_id',
+  ChapterColumns: ' chapterColumns',
+  RetrieveFavorites: 'retrieveFavorites',
 };

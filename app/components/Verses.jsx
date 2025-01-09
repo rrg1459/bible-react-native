@@ -56,6 +56,7 @@ const ComponentVerses = () => {
   const saveFavorites = useCallback(async (favorites) => {
     try {
       await Storage.setItem(KEY.Favorites, favorites);
+      await Storage.setItem(KEY.RetrieveFavorites, favorites);
     } catch (error) {
       console.error('Failed to save font favorites verse:', error);
     }

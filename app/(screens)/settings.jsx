@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import SettingsVerses from '../components/settings/SettingsVerses';
 import SettingsRemember from '../components/settings/SettingsRemember';
 import SettingsGroups from '../components/settings/SettingsGroups';
 import SettingsFavorite from '../components/settings/SettingsFavorite';
+import SettingsRetrievingFavorite from '../components/settings/SettingsRetrievingFavorite';
 import empty from '../utils/emptyObject';
 
 const SettingsScreen = () => {
@@ -24,7 +25,8 @@ const SettingsScreen = () => {
   const lastTapTimeRef = useRef(null);
   const [isModalVisible, setModealVisible] = useState(false);
 
-  const Separator = () => <View style={styles.separator} />;
+  const separator = useMemo(() => <View style={styles.separator} />, []);
+
   const handleTap = useCallback(() => {
     const now = new Date().getTime();
     const DOUBLE_TAP_DELAY = 500; // Adjust as needed for your use case (in milliseconds)
@@ -68,42 +70,48 @@ const SettingsScreen = () => {
       <SettingsRemember language={languageValue} currentScreen={currentScreen} />
 
       <View style={styles.container}>
-        <Separator />
+        {separator}
         <SettingsLanguage language={languageValue} />
-        <Separator />
+        {separator}
 
-        {empty(favorites) === false &&
+        {empty(favorites) === true
+          ?
+          <>
+            <SettingsRetrievingFavorite language={languageValue} />
+            {separator}
+          </>
+          :
           <>
             <SettingsFavorite language={languageValue} />
-            <Separator />
+            {separator}
           </>
         }
 
         {currentScreen === 'books' &&
           <>
             <SettingsGroups language={languageValue} type_id={type_id} />
-            <Separator />
+            {separator}
             <SettingsBooks language={languageValue} columns={bookColumnsValue} />
-            <Separator />
+            {separator}
           </>
         }
 
         {currentScreen === 'chapters' &&
           <>
             <SettingsChapters language={languageValue} columns={chapterColumnsValue} />
-            <Separator />
+            {separator}
           </>
         }
 
         {currentScreen === 'verses' &&
           <>
             <SettingsVerses language={languageValue} fontSizeVerse={fontSizeVerse} />
-            <Separator />
+            {separator}
           </>
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E8.1</Text>
+        <Text style={styles.version}>E9.1</Text>
       </View>
     </>
   );
