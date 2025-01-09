@@ -43,11 +43,6 @@ const SettingsScreen = () => {
       <Modal
         isVisible={isModalVisible}
         testID={'modalAuthor'}
-        // animationInTiming={1000}
-        // animationOutTiming={1000}
-        // backdropTransitionInTiming={800}
-        // backdropTransitionOutTiming={800}
-        // onBackdropPress={setModalVisible(false)}
         onBackdropPress={handleBackdropPress}
         backdropColor="#ebf9f5"
         backdropOpacity={0.85}
@@ -108,7 +103,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E7.1</Text>
+        <Text style={styles.version}>E8.1</Text>
       </View>
     </>
   );
