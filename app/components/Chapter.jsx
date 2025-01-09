@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../redux/quoteSlice";
@@ -18,9 +18,9 @@ const Chapter = ({ chapter, columnsValue, amountChapters, chapterFavorite }) => 
   const favoriteStyles = useMemo(() => ({
     color: '#4278f5',
     position: 'absolute',
-    fontSize: [, , , , 12, 10, 9][columnsValue],
+    fontSize: [, , , , 16, 14, 12][columnsValue],
     top: [, , , , 1, 0, 0][columnsValue],
-    left: [, , , , 4, 3, 3][columnsValue],
+    left: [, , , , 5, 3, 3][columnsValue],
   }), [columnsValue]);
 
   const goToVerses = useCallback(() => {
@@ -29,14 +29,19 @@ const Chapter = ({ chapter, columnsValue, amountChapters, chapterFavorite }) => 
   }, [dispatch, navigation, chapter.id]);
 
   return (
-    <TouchableOpacity style={{ flex: 1 }} onPress={chapter.show ? goToVerses : null}>
+    <Pressable
+      style={({ pressed }) => [
+        { backgroundColor: pressed ? '#d2e6ff' : null },
+        { flex: 1 },
+      ]}
+      onPress={chapter.show ? goToVerses : null}>
       <View style={[styles.container, chapter.show ? styles.withBorder : null]}>
         {chapterFavorite && <Text style={favoriteStyles}>★</Text>}
-        <Text style={ columnsStyles }>
+        <Text style={columnsStyles}>
           {chapter.show && chapter.id}
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

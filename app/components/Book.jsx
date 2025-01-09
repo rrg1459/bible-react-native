@@ -18,9 +18,9 @@ const Book = ({ book, type, bookFavorite }) => {
   const containerStyles = useMemo(() => ({ backgroundColor: bookColor, ...styles.container }), [bookColor]);
   const favoriteStyles = useMemo(() => ({
     position: 'absolute',
-    fontSize: [, 16, 18, 15, 12, 10, 8][bookColumnsValue],
-    top: [, 8, 8, 4, 4, 3, 3][bookColumnsValue],
-    left: [, 8, 8, 4, 4, 3, 3][bookColumnsValue],
+    fontSize: [, 18, 20, 17, 14, 10, 8][bookColumnsValue],
+    top:      [, 10,  3,  2,  1,  1, 1][bookColumnsValue],
+    left:     [, 16,  8,  6,  4,  3, 3][bookColumnsValue],
     color: [,
       '#FFE5B4', // pentateuch
       '#ffff00', // historicals
