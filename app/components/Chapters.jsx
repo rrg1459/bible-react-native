@@ -13,7 +13,7 @@ const ComponentChapters = () => {
   const languageValue = useSelector(state => state.quote.language);
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const book = useSelector(state => state.quote.book);
-  const chapter = useSelector(state => state.quote.numChapter);
+  const currentChapter = useSelector(state => state.quote.numChapter);
   const favorites = useSelector(state => state.quote.favorites);
   const dispatch = useDispatch();
   const { chapters, name } = book;
@@ -37,15 +37,13 @@ const ComponentChapters = () => {
 
   useEffect(() => {
     dispatch(updateVerses([]));
-  }, [book, chapter, dispatch])
+  }, [book, currentChapter, dispatch])
 
   useFocusEffect(
     useCallback(() => {
       dispatch(changeScreen(ScreenName));
     }, [dispatch, ScreenName])
   );
-
-  // console.log('ComponentChapters favoriteChapters-->: ', favoriteChapters);
 
   return (
     <View style={styles.main} >
@@ -77,6 +75,8 @@ const ComponentChapters = () => {
               chapterFavorite={favoriteChapters.includes(item.id)}
               columnsValue={chapterColumnsValue}
               amountChapters={chaptersVector.length}
+              isCurrentChapter={currentChapter === item.id ? true : false}
+              language={languageValue}
             />)}
           keyExtractor={(chapter) => String(chapter.id)}
         />
