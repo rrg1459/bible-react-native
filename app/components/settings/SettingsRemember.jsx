@@ -1,12 +1,14 @@
+import { useMemo } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native'
 
 const SettingsRemember = ({ language, currentScreen }) => {
 
-  const screenNames = {
+  const screenNames = useMemo(() => ({
     books: ['books', 'libros'],
     chapters: ['chapters', 'capítulos'],
     verses: ['verses', 'versículos'],
-  };
+  }), []);
+
 
   const Fingers = () => (
     <Image
