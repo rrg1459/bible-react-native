@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateFavorites } from '../../redux/quoteSlice';
@@ -12,30 +12,27 @@ const SettingsFavorite = ({ language }) => {
 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const saveFavorite = async (lang) => {
+  const saveFavorite = useCallback(async (data) => {
     try {
-      await Storage.setItem(KEY.Favorites, lang);
+      await Storage.setItem(KEY.Favorites, data);
     } catch (error) {
       console.error('Failed to save favorite:', error);
     }
-  };
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  }, []);
 
-  const onPress = () => {
-    toggleModal();
-  };
+  const toggleModal = useCallback(() => {
+    setModalVisible((prev) => !prev);
+  }, []);
 
-  const onPressYes = () => {
+  const onPressYes = useCallback(() => {
     toggleModal();
     dispatch(updateFavorites({}));
     saveFavorite({});
-  }
+  }, [dispatch, saveFavorite, toggleModal]);
 
-  const onPressNo = () => {
+  const onPressNo = useCallback(() => {
     toggleModal();
-  }
+  }, [toggleModal]);
 
   return (
 
@@ -74,7 +71,7 @@ const SettingsFavorite = ({ language }) => {
       </Modal>
 
       <Pressable
-        onPress={onPress}
+        onPress={toggleModal}
         style={styles.button}
       >
         <Text style={styles.textButton}>

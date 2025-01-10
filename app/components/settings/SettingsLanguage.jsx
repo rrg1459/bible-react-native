@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/quoteSlice';
@@ -8,19 +9,21 @@ const SettingsLanguage = ({ language }) => {
 
   const dispatch = useDispatch();
 
-  const saveLanguage = async (lang) => {
+    // const saveColumn = useCallback(async (column) => {
+  
+  const saveLanguage = useCallback(async (lang) => {
     try {
       await Storage.setItem(KEY.Language, lang);
     } catch (error) {
       console.error('Failed to save language:', error);
     }
-  };
+  }, []);
 
-  const onPress = () => {
+  const onPress = useCallback(() => {
     const lang = language ? 0 : 1;
     dispatch(updateLanguage(lang));
     saveLanguage(lang);
-  };
+  }, [dispatch, saveLanguage, language]);
 
   return (
     <TouchableOpacity

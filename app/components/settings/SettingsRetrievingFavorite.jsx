@@ -2,15 +2,26 @@ import { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFavorites } from '../../redux/quoteSlice';
+import { Storage } from '../../utils/storage';
+import { KEY } from '../../constants/storageKeys';
 
 const SettingsRetrievingFavorite = ({ language }) => {
 
   const dispatch = useDispatch();
   const retrieveFavorites = useSelector(state => state.quote.retrieveFavorites);
 
+  const saveFavorites = useCallback(async (favorites) => {
+    try {
+      await Storage.setItem(KEY.Favorites, favorites);
+    } catch (error) {
+      console.error('Failed to save font favorites verse:', error);
+    }
+  }, []);
+
   const onPress = useCallback(() => {
     dispatch(updateFavorites(retrieveFavorites));
-  }, [dispatch, retrieveFavorites]);
+    saveFavorites(retrieveFavorites);
+  }, [dispatch, retrieveFavorites, saveFavorites]);
 
   return (
     <TouchableOpacity

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { changeType } from '../../redux/quoteSlice';
@@ -19,26 +19,26 @@ const SettingsGroups = ({ language, type_id }) => {
     setSelectedValue(names.find((n) => n.key === type_id).value[language]);
   }, [language, type_id]);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = useCallback(() => setIsOpen((prevState) => !prevState), []);
 
-  const saveTypeID = async (key) => {
+  const saveTypeID = useCallback(async (key) => {
     try {
       await Storage.setItem(KEY.TypeID, key);
     } catch (error) {
       console.error('Failed to save type ID:', error);
     }
-  };
+  }, []);
 
-  const onSelect = (key) => {
+  const onSelect = useCallback((key) => {
     dispatch(changeType(key));
     saveTypeID(key);
-  };
+  }, [dispatch, saveTypeID]);
 
-  const handleItemSelect = (item) => {
+  const handleItemSelect = useCallback((item) => {
     setSelectedValue(item.value[language]);
     setIsOpen(false);
     onSelect(item.key);
-  };
+  }, [language, onSelect]);
 
   return (
     <View>

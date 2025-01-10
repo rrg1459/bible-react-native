@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Slider from '@react-native-community/slider';
@@ -9,18 +10,18 @@ const SettingsVerses = ({ language, fontSizeVerse }) => {
 
   const dispatch = useDispatch();
 
-  const saveFontSizeVerse = async (size) => {
+  const saveFontSizeVerse = useCallback(async (size) => {
     try {
       await Storage.setItem(KEY.FontSizeVerse, size);
     } catch (error) {
       console.error('Failed to save font size verse:', error);
     }
-  };
+  }, []);
 
-  const handleSliderChange = (size) => {
+  const handleSliderChange = useCallback((size) => {
     dispatch(updateFontSizeVerse(size));
     saveFontSizeVerse(size);
-  };
+  }, [dispatch, saveFontSizeVerse]);
 
   return (
     <View>
