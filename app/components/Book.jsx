@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBook } from "../redux/quoteSlice";
+import { updateBook, updateChapter } from "../redux/quoteSlice";
 import { useNavigation } from "expo-router";
 import getColorByBookType from "../utils/getColorByBookType"
 
-const Book = ({ book, type, bookFavorite }) => {
+const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
 
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
@@ -38,10 +38,9 @@ const Book = ({ book, type, bookFavorite }) => {
 
   const goToChapters = useCallback(() => {
     dispatch(updateBook(book));
+    if (isNotCurrentBook) dispatch(updateChapter(null));
     navigation.navigate("chapters", book);
-  }, [dispatch, navigation, book]);
-
-  // console.log('Book book-->: ', book);
+  }, [dispatch, navigation, book, isNotCurrentBook]);
 
   return (
     <TouchableOpacity style={{ flex: 1 }} onPress={book.testament_id ? goToChapters : null}>

@@ -20,6 +20,7 @@ export default function ComponentBooks() {
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
   const favorites = useSelector(state => state.quote.favorites);
   const type_id = useSelector(state => state.quote.type_id);
+  const currentBook = useSelector(state => state.quote.book);
   const [books, setBooks] = useState([]);
   const [typeName, setTypeName] = useState('');
   const [bible, setBible] = useState('');
@@ -59,9 +60,6 @@ export default function ComponentBooks() {
     return getTypes.find((item) => item.key === id)?.value[language];
   }, [getTypes, language]);
 
-
-  // console.log('ComponentBooks favoriteBooks-->: ', favoriteBooks);
-
   return (
     <View style={styles.main} >
       <Text style={styles.headerBible}>{bible}</Text>
@@ -79,9 +77,8 @@ export default function ComponentBooks() {
               book={item}
               type={getType(item.type_id)}
               bookFavorite={favoriteBooks.includes(item.id)}
-              />)}
-
-
+              isNotCurrentBook={currentBook !== item ? true : false}
+            />)}
           keyExtractor={(book) => String(book.id)}
         />
       </View>
