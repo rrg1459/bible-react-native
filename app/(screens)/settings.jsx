@@ -111,7 +111,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E9.1</Text>
+        <Text style={styles.version}>E10.1</Text>
       </View>
     </>
   );
@@ -154,8 +154,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   author: {
-    // color: 'grey',
-    // backgroundColor: 'blue',
     marginLeft: 10,
     fontStyle: 'italic',
   },
@@ -166,11 +164,8 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    // width: 'auto',
     marginHorizontal: 'auto',
-    // alignItems: 'center',
-    // justifyContent: 'enter',
-    marginTop: 195,
+    marginTop: 70,
   },
   modalView: {
     padding: 10,
