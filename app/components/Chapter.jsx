@@ -51,7 +51,7 @@ const Chapter = ({
       {({ pressed }) => (
         pressed
           ?
-          <View style={[styles.containerImage, chapter.show ? styles.withBorderImage : null]}>
+          <View style={[styles.containerImage, chapter.show ? styles.withBorderImage : styles.noShow]}>
             <Image
               source={require('../images/wind.png')}
               style={imageStyles}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   withBorderImage: {
-    cursor: 'pointer',
+    // cursor: 'pointer',
     borderWidth: 1,
     backgroundColor: '#e8e8e8',
     borderColor: 'grey',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     elevation: 17, // For Android shadow, little box inside
   },
   withBorder: {
-    cursor: 'pointer',
+    // cursor: 'pointer',
     borderWidth: 1,
     backgroundColor: '#e8e8e8',
     borderColor: '#e8e8e8',
@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 6,
     elevation: 17, // For Android shadow, little box inside
+  },
+  noShow: {
+    display: 'none',
   },
   currentChapter: {
     fontStyle: 'italic',
