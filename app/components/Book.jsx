@@ -14,13 +14,13 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
   const navigation = useNavigation();
 
   const bookColor = useMemo(() => book.type_id ? getColorByBookType(book.type_id) : 'none', [book.type_id]);
-  const typeName = useMemo(() => bookColumnsValue > 1 ? type?.substr(0, 4) : type, [type, bookColumnsValue]);
+  const typeName = useMemo(() => bookColumnsValue > 3 ? type?.substr(0, 4) : type, [type, bookColumnsValue]);
   const containerStyles = useMemo(() => ({ backgroundColor: bookColor, ...styles.container }), [bookColor]);
   const favoriteStyles = useMemo(() => ({
     position: 'absolute',
     fontSize: [, 18, 20, 17, 14, 10, 8][bookColumnsValue],
-    top:      [, 10,  3,  2,  1,  1, 1][bookColumnsValue],
-    left:     [, 16,  8,  6,  4,  3, 3][bookColumnsValue],
+    top:      [, 10,  3,  2,  1,  0, 1][bookColumnsValue],
+    left:     [, 16,  8,  6,  4,  2, 3][bookColumnsValue],
     color: [,
       '#FFE5B4', // pentateuch
       '#ffff00', // historicals
@@ -32,9 +32,40 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
       '#000000', // revelation
     ][book.type_id]
   }), [bookColumnsValue, book.type_id]);
-  const fontAbbrNameStyles = useMemo(() => ({ fontSize: [, , 29, 25, 22, 20, 16][bookColumnsValue] }), [bookColumnsValue]);
-  const fontBookNameStyles = useMemo(() => ({ fontSize: [, 28, 15, 10, 7, 5, 4][bookColumnsValue] }), [bookColumnsValue]);
-  const Styles = useMemo(() => ({ fontSize: [, 11, 16, 9, 8][bookColumnsValue] }), [bookColumnsValue]);
+  const fontTypeNameStyles = useMemo(() => ({ fontSize: [, 14, 12, 11, 11, 9, 8][bookColumnsValue] }), [bookColumnsValue]);
+  const colorTypeNameStyles = useMemo(() => ({ color: [1, 6, 8].includes(book.type_id) ? 'white' : 'black' }), [book.type_id]);
+
+  const fontAbbrNameStyles = useMemo(() => {
+    let padding = {};
+    switch (bookColumnsValue) {
+      case 3:
+      case 4:
+        padding = { paddingTop: 15 };
+        break;
+      case 6:
+        padding = { paddingVertical: 6 };
+        break;
+      default:
+        padding = {};
+    }
+    return { ...padding, fontSize: [,, 29, 25, 22, 20, 16][bookColumnsValue] }
+  }, [bookColumnsValue]);
+
+
+  const fontBookNameStyles = useMemo(() => {
+    let padding = {};
+    switch (bookColumnsValue) {
+      case 1:
+        padding = { paddingTop: 16 };
+        break;
+      case 2:
+        padding = { paddingTop: 20 };
+        break;
+      default:
+        padding = {};
+    }
+    return { ...padding, fontSize: [, 28, 18, 10, 7, 5, 4][bookColumnsValue] };
+  }, [bookColumnsValue]);
 
   const goToChapters = useCallback(() => {
     dispatch(updateBook(book));
@@ -46,11 +77,11 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
     <TouchableOpacity style={{ flex: 1 }} onPress={book.testament_id ? goToChapters : null}>
       <View style={[containerStyles, book.testament_id ? styles.withBorder : styles.noShow]} >
         {bookFavorite && <Text style={favoriteStyles}>★</Text>}
-        {bookColumnsValue > 1 &&
+        {bookColumnsValue > 2 &&
           <Text style={fontAbbrNameStyles}>{book.abbreviation[languageValue]}</Text>
         }
         {bookColumnsValue < 5 && type_id > 8 &&
-          <Text style={[styles.type, Styles]}>{typeName}</Text>
+          <Text style={[styles.type, fontTypeNameStyles, colorTypeNameStyles]}>{typeName}</Text>
         }
         {bookColumnsValue < 6 &&
           <Text style={fontBookNameStyles}>{book.name[languageValue]}</Text>
@@ -72,7 +103,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff"
   },
   type: {
-    fontSize: 12,
+    // color: 'white',
     position: 'absolute',
     top: 5,
     right: 5,
