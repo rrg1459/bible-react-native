@@ -19,5 +19,8 @@
         "buildType": "app-bundle"
       }
     }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
