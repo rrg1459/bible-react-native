@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Bible-KJV Biblia-RV",
+    "name": "Bible\nBiblia",
     "slug": "bible-react-native",
-    "version": "1.0.0",
+    "version": "E.15.1",
     "orientation": "portrait",
     "icon": "./assets/images/bible512.png",
     "scheme": "myapp",
