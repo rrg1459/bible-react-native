@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Tabs } from 'expo-router';
 import { IconSymbol } from '@/app/components/ui/IconSymbol';
@@ -6,8 +6,8 @@ import TabBarBackground from '@/app/components/ui/TabBarBackground';
 import { Colors } from '@/app/constants/Colors';
 import { useColorScheme } from '@/app/hooks/useColorScheme';
 import { useDispatch, useSelector } from 'react-redux';
-import { Storage } from '../utils/storage.js';
-import { KEY } from '../constants/storageKeys.js';
+import { Storage } from '../utils/storage';
+import { KEY } from '../constants/storageKeys';
 import {
   changeType,
   updateLanguage,
@@ -18,70 +18,58 @@ import {
   updateRetrieveFavorites,
 } from '../redux/quoteSlice';
 
-export default function TabLayout() {
+const useFetchData = (dispatch, setLoadingStates) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [
+          typeID,
+          lang,
+          sizeVerse,
+          favorites,
+          bookColumns,
+          chapterColumns
+        ] = await Promise.all([
+          Storage.getItem(KEY.TypeID),
+          Storage.getItem(KEY.Language),
+          Storage.getItem(KEY.FontSizeVerse),
+          Storage.getItem(KEY.Favorites),
+          Storage.getItem(KEY.BookColumns),
+          Storage.getItem(KEY.ChapterColumns)
+        ]);
 
-  const dispatch = useDispatch();
+        if (typeID) dispatch(changeType(typeID));
+        if (lang || lang === 0) dispatch(updateLanguage(lang));
+        if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
+        if (favorites) {
+          dispatch(updateFavorites(favorites));
+          dispatch(updateRetrieveFavorites(favorites));
+        }
+        if (bookColumns) dispatch(changeBookColumns(bookColumns));
+        if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
 
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoadingStates(prevState => ({
+          ...prevState,
+          isLoadingBooks: false,
+          isLoadingLanguage: false,
+          isLoadingTypeID: false,
+        }));
+      }
+    };
+
+    fetchData();
+  }, [dispatch, setLoadingStates]);
+};
+
+const useShowState = (currentScreen) => {
   const [showState, setShowState] = useState({
     books: false,
     chapters: false,
     settings: false,
   });
-
-  const colorScheme = useColorScheme();
-  const currentScreen = useSelector(state => state.quote.currentScreen);
-  const languageValue = useSelector(state => state.quote.language);
-
-  const [isLoadingBooks, setIsLoadingBooks] = useState(true);
-  const [isLoadingLanguage, setIsLoadingLanguage] = useState(true);
-  const [isLoadingTypeID, setIsLoadingTypeID] = useState(true);
-
-  useEffect(() => {
-    const fetchBookColumns = async () => {
-      const bookColumns = await Storage.getItem(KEY.BookColumns);
-      setIsLoadingBooks(false);
-      if (bookColumns) dispatch(changeBookColumns(bookColumns));
-    };
-
-    const fetchLanguage = async () => {
-      const lang = await Storage.getItem(KEY.Language);
-      setIsLoadingLanguage(false);
-      if (lang || lang === 0) {
-        dispatch(updateLanguage(lang));
-      }
-    };
-
-    const fetchTypeID = async () => {
-      const typeID = await Storage.getItem(KEY.TypeID);
-      setIsLoadingTypeID(false);
-      if (typeID) dispatch(changeType(typeID));
-    };
-
-    const fetchChapterColumns = async () => {
-      const chapterColumns = await Storage.getItem(KEY.ChapterColumns);
-      if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
-    };
-
-    const fetchSizeVerse = async () => {
-      const sizeVerse = await Storage.getItem(KEY.FontSizeVerse);
-      if (sizeVerse) dispatch(updateFontSizeVerse(sizeVerse));
-    };
-
-    const fetchFavorites = async () => {
-      const favorites = await Storage.getItem(KEY.Favorites);
-      if (favorites) {
-        dispatch(updateFavorites(favorites));
-        dispatch(updateRetrieveFavorites(favorites));
-      }
-    };
-
-    fetchTypeID();
-    fetchLanguage();
-    fetchSizeVerse();
-    fetchFavorites();
-    fetchBookColumns();
-    fetchChapterColumns();
-  }, [dispatch]);
 
   useEffect(() => {
     switch (currentScreen) {
@@ -102,57 +90,88 @@ export default function TabLayout() {
     }
   }, [currentScreen]);
 
+  return showState;
+};
+
+export default function TabLayout() {
+  const dispatch = useDispatch();
+
+  const [loadingStates, setLoadingStates] = useState({
+    isLoadingBooks: true,
+    isLoadingLanguage: true,
+    isLoadingTypeID: true,
+  });
+
+  useFetchData(dispatch, setLoadingStates);
+
+  const colorScheme = useColorScheme();
+  const currentScreen = useSelector(state => state.quote.currentScreen);
+  const languageValue = useSelector(state => state.quote.language);
+
+  const showState = useShowState(currentScreen);
   const { books, chapters } = showState;
 
-  if (isLoadingBooks || isLoadingLanguage || isLoadingTypeID) {
+  const isLoading = useMemo(() => 
+    loadingStates.isLoadingBooks || loadingStates.isLoadingLanguage || loadingStates.isLoadingTypeID, 
+    [loadingStates]
+  );
+
+  if (isLoading) {
     return (
       <View style={styles.activityIndicator}>
         <ActivityIndicator size='large' color='blue' />
       </View>
-    )
-  };
+    );
+  }
 
   return (
     <Tabs
+    style={{margin: 10}}
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarBackground: TabBarBackground,
+        tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
           display: books ? 'flex' : 'none',
         }
       }}>
-
       <Tabs.Screen
         name="books"
         options={{
           title: languageValue ? 'Libros' : 'Books',
           headerTransparent: true,
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
+          tabBarLabelStyle: styles.tabBarLabelStyle,
           href: books ? '/' : null
         }}
       />
-
       <Tabs.Screen
         name="chapters"
         options={{
           title: languageValue ? 'Capítulos' : 'Chapters',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="chair.fill" color={color} />,
+          tabBarLabelStyle: styles.tabBarLabelStyle,
           href: chapters ? '/chapters' : null
+
         }}
       />
-
       <Tabs.Screen name="index" options={{ href: null }} />
       <Tabs.Screen name="verses" options={{ href: null }} />
       <Tabs.Screen name="settings" options={{ href: null }} />
     </Tabs>
   );
-};
+}
 
 const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  tabBarLabelStyle: {
+    fontSize: 14,
+    fontFamily: 'Georgia',
+    fontWeight: '500',
   },
 });
