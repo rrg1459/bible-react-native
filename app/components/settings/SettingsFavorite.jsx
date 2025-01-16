@@ -43,7 +43,7 @@ const SettingsFavorite = ({ language }) => {
         testID={'modal'}
         onBackdropPress={toggleModal}
         backdropColor="#ebf9f5"
-        backdropOpacity={0.6}
+        backdropOpacity={0.8}
         animationIn="zoomInDown"
         animationOut="zoomOutUp"
         animationInTiming={600}
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     lineHeight: 51,
   },
   modalContent: {
-    backgroundColor: 'aqua',
+    backgroundColor: '#F1FAF8',
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: 'grey',
