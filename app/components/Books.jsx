@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   headerBible: {
     backgroundColor: '#7dfcd2',
-    fontSize: 23,
+    fontSize: 22,
     paddingVertical: 10,
     textAlign: "center",
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   books: {
-    flex: 1, // the number of columns you want to devide the screen into
+    flex: 1,
     marginHorizontal: 4,
     paddingTop: 5,
     paddingBottom: 5,
