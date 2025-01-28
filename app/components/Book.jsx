@@ -10,7 +10,7 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
-  const type_id = useSelector(state => state.quote.type_id);
+  const typeIdValue = useSelector(state => state.quote.type_id);
   const navigation = useNavigation();
 
   const bookColor = useMemo(() => book.type_id ? getColorByBookType(book.type_id) : 'none', [book.type_id]);
@@ -40,7 +40,7 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
     switch (bookColumnsValue) {
       case 3:
       case 4:
-        padding = { paddingTop: 15 };
+        padding = typeIdValue > 8 ? { paddingTop: 15 } : { paddingTop: 2 };
         break;
       case 6:
         padding = { paddingVertical: 6 };
@@ -49,23 +49,23 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
         padding = {};
     }
     return { ...padding, fontSize: [,, 29, 25, 22, 20, 16][bookColumnsValue] }
-  }, [bookColumnsValue]);
+  }, [bookColumnsValue, typeIdValue]);
 
 
   const fontBookNameStyles = useMemo(() => {
     let padding = {};
     switch (bookColumnsValue) {
       case 1:
-        padding = { paddingTop: 16 };
+        padding = typeIdValue > 8 ? { paddingTop: 16 } : { paddingVertical: 8 };
         break;
       case 2:
-        padding = { paddingTop: 20 };
+        padding = typeIdValue > 8 ? { paddingTop: 20 } : { paddingVertical: 10 };
         break;
       default:
         padding = {};
     }
     return { ...padding, fontSize: [, 28, 18, 10, 7, 5, 4][bookColumnsValue] };
-  }, [bookColumnsValue]);
+  }, [bookColumnsValue, typeIdValue]);
 
   const goToChapters = useCallback(() => {
     dispatch(updateBook(book));
@@ -80,7 +80,7 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
         {bookColumnsValue > 2 &&
           <Text style={fontAbbrNameStyles}>{book.abbreviation[languageValue]}</Text>
         }
-        {bookColumnsValue < 5 && type_id > 8 &&
+        {bookColumnsValue < 5 && typeIdValue > 8 &&
           <Text style={[styles.type, fontTypeNameStyles, colorTypeNameStyles]}>{typeName}</Text>
         }
         {bookColumnsValue < 6 &&
