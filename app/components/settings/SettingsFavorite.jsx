@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { updateFavorites } from '../../redux/quoteSlice';
 import { Storage } from '../../utils/storage';
 import { KEY } from '../../constants/storageKeys';
-import Modal from 'react-native-modal';
+import Modal from 'react-native-modalbox';
 
 const SettingsFavorite = ({ language }) => {
 
@@ -39,19 +39,19 @@ const SettingsFavorite = ({ language }) => {
     <>
 
       <Modal
-        isVisible={isModalVisible}
+        isOpen={isModalVisible}
         testID={'modal'}
-        onBackdropPress={toggleModal}
-        backdropColor="#ebf9f5"
+        style={styles.modal}
+        animationDuration={600}
+        position="center"
+        // backdrop={true}
+        coverScreen={true}
+
+
+        // backdropColor="#ebf9f5"
         backdropOpacity={0.8}
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={600}
-        animationOutTiming={600}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={600}
       >
-        <View style={styles.modalContent}>
+        <View>
           <Text style={styles.modalText}>
             {language
             ? '¿Está seguro de\nolvidar los favoritos?'
@@ -105,14 +105,18 @@ const styles = StyleSheet.create({
     letterSpacing: 1.25,
     lineHeight: 51,
   },
-  modalContent: {
+  modal: {
+    height: 170,
+    width: 265,
+    justifyContent: 'center',
     backgroundColor: '#F1FAF8',
-    borderRadius: 10,
     borderWidth: 0.5,
     borderColor: 'grey',
+    alignItems: 'center',
+    borderRadius: 10,
+    // backgroundColor: 'tomato',
     elevation: 10,
-    padding: 20,
-    margin: 'auto',
+    // margin: 'auto',
     shadowOpacity: 0.3,
     shadowRadius: 5,
     shadowOffset: {
@@ -120,6 +124,8 @@ const styles = StyleSheet.create({
       width: 1,
     },
   },
+
+
   modalText: {
     fontSize: 20,
     textAlign: 'center',

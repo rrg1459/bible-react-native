@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import Modal from 'react-native-modal';
+import Modal from 'react-native-modalbox';
 import { useSelector } from 'react-redux';
 import SettingsLanguage from '../components/settings/SettingsLanguage';
 import SettingsBooks from '../components/settings/SettingsBooks';
@@ -44,19 +44,16 @@ const SettingsScreen = () => {
   return (
     <>
       <Modal
-        isVisible={isModalVisible}
+        isOpen={isModalVisible}
         testID={'modalAuthor'}
-        onBackdropPress={handleBackdropPress}
-        backdropColor="#ebf9f5"
-        backdropOpacity={0.85}
-        animationIn="zoomInDown"
-        animationOut="zoomOutUp"
-        animationInTiming={600}
-        animationOutTiming={600}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={600}
+        // backdropOpacity={0.85}
+        animationDuration={600}
+        position="top"
+        coverScreen={true}
+        style={[styles.modal, styles.modalPosition]}
+
       >
-        <Pressable style={styles.centeredView} onPress={handleBackdropPress}>
+        <Pressable onPress={handleBackdropPress}>
           <View style={styles.modalView}>
             <Text style={styles.author}>
               {languageValue ? 'desarrollado con ❤️ por rafaDev' : 'developed with ❤️ by rafaDev'}
@@ -111,7 +108,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E17.1</Text>
+        <Text style={styles.version}>E28.1</Text>
       </View>
     </>
   );
@@ -128,9 +125,9 @@ const styles = StyleSheet.create({
   labelHeader: {
     textAlign: "center",
     backgroundColor: '#ebf9f5',
-    fontSize: 50,
-    paddingTop: 30,
-    paddingBottom: 20,
+    fontSize: 30,
+    paddingTop: 10,
+    paddingBottom: 5,
     color: '#3acaa6'
   },
   container: {
@@ -154,7 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   author: {
-    marginLeft: 10,
+    // marginLeft: 10,
     fontStyle: 'italic',
   },
   version: {
@@ -162,12 +159,38 @@ const styles = StyleSheet.create({
     color: 'black',
     marginRight: 10,
   },
-  centeredView: {
-    flex: 1,
-    marginHorizontal: 'auto',
-    marginTop: 70,
+  modal: {
+    height: 'auto',
+    // width: 245,
+
+    // padding: 10,
+    // borderRadius: 4,
+    // shadowOpacity: 0.25,
+    // shadowRadius: 4,
+    // elevation: 2,
+
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    // borderWidth: 0.5,
+    // borderColor: 'grey',
+    alignItems: 'center',
+    // borderRadius: 10,
+    // backgroundColor: 'tomato',
+    // elevation: 10,
+    // margin: 'auto',
+    // shadowOpacity: 0.8,
+    // shadowRadius: 5,
+    // shadowOffset: {
+      // height: 3,
+      // width: 1,
+    // },
+  },
+  modalPosition: {
+    marginTop: 10, // Posicionar el modal a 200 píxeles desde la parte superior
   },
   modalView: {
+    backgroundColor: '#ebf9f5',
+    // width: 245,
     padding: 10,
     borderRadius: 4,
     shadowOpacity: 0.25,
