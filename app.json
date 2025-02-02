@@ -2,8 +2,7 @@
   "expo": {
     "name": "Bible\nBiblia",
     "slug": "bible-react-native",
-    "version": "E.17.1",
-    "orientation": "portrait",
+    "version": "E.29.1",
     "icon": "./assets/images/bible512.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -23,7 +22,7 @@
         "backgroundColor": "#7dfcd2"
       },
       "package": "com.elorat.biblereactnative",
-      "versionCode": 7
+      "versionCode": 19
     },
     "web": {
       "bundler": "metro",
@@ -40,7 +39,8 @@
           "resizeMode": "cover",
           "backgroundColor": "#7dfcd2"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
@@ -52,6 +52,9 @@
       "eas": {
         "projectId": "7d53b729-8c36-40d3-ac05-bf29bd4a393c"
       }
+    },
+    "ios": {
+      "bundleIdentifier": "com.elorat.biblereactnative"
     }
   }
 }
