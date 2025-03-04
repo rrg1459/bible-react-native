@@ -7,6 +7,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import * as Device from 'expo-device';
+
+import Tablet from "./(tablets)/Home";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -19,7 +22,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
+  const device = Device.deviceType; // 1 phone, 2 tablet, 3 web
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -31,23 +34,18 @@ export default function RootLayout() {
       await NavigationBar.setVisibilityAsync("hidden");
       await NavigationBar.setBehaviorAsync('overlay-swipe');
     };
-
     hideNavBar();
-
     const handleAppStateChange = (nextAppState) => {
       if (nextAppState === 'active') {
         hideNavBar();
       }
     };
-
     // Add event listener for app state changes
     const subscription = AppState.addEventListener('change', handleAppStateChange);
-
     // Cleanup the event listener on component unmount
     return () => {
       subscription.remove();
     };
-
   }, [])
 
   useEffect(() => {
@@ -59,14 +57,16 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   };
-
   return (
     <Provider store={store}>
       <SafeAreaProvider style={styles.content}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(screens)" options={{ headerShown: false }} />
-          </Stack>
+          {device > 1
+            ? <Tablet />
+            : <Stack>
+              <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+            </Stack>
+          }
           <StatusBar hidden />
         </ThemeProvider>
       </SafeAreaProvider>
