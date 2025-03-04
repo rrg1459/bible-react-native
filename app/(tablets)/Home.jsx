@@ -1,23 +1,27 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Header from './Header';
+import Books from './Books';
+import Chapters from './Chapters';
+import Versicules from './Versicules';
+import Footer from './Footer';
 
 const Home = () => {
-
 
   return (
     <View style={styles.main}>
       <View style={styles.left}>
-        <Text>"Header"</Text>
+        <Header />
         <View style={styles.versicules}>
-        <Text>"Versicules"</Text>
+          <Versicules />
         </View>
-        <Text>"Footer"</Text>
+        <Footer />
       </View>
       <View style={styles.right}>
         <View style={styles.books}>
-        <Text>"Books"</Text>
+          <Books />
         </View>
         <View style={styles.chapters}>
-        <Text>"Chapters"</Text>
+          <Chapters />
         </View>
       </View>
     </View>
