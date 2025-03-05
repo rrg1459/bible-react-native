@@ -4,8 +4,19 @@ import Books from './Books';
 import Chapters from './Chapters';
 import Versicules from './Versicules';
 import Footer from './Footer';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
+import { changeBookColumns } from '../redux/quoteSlice';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(changeBookColumns(11));
+    }, [dispatch])
+  );
 
   return (
     <View style={styles.main}>
