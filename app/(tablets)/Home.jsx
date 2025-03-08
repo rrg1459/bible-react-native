@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import Header from './Header';
 import Books from './Books';
 import Chapters from './Chapters';
-import Versicules from './Versicules';
+import Versicules from '../components/Versicules';
 import Footer from './Footer';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
