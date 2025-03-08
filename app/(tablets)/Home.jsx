@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import Header from './Header';
+import Header from '../components/Header';
 import Books from './Books';
 import Chapters from './Chapters';
 import Versicules from '../components/Versicules';
