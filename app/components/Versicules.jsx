@@ -31,24 +31,21 @@ const ComponentVersicules = () => {
 
   return (
     <View style={styles.main}>
-      <View>
-        <FlatList
-          data={verses}
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Verse
-              verse={item}
-              verseFavorite={favoriteVerses.includes(item.verse)}
-            />
-          )}
-          keyExtractor={verse => String(verse.id)}
-        />
-      </View>
+      <FlatList
+        data={verses}
+        numColumns={1}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <Verse
+            verse={item}
+            verseFavorite={favoriteVerses.includes(item.verse)}
+          />
+        )}
+        keyExtractor={verse => String(verse.id)}
+      />
     </View>
   );
 };
-
 export default ComponentVersicules;
 
 const styles = StyleSheet.create({
@@ -57,10 +54,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   activityIndicator: {
-    // backgroundColor: 'yellow',
     flex: 1,
-    // width: '100%',
-    // height: '500px',
     justifyContent: "center",
     alignItems: "center",
   },
