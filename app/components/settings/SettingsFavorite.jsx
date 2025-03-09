@@ -2,23 +2,12 @@ import { useCallback, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateFavorites } from '../../redux/quoteSlice';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
 import Modal from 'react-native-modalbox';
+import { saveItem } from "../../utils/setItems";
 
-const SettingsFavorite = ({ language }) => {
-
+const SettingsFavorite = ({ language, isTablet }) => {
   const dispatch = useDispatch();
-
   const [isModalVisible, setModalVisible] = useState(false);
-
-  const saveFavorite = useCallback(async (data) => {
-    try {
-      await Storage.setItem(KEY.Favorites, data);
-    } catch (error) {
-      console.error('Failed to save favorite:', error);
-    }
-  }, []);
 
   const toggleModal = useCallback(() => {
     setModalVisible((prev) => !prev);
@@ -27,35 +16,29 @@ const SettingsFavorite = ({ language }) => {
   const onPressYes = useCallback(() => {
     toggleModal();
     dispatch(updateFavorites({}));
-    saveFavorite({});
-  }, [dispatch, saveFavorite, toggleModal]);
+    saveItem({ Favorites: {} });
+  }, [dispatch, toggleModal]);
 
   const onPressNo = useCallback(() => {
     toggleModal();
   }, [toggleModal]);
 
   return (
-
     <>
-
       <Modal
         isOpen={isModalVisible}
         testID={'modal'}
         style={styles.modal}
         animationDuration={600}
         position="center"
-        // backdrop={true}
         coverScreen={true}
-
-
-        // backdropColor="#ebf9f5"
         backdropOpacity={0.8}
       >
         <View>
           <Text style={styles.modalText}>
             {language
-            ? '¿Está seguro de\nolvidar los favoritos?'
-            : 'Are you sure to\nreset favorites?'
+              ? '¿Está seguro de\nolvidar los favoritos?'
+              : 'Are you sure to\nreset favorites?'
             }</Text>
           <View style={styles.buttonsContainer}>
             <Pressable style={styles.yesNoButton}
@@ -69,19 +52,24 @@ const SettingsFavorite = ({ language }) => {
           </View>
         </View>
       </Modal>
-
       <Pressable
         onPress={toggleModal}
-        style={styles.button}
+        style={isTablet ? styles.buttonTablet : styles.button}
       >
-        <Text style={styles.textButton}>
-          {language ? 'Olvida los favoritos' : 'Reset favorites'}
-        </Text>
+        {isTablet
+          ?
+          <Text style={styles.textButtonTablet}>
+            {language ? 'OLVIDAR\nFAVORITOS' : 'RESET\nFAVORITES'}
+          </Text>
+          :
+          <Text style={styles.textButton}>
+            {language ? 'Olvida los favoritos' : 'Reset favorites'}
+          </Text>
+        }
       </Pressable>
     </>
   )
 };
-
 export default SettingsFavorite
 
 const styles = StyleSheet.create({
@@ -105,6 +93,19 @@ const styles = StyleSheet.create({
     letterSpacing: 1.25,
     lineHeight: 51,
   },
+  buttonTablet: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#d1ebf7',
+  },
+  textButtonTablet: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    letterSpacing: 1.25,
+    color: '#7e7f94',
+    textAlign: 'center',
+  },
   modal: {
     height: 170,
     width: 265,
@@ -114,9 +115,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     alignItems: 'center',
     borderRadius: 10,
-    // backgroundColor: 'tomato',
     elevation: 10,
-    // margin: 'auto',
     shadowOpacity: 0.3,
     shadowRadius: 5,
     shadowOffset: {
@@ -124,8 +123,6 @@ const styles = StyleSheet.create({
       width: 1,
     },
   },
-
-
   modalText: {
     fontSize: 20,
     textAlign: 'center',
