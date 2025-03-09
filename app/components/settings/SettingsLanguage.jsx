@@ -2,37 +2,32 @@ import { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/quoteSlice';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
+import { saveItem } from "../../utils/setItems";
 
-const SettingsLanguage = ({ language }) => {
-
+const SettingsLanguage = ({ language, isTablet }) => {
   const dispatch = useDispatch();
-
-    // const saveColumn = useCallback(async (column) => {
-  
-  const saveLanguage = useCallback(async (lang) => {
-    try {
-      await Storage.setItem(KEY.Language, lang);
-    } catch (error) {
-      console.error('Failed to save language:', error);
-    }
-  }, []);
-
   const onPress = useCallback(() => {
     const lang = language ? 0 : 1;
     dispatch(updateLanguage(lang));
-    saveLanguage(lang);
-  }, [dispatch, saveLanguage, language]);
+    saveItem({ Language: lang });
+
+  }, [dispatch, language]);
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={styles.button}
+      style={isTablet ? styles.buttonTablet : styles.button}
     >
-      <Text style={styles.textButton}>
-        {language ? 'Change to english' : 'Cambiar a español'}
-      </Text>
+      {isTablet
+        ?
+        <Text style={styles.textButtonTablet}>
+          {language ? 'ENG' : 'ESP'}
+        </Text>
+        :
+        <Text style={styles.textButton}>
+          {language ? 'Change to english' : 'Cambiar a español'}
+        </Text>
+      }
     </TouchableOpacity>
   )
 };
@@ -59,5 +54,17 @@ const styles = StyleSheet.create({
     fontWeight: 'light',
     letterSpacing: 1.25,
     color: '#36395A',
+  },
+  buttonTablet: {
+    flex: 1,
+    backgroundColor: '#86dab6',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textButtonTablet: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    letterSpacing: 1.25,
+    color: '#7e7f94',
   },
 });
