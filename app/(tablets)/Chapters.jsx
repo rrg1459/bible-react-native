@@ -1,42 +1,86 @@
-import { StyleSheet, FlatList, View } from "react-native";
-import Chapter from "../components/Chapter";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import { useFocusEffect } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateChapter, updateVerses } from '../redux/quoteSlice';
+import Chapter from "./Chapter.jsx";
+import favoriteChaptersInTheBook from '../utils/favoriteChaptersInTheBook.js';
 import fillChapters from "../utils/fillChapters.js";
+import tabletChapterStyles from "../utils/tabletChapterStyles.js";
+import empty from "../utils/emptyObject.js";
+import { saveItem } from "../utils/setItems";
 
-const TabletChapters = () => {
+const ComponentChapters = () => {
   const languageValue = useSelector(state => state.quote.language);
-  const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const book = useSelector(state => state.quote.book);
+  const currentChapter = useSelector(state => state.quote.numChapter);
+  const favorites = useSelector(state => state.quote.favorites);
+  const dispatch = useDispatch();
   const { chapters } = book;
-
   const [chaptersVector, setChaptersVector] = useState([]);
+  const [favoriteChapters, setFavoriteChapters] = useState([]);
+  const [chapterStyles, setChapterStyles] = useState({});
 
   useEffect(() => {
+    setChapterStyles(tabletChapterStyles(chapters));
+  }, [chapters])
+
+  useEffect(() => {
+    setFavoriteChapters(favoriteChaptersInTheBook({ favorites, book_id: book.id }));
+  }, [book, favorites]);
+
+  useEffect(() => {
+    if (empty(chapterStyles) === true) return;
     setChaptersVector(
       fillChapters({
-        screen:  'chapters',
+        screen: 'chapters',
         chapters: chapters,
-        columnsValue: chapterColumnsValue
+        columnsValue: chapterStyles.columns,
       }));
-  }, [chapters, chapterColumnsValue]);
+  }, [chapters, chapterStyles]);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(updateVerses([]));
+      if (currentChapter !== null) return;
+      dispatch(updateChapter(1));
+      saveItem({ Chapter: 1 });
+    }, [currentChapter, dispatch])
+  );
+
+  const [innerHeight, setInnerHeight] = useState(0);
+
+  const onInnerLayout = event => {
+    const { height } = event.nativeEvent.layout;
+    setInnerHeight(height);
+  };
+
+    if (chaptersVector.length === 0) {
+      return (
+        <View style={styles.activityIndicator}>
+          <ActivityIndicator size='large' color='blue' />
+        </View>
+      );
+    }
 
   return (
-    <View style={styles.main}>
+    <View style={styles.main} onLayout={onInnerLayout}>
       <View style={styles.chapters}>
-      <FlatList
+        <FlatList
           data={chaptersVector}
-          numColumns={11}
-          key={chapterColumnsValue}
+          numColumns={chapterStyles.columns}
+          key={chapterStyles.columns}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Chapter
               chapter={item}
-              chapterFavorite={false}
-              columnsValue={chapterColumnsValue}
+              chapterFavorite={favoriteChapters.includes(item.id)}
               amountChapters={chaptersVector.length}
-              // isCurrentChapter={false}
+              isCurrentChapter={currentChapter === item.id ? true : false}
               language={languageValue}
+              innerHeight={innerHeight}
+              oneChapter={chapters === 1 ? true : false}
+              chapterStyles={chapterStyles}
             />)}
           keyExtractor={(chapter) => String(chapter.id)}
         />
@@ -44,13 +88,14 @@ const TabletChapters = () => {
     </View>
   );
 };
-export default TabletChapters
+export default ComponentChapters
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '',
+    flexDirection: 'row',
+    width: '100%',
+    height: '100%',
   },
   header: {
     backgroundColor: '#7dfcd2',
