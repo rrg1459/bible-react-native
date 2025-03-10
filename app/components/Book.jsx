@@ -70,8 +70,8 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
   const goToChapters = useCallback(() => {
     dispatch(updateBook(book));
     if (isNotCurrentBook) dispatch(updateChapter(null));
-    navigation.navigate("chapters", book);
-  }, [dispatch, navigation, book, isNotCurrentBook]);
+    if (bookColumnsValue !== 11) navigation.navigate("chapters", book);
+  }, [dispatch, navigation, book, isNotCurrentBook, bookColumnsValue]);
 
   return (
     <TouchableOpacity style={{ flex: 1 }} onPress={book.testament_id ? goToChapters : null}>
