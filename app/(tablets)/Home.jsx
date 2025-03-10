@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Header from '../components/Header';
 import Books from './Books';
@@ -5,12 +6,20 @@ import Chapters from './Chapters';
 import Versicules from '../components/Versicules';
 import Footer from './Footer';
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
 import { changeBookColumns } from '../redux/quoteSlice';
 import { useDispatch } from 'react-redux';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 const Home = () => {
   const dispatch = useDispatch();
+
+  const changeScreenOrientation = async () => {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+  };
+
+  useEffect(() => {
+    changeScreenOrientation();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
