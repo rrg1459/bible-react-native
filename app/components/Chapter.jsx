@@ -24,9 +24,9 @@ const Chapter = ({
   const favoriteStyles = useMemo(() => ({
     color: '#4278f5',
     position: 'absolute',
-    fontSize: [, , , , 16, 14, 12][columnsValue],
-    top:      [, , , ,  1,  0,  0][columnsValue],
-    left:     [, , , ,  5,  3,  3][columnsValue],
+    fontSize: [, , , , 8, 7, 6][columnsValue],
+    top:      [, , , , 2, 1, 1][columnsValue],
+    left:     [, , , , 5, 4, 4][columnsValue],
   }), [columnsValue]);
 
   const imageStyles = useMemo(() => ({
@@ -44,6 +44,7 @@ const Chapter = ({
     dispatch(updateChapter(chapter.id));
     navigation.navigate("verses");
   }, [dispatch, navigation, chapter.id]);
+
   return (
     <Pressable
       style={{ flex: 1 }}
@@ -60,7 +61,7 @@ const Chapter = ({
           </View>
           :
           <View style={[styles.container, chapter.show ? styles.withBorder : null]}>
-            {chapterFavorite && <Text style={favoriteStyles}>★</Text>}
+            {chapterFavorite && <Text style={favoriteStyles}>❤️</Text>}
             <Text style={[columnsStyles, isCurrentChapter ? styles.currentChapter : null]}>
               {chapter.show && chapter.id}
             </Text>
@@ -69,7 +70,6 @@ const Chapter = ({
     </Pressable>
   );
 };
-
 export default Chapter;
 
 const styles = StyleSheet.create({
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   withBorderImage: {
-    // cursor: 'pointer',
     borderWidth: 1,
     backgroundColor: '#e8e8e8',
     borderColor: 'grey',
@@ -104,7 +103,6 @@ const styles = StyleSheet.create({
     elevation: 17, // For Android shadow, little box inside
   },
   withBorder: {
-    // cursor: 'pointer',
     borderWidth: 1,
     backgroundColor: '#e8e8e8',
     borderColor: '#e8e8e8',

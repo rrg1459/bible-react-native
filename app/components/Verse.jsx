@@ -5,6 +5,7 @@ import { updateVerses } from "../redux/quoteSlice";
 import cleanAndTidy from "../utils/cleanAndTidy";
 
 const Verse = ({ verse, verseFavorite }) => {
+
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
@@ -24,27 +25,25 @@ const Verse = ({ verse, verseFavorite }) => {
     setCurrentVerse(prev => !prev);
   }, [dispatch, numVerses, verse.verse, currentVerse]);
 
-  // if (!verseFavorite) {
-  //   dispatch(
-  //     updateFavorites(
-  //       handleOneFavorite({ favorites: favorites, verse: verse, remove: currentVerse })
-  //     )
-  //   );
-  // };
-
-  // Render verse based on its attributes
   return (
     verse.verse === 0 ? (
       verseText !== '' && (
-        <Text style={[{ fontSize: fontSizeVerse  - 2}, styles.title]}>
+        <Text style={[{ fontSize: fontSizeVerse - 2 }, styles.title]}>
           {verseText}
         </Text>
       )
     ) : Number.isInteger(verse.verse / 10) ? (
       <TouchableWithoutFeedback onPress={onPressVerse}>
-        <Text style={[{ fontSize: fontSizeVerse }, styles.container, currentVerse && styles.currentVerse]}>
-          {verseFavorite && <Text style={{ color: '#4278f5' }}>★ </Text>}
-          {verseText !== '' && verse.verse / 10}. {verseText}
+        <Text style={[{
+          fontSize: fontSizeVerse
+        },
+        styles.container,
+        currentVerse && styles.currentVerse,
+        ]}>
+          {verseText !== '' && verse.verse / 10}.
+          <Text style={[styles.verse, verseFavorite && styles.favoriteVerse]}>
+            {verseText}
+          </Text>
         </Text>
       </TouchableWithoutFeedback>
     ) : (
@@ -78,4 +77,13 @@ const styles = StyleSheet.create({
   currentVerse: {
     backgroundColor: "#E2FDF4",
   },
+  verse: {
+    marginLeft: 5,
+  },
+  favoriteVerse: {
+    fontStyle: "italic",
+    color: '#CC0000',
+    textDecorationLine: 'underline',
+    textDecorationColor: 'red',
+  }
 });
