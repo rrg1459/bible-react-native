@@ -70,6 +70,7 @@ const SettingsFavorite = ({ language, isTablet }) => {
     </>
   )
 };
+
 export default SettingsFavorite
 
 const styles = StyleSheet.create({
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.25,
     lineHeight: 51,
   },
+
   buttonTablet: {
     flex: 1,
     justifyContent: 'center',

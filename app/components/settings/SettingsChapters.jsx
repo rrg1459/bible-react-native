@@ -3,25 +3,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import Slider from '@react-native-community/slider'
 import { changeChapterColumns } from '../../redux/quoteSlice';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
+import { saveItem } from "../../utils/setItems";
 
 const SettingsChapters = ({language, columns}) => {
-
   const dispatch = useDispatch();
-
-  const saveColumn = useCallback(async (column) => {
-    try {
-      await Storage.setItem(KEY.ChapterColumns, column);
-    } catch (error) {
-      console.error('Failed to save column:', error);
-    }
-  }, []);
-
   const handleSliderChange = useCallback((column) => {
     dispatch(changeChapterColumns(column));
-    saveColumn(column);
-  }, [dispatch, saveColumn]);
+    saveItem({ ChapterColumns: column });
+  }, [dispatch]);
 
   return (
     <View>
@@ -42,7 +31,6 @@ const SettingsChapters = ({language, columns}) => {
     </View>
   )
 };
-
 export default SettingsChapters
 
 const styles = StyleSheet.create({

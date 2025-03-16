@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native'
 import { useDispatch } from 'react-redux';
-import { changeType } from '../../redux/quoteSlice';
+import { changeType } from '../../redux/quoteSlice.js';
 import getTypeNames from '../../utils/getTypeNames.js';
 import types from '../../bible/types.js';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
+import { saveItem } from "../../utils/setItems.js";
 
 const SettingsGroups = ({ language, type_id }) => {
   const dispatch = useDispatch();
@@ -21,18 +20,10 @@ const SettingsGroups = ({ language, type_id }) => {
 
   const toggleDropdown = useCallback(() => setIsOpen((prevState) => !prevState), []);
 
-  const saveTypeID = useCallback(async (key) => {
-    try {
-      await Storage.setItem(KEY.TypeID, key);
-    } catch (error) {
-      console.error('Failed to save type ID:', error);
-    }
-  }, []);
-
   const onSelect = useCallback((key) => {
     dispatch(changeType(key));
-    saveTypeID(key);
-  }, [dispatch, saveTypeID]);
+    saveItem({ TypeID: key });
+  }, [dispatch]);
 
   const handleItemSelect = useCallback((item) => {
     setSelectedValue(item.value[language]);
@@ -77,7 +68,6 @@ const SettingsGroups = ({ language, type_id }) => {
     </View>
   );
 };
-
 export default SettingsGroups
 
 const styles = StyleSheet.create({

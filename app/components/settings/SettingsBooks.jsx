@@ -3,25 +3,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import Slider from '@react-native-community/slider'
 import { changeBookColumns } from '../../redux/quoteSlice';
-import { Storage } from '../../utils/storage';
-import { KEY } from '../../constants/storageKeys';
+import { saveItem } from "../../utils/setItems";
 
 const SettingsBooks = ({ language, columns }) => {
-
   const dispatch = useDispatch();
-
-  const saveColumn = useCallback(async (column) => {
-    try {
-      await Storage.setItem(KEY.BookColumns, column);
-    } catch (error) {
-      console.error('Failed to save column:', error);
-    }
-  }, []);
-
   const handleSliderChange = useCallback((column) => {
     dispatch(changeBookColumns(column));
-    saveColumn(column);
-  }, [dispatch, saveColumn]);
+    saveItem({ BookColumns: column });
+  }, [dispatch]);
 
   return (
     <View>
@@ -42,7 +31,6 @@ const SettingsBooks = ({ language, columns }) => {
     </View>
   )
 };
-
 export default SettingsBooks
 
 const styles = StyleSheet.create({
