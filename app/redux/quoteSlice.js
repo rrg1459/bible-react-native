@@ -19,6 +19,7 @@ const initialState = {
   type_id: 11,
   favorites: {},
   retrieveFavorites: {},
+  device: {},
 };
 
 const quoteSlice = createSlice({
@@ -58,6 +59,10 @@ const quoteSlice = createSlice({
     updateRetrieveFavorites: (state, action) => {
       state.retrieveFavorites = action.payload;
     },
+    updateDevice: (state, action) => {
+      state.device = action.payload;
+    },
+
   }
 });
 
@@ -72,7 +77,8 @@ export const {
   updateFontSizeVerse,
   changeType,
   updateFavorites,
-  updateRetrieveFavorites
+  updateRetrieveFavorites,
+  updateDevice,
  } = quoteSlice.actions;
 
 export default quoteSlice.reducer;
