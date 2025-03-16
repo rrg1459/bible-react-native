@@ -46,12 +46,10 @@ const SettingsScreen = () => {
       <Modal
         isOpen={isModalVisible}
         testID={'modalAuthor'}
-        // backdropOpacity={0.85}
         animationDuration={600}
         position="top"
         coverScreen={true}
         style={[styles.modal, styles.modalPosition]}
-
       >
         <Pressable onPress={handleBackdropPress}>
           <View style={styles.modalView}>
@@ -108,7 +106,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E29.1</Text>
+        <Text style={styles.version}>E60.5</Text>
       </View>
     </>
   );
@@ -119,7 +117,7 @@ export default SettingsScreen
 // const startOfYear = new Date(today.getFullYear(), 0, 0);
 // const diff = today - startOfYear;
 // const oneDay = 1000 * 60 * 60 * 24;
-// const julianDay = Math.floor(diff / oneDay);
+// Math.floor(diff / oneDay);
 
 const styles = StyleSheet.create({
   labelHeader: {
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   author: {
-    // marginLeft: 10,
     fontStyle: 'italic',
   },
   version: {
@@ -161,36 +158,15 @@ const styles = StyleSheet.create({
   },
   modal: {
     height: 'auto',
-    // width: 245,
-
-    // padding: 10,
-    // borderRadius: 4,
-    // shadowOpacity: 0.25,
-    // shadowRadius: 4,
-    // elevation: 2,
-
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    // borderWidth: 0.5,
-    // borderColor: 'grey',
     alignItems: 'center',
-    // borderRadius: 10,
-    // backgroundColor: 'tomato',
-    // elevation: 10,
-    // margin: 'auto',
-    // shadowOpacity: 0.8,
-    // shadowRadius: 5,
-    // shadowOffset: {
-      // height: 3,
-      // width: 1,
-    // },
   },
   modalPosition: {
     marginTop: 10, // Posicionar el modal a 200 píxeles desde la parte superior
   },
   modalView: {
     backgroundColor: '#ebf9f5',
-    // width: 245,
     padding: 10,
     borderRadius: 4,
     shadowOpacity: 0.25,
