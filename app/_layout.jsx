@@ -6,7 +6,6 @@ import * as NavigationBar from "expo-navigation-bar"
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import 'react-native-reanimated';
 import * as Device from 'expo-device';
 
 import Tablet from "./(tablets)/Home";
