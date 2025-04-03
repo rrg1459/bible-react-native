@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Versicules from '../components/Versicules';
 import Header from '../components/Header';
 import Chapters from './Chapters';
@@ -116,9 +117,12 @@ const Home = () => {
     <View style={styles.main}>
       <View style={styles.left}>
         <Header />
-        <View style={styles.versicules}>
-          <Versicules />
-        </View>
+          <View style={styles.versicules}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <Versicules />
+            </GestureHandlerRootView>
+          </View>
+
         <Footer language={languageValue} />
       </View>
       <View style={styles.right}>

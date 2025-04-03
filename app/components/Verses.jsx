@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { changeScreen } from '../redux/quoteSlice';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Versicules from './Versicules';
 import Header from './Header';
 
@@ -20,7 +21,9 @@ const ComponentVerses = () => {
   return (
     <View style={styles.main}>
       <Header />
-      <Versicules />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Versicules />
+      </GestureHandlerRootView>
     </View>
   );
 };
