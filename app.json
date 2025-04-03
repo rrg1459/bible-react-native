@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "bible biblia",
+    "name": "Biblia bilingüe",
     "slug": "bible-react-native",
-    "version": "E.60.4",
+    "version": "E.87.9",
     "icon": "./assets/images/bible512.png",
     "scheme": "biblebiblia",
     "userInterfaceStyle": "automatic",
@@ -19,7 +19,7 @@
         "backgroundColor": "#7dfcd2"
       },
       "package": "com.elorat.biblereactnative",
-      "versionCode": 25
+      "versionCode": 31
     },
     "web": {
       "bundler": "metro",
