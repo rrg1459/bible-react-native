@@ -1,15 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import Verse from '../components/Verse';
 import favoriteVersesInTheChapter from '../utils/favoriteVersesInTheChapter';
 import fillVerses from '../utils/fillVerses';
+import { updateFontSizeVerse } from '../redux/quoteSlice';
 
 const ComponentVersicules = () => {
+  const dispatch = useDispatch();
+  const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
   const favorites = useSelector(state => state.quote.favorites);
   const chapter = useSelector(state => state.quote.numChapter);
   const book = useSelector(state => state.quote.book);
 
+  const [newsize, setNewSize] = useState(fontSizeVerse);
+  const [isUpdatingSize, setIsUpdatingSize] = useState(false);
   const [favoriteVerses, setFavoriteVerses] = useState([]);
   const [verses, setVerses] = useState([]);
 
@@ -21,29 +27,53 @@ const ComponentVersicules = () => {
     setVerses(fillVerses({ book_id: book.id, chapter }));
   }, [book.id, chapter]);
 
-  if (verses.length === 0) {
+  useEffect(() => {
+    dispatch(updateFontSizeVerse(newsize));
+    setIsUpdatingSize(false);
+  }, [newsize, dispatch]);
+
+  const onHandlerStateChange = useMemo(() => {
+    return (event) => {
+      if (event.nativeEvent.state === State.END) {
+        const scale = event.nativeEvent.scale;
+        if (scale > 1 && fontSizeVerse < 30) {
+          setIsUpdatingSize(true);
+          setNewSize(fontSizeVerse + 5);
+        }
+        if (scale < 1 && fontSizeVerse > 10) {
+          setIsUpdatingSize(true);
+          setNewSize(fontSizeVerse - 5);
+        }
+      }
+    };
+  }, [fontSizeVerse]);
+
+  if (verses.length === 0 || isUpdatingSize) {
     return (
       <View style={styles.activityIndicator}>
-        <ActivityIndicator size='large' color='yellow' />
+        <ActivityIndicator size='large' color='blue' />
       </View>
     );
   }
 
   return (
-    <View style={styles.main}>
-      <FlatList
-        data={verses}
-        numColumns={1}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Verse
-            verse={item}
-            verseFavorite={favoriteVerses.includes(item.verse)}
-          />
-        )}
-        keyExtractor={verse => String(verse.id)}
-      />
-    </View>
+    <PinchGestureHandler onHandlerStateChange={onHandlerStateChange}>
+      <View style={styles.main}>
+        <FlatList
+          data={verses}
+          numColumns={1}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Verse
+              verse={item}
+              verseFavorite={favoriteVerses.includes(item.verse)}
+            />
+          )}
+          keyExtractor={verse => String(verse.id)}
+        />
+      </View>
+    </PinchGestureHandler>
+
   );
 };
 export default ComponentVersicules;
