@@ -81,8 +81,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   favoriteVerse: {
-    fontStyle: "italic",
-    color: '#CC0000',
+    textDecorationStyle: 'double',
     textDecorationLine: 'underline',
     textDecorationColor: 'red',
   }
