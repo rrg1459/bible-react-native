@@ -29,7 +29,7 @@ const Verse = ({ verse, verseFavorite }) => {
     verse.verse === 0 ? (
       verseText !== '' && (
         <Text style={[{ fontSize: fontSizeVerse - 2 }, styles.title]}>
-          {verseText}
+          {verseText} {/* TITLE */}
         </Text>
       )
     ) : Number.isInteger(verse.verse / 10) ? (
@@ -40,22 +40,23 @@ const Verse = ({ verse, verseFavorite }) => {
         styles.container,
         currentVerse && styles.currentVerse,
         ]}>
-          {verseText !== '' && verse.verse / 10}.
-          <Text style={[styles.verse, verseFavorite && styles.favoriteVerse]}>
-            {verseText}
+
+          {verseText !== '' && verse.verse / 10}.<>&nbsp;</>
+          <Text style={[verseFavorite && styles.favoriteVerse]}>
+            {verseText} {/* VERSICULE */}
           </Text>
         </Text>
       </TouchableWithoutFeedback>
     ) : (
       <Text style={[{ fontSize: fontSizeVerse }, languageValue === 1 && { fontWeight: 'bold' }, styles.subtitle]}>
-        {verseText}
+        {verseText} {/* SUBTITLE */}
       </Text>
     )
   );
-};
+}
 
 export default Verse;
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,12 +78,9 @@ const styles = StyleSheet.create({
   currentVerse: {
     backgroundColor: "#E2FDF4",
   },
-  verse: {
-    marginLeft: 5,
-  },
   favoriteVerse: {
     textDecorationStyle: 'double',
     textDecorationLine: 'underline',
-    textDecorationColor: 'red',
+    textDecorationColor: '#FF0000',
   }
 });
