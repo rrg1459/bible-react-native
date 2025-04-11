@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVerses } from "../redux/quoteSlice";
 import cleanAndTidy from "../utils/cleanAndTidy";
+import RichText from './RichText';
 
 const Verse = ({ verse, verseFavorite }) => {
 
@@ -42,9 +43,9 @@ const Verse = ({ verse, verseFavorite }) => {
         ]}>
 
           {verseText !== '' && verse.verse / 10}.<>&nbsp;</>
-          <Text style={[verseFavorite && styles.favoriteVerse]}>
-            {verseText} {/* VERSICULE */}
-          </Text>
+          <RichText style={[verseFavorite && styles.favoriteVerse]}>
+            {verseText}
+          </RichText>
         </Text>
       </TouchableWithoutFeedback>
     ) : (
@@ -79,8 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E2FDF4",
   },
   favoriteVerse: {
-    textDecorationStyle: 'double',
     textDecorationLine: 'underline',
-    textDecorationColor: '#FF0000',
   }
 });
