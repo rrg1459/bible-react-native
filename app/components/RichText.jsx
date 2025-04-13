@@ -94,12 +94,12 @@ const parseTextRecursively = (
  * Permite anidamiento (ej: `‹Texto rojo [con cursiva]›`).
  * Los delimitadores en sí (`[]`, `‹›`) no se muestran.
  */
-const RichText = ({ children, promise, favorite }) => {
+const RichText = ({ children, jesusQuote, promise, favorite }) => {
   // Definir estilos finales combinando defaults y props
-  const finalBaseStyle = StyleSheet.flatten([promise && styles.promise, favorite && styles.favorite]);
+  const finalBaseStyle = StyleSheet.flatten([promise && styles.promise, favorite && styles.favorite]); // complete promise in versicule
   const finalEmphasisStyle = styles.emphasis;
-  const finalJesusQuoteStyle = styles.jesusQuote;
-  const finalPromiseStyle = styles.promise;
+  const finalJesusQuoteStyle = jesusQuote ? styles.jesusQuote : {};
+  const finalPromiseStyle = styles.promise; // partial promise in versicule
 
   // Validación básica
   if (typeof children !== 'string') {
