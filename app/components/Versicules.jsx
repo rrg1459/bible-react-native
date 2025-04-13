@@ -25,7 +25,7 @@ const ComponentVersicules = () => {
 
   useEffect(() => {
     setVerses(fillVerses({ book_id: book.id, chapter }));
-  }, [book.id, chapter]);
+  }, [book.id, chapter, dispatch]);
 
   useEffect(() => {
     dispatch(updateFontSizeVerse(newsize));
@@ -66,7 +66,8 @@ const ComponentVersicules = () => {
           renderItem={({ item }) => (
             <Verse
               verse={item}
-              verseFavorite={favoriteVerses.includes(item.verse)}
+              promise={item.promise}
+              favorite={favoriteVerses.includes(item.verse)}
             />
           )}
           keyExtractor={verse => String(verse.id)}
