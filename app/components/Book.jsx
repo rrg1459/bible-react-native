@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBook, updateChapter } from "../redux/quoteSlice";
+import { updateBook, updateChapter, loadingVerses } from "../redux/quoteSlice";
 import { useNavigation } from "expo-router";
 import getColorByBookType from "../utils/getColorByBookType"
 import { saveItem } from "../utils/setItems";
@@ -17,7 +17,13 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
   const bookColor = useMemo(() => book.type_id ? getColorByBookType(book.type_id) : 'none', [book.type_id]);
   const typeName = useMemo(() => bookColumnsValue > 3 ? type?.substr(0, 4) : type, [type, bookColumnsValue]);
 
-  const containerStyles = useMemo(() => {
+    const [isPressed, setIsPressed] = useState(false);
+
+    useEffect(() => {
+      dispatch(loadingVerses(isPressed ? true : false));
+    }, [isPressed, dispatch]);
+
+    const containerStyles = useMemo(() => {
     const currentBookBorderStyle = isNotCurrentBook
     ? { borderStyle: 'solid', borderColor: "#fff" }
     : { borderStyle: 'dashed', borderColor: "#000" };
@@ -106,7 +112,12 @@ const Book = ({ book, type, bookFavorite, isNotCurrentBook }) => {
   }, [dispatch, navigation, book, isNotCurrentBook, bookColumnsValue]);
 
   return (
-    <TouchableOpacity style={{ flex: 1 }} onPress={book.testament_id ? goToChapters : null}>
+    <TouchableOpacity
+      style={{ flex: 1 }}
+      onPress={book.testament_id ? goToChapters : null}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+    >
       <View style={[containerStyles, book.testament_id ? styles.withBorder : styles.noShow]} >
         {bookFavorite && <Text style={favoriteStyles}>{heartColor}</Text>}
         {((bookColumnsValue < 5 || bookColumnsValue === 11) && typeIdValue > 8) &&

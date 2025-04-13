@@ -20,6 +20,7 @@ const initialState = {
   favorites: {},
   retrieveFavorites: {},
   device: {},
+  loadingVerses: false,
 };
 
 const quoteSlice = createSlice({
@@ -62,7 +63,9 @@ const quoteSlice = createSlice({
     updateDevice: (state, action) => {
       state.device = action.payload;
     },
-
+    loadingVerses: (state, action) => {
+      state.loadingVerses = action.payload;
+    }
   }
 });
 
@@ -79,6 +82,7 @@ export const {
   updateFavorites,
   updateRetrieveFavorites,
   updateDevice,
- } = quoteSlice.actions;
+  loadingVerses,
+} = quoteSlice.actions;
 
 export default quoteSlice.reducer;

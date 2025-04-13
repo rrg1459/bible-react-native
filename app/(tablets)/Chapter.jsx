@@ -1,7 +1,7 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { updateChapter } from "../redux/quoteSlice";
+import { updateChapter, loadingVerses } from "../redux/quoteSlice";
 import { saveItem } from "../utils/setItems";
 
 const Chapter = ({
@@ -11,9 +11,17 @@ const Chapter = ({
   oneChapter,
   chapterFavorite,
   isCurrentChapter,
-  language }) => {
+  language,
+}) => {
   const dispatch = useDispatch();
   const { columns, rows, chapterFontSize, adjustHeight } = chapterStyles;
+
+  const [isPressed, setIsPressed] = useState(false);
+
+  useEffect(() => {
+    dispatch(loadingVerses(isPressed ? true : false));
+  }, [isPressed, dispatch]);
+
   const favoriteStyles = useMemo(() => ({
     color: '#4278f5',
     position: 'absolute',
@@ -35,15 +43,18 @@ const Chapter = ({
 
   const goToVerses = useCallback(() => {
     dispatch(updateChapter(chapter.id));
-    saveItem({ Chapter: chapter.id});
+    saveItem({ Chapter: chapter.id });
   }, [dispatch, chapter.id]);
 
-  const styleFLex = oneChapter ? null: { flex: 1 };
+  const styleFLex = oneChapter ? null : { flex: 1 };
 
   return (
     <Pressable
       style={{ flex: 1 }}
-      onPress={chapter.show ? goToVerses : null}>
+      onPress={chapter.show ? goToVerses : null}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+    >
       {({ pressed }) => (
         pressed
           ?
@@ -57,7 +68,7 @@ const Chapter = ({
           :
           <View style={[styleFLex, styles.container, chapter.show ? styles.withBorder : null, { height: ((innerHeight / rows) - adjustHeight) }]}>
             {chapterFavorite && <Text style={favoriteStyles}>❤️</Text>}
-            <Text style={[isCurrentChapter ? styles.currentChapter : null, {fontSize: chapterFontSize}]}>
+            <Text style={[isCurrentChapter ? styles.currentChapter : null, { fontSize: chapterFontSize }]}>
               {chapter.show && chapter.id}
             </Text>
           </View>
@@ -65,6 +76,7 @@ const Chapter = ({
     </Pressable>
   );
 };
+
 export default Chapter;
 
 const styles = StyleSheet.create({
@@ -97,7 +109,7 @@ const styles = StyleSheet.create({
     color: '#090909',
     shadowOpacity: 0.5,
     shadowRadius: 6,
-    elevation: 17, // For Android shadow, little box inside
+    elevation: 17,
   },
   withBorder: {
     borderWidth: 1,
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
     color: '#090909',
     shadowOpacity: 0.5,
     shadowRadius: 6,
-    elevation: 17, // For Android shadow, little box inside
+    elevation: 17,
   },
   noShow: {
     display: 'none',
