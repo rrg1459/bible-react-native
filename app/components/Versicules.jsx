@@ -14,6 +14,8 @@ const ComponentVersicules = () => {
   const chapter = useSelector(state => state.quote.numChapter);
   const book = useSelector(state => state.quote.book);
   const isLoadingVerses = useSelector(state => state.quote.loadingVerses);
+  const showJesusQuotes = useSelector(state => state.quote.showJesusQuotes);
+  const showPromises = useSelector(state => state.quote.showPromises);
 
   const [newsize, setNewSize] = useState(fontSizeVerse);
   const [isUpdatingSize, setIsUpdatingSize] = useState(false);
@@ -68,7 +70,8 @@ const ComponentVersicules = () => {
           renderItem={({ item }) => (
             <Verse
               verse={item}
-              promise={item.promise}
+              jesusQuote={showJesusQuotes}
+              promise={showPromises ? item.promise : false}
               favorite={favoriteVerses.includes(item.verse)}
             />
           )}
