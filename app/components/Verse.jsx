@@ -5,7 +5,7 @@ import { updateVerses } from "../redux/quoteSlice";
 import cleanAndTidy from "../utils/cleanAndTidy";
 import RichText from './RichText';
 
-const Verse = ({ verse, verseFavorite }) => {
+const Verse = ({ verse, promise, favorite }) => {
 
   const dispatch = useDispatch();
   const languageValue = useSelector(state => state.quote.language);
@@ -41,11 +41,8 @@ const Verse = ({ verse, verseFavorite }) => {
         styles.container,
         currentVerse && styles.currentVerse,
         ]}>
-
           {verseText !== '' && verse.verse / 10}.<>&nbsp;</>
-          <RichText style={[verseFavorite && styles.favoriteVerse]}>
-            {verseText}
-          </RichText>
+          <RichText key={verse.id} promise={promise} favorite={favorite}>{verseText}</RichText>
         </Text>
       </TouchableWithoutFeedback>
     ) : (
@@ -78,8 +75,5 @@ const styles = StyleSheet.create({
   },
   currentVerse: {
     backgroundColor: "#E2FDF4",
-  },
-  favoriteVerse: {
-    textDecorationLine: 'underline',
   }
 });
