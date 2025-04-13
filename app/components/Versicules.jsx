@@ -5,7 +5,7 @@ import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import Verse from '../components/Verse';
 import favoriteVersesInTheChapter from '../utils/favoriteVersesInTheChapter';
 import fillVerses from '../utils/fillVerses';
-import { updateFontSizeVerse } from '../redux/quoteSlice';
+import { updateFontSizeVerse, loadingVerses } from '../redux/quoteSlice';
 
 const ComponentVersicules = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const ComponentVersicules = () => {
   const favorites = useSelector(state => state.quote.favorites);
   const chapter = useSelector(state => state.quote.numChapter);
   const book = useSelector(state => state.quote.book);
+  const isLoadingVerses = useSelector(state => state.quote.loadingVerses);
 
   const [newsize, setNewSize] = useState(fontSizeVerse);
   const [isUpdatingSize, setIsUpdatingSize] = useState(false);
@@ -25,6 +26,7 @@ const ComponentVersicules = () => {
 
   useEffect(() => {
     setVerses(fillVerses({ book_id: book.id, chapter }));
+    dispatch(loadingVerses(false));
   }, [book.id, chapter, dispatch]);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const ComponentVersicules = () => {
     };
   }, [fontSizeVerse]);
 
-  if (verses.length === 0 || isUpdatingSize) {
+  if (verses.length === 0 || isUpdatingSize || isLoadingVerses) {
     return (
       <View style={styles.activityIndicator}>
         <ActivityIndicator size='large' color='blue' />
