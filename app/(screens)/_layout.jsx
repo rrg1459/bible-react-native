@@ -13,8 +13,10 @@ import {
   updateLanguage,
   updateFavorites,
   changeBookColumns,
+  updateShowPromises,
   updateFontSizeVerse,
   changeChapterColumns,
+  updateShowJesusQuotes,
   updateRetrieveFavorites,
 } from '../redux/quoteSlice';
 
@@ -28,14 +30,18 @@ const useFetchData = (dispatch, setLoadingStates) => {
           sizeVerse,
           favorites,
           bookColumns,
-          chapterColumns
+          chapterColumns,
+          showPromises,
+          showJesusQuotes,
         ] = await Promise.all([
           Storage.getItem(KEY.TypeID),
           Storage.getItem(KEY.Language),
           Storage.getItem(KEY.FontSizeVerse),
           Storage.getItem(KEY.Favorites),
           Storage.getItem(KEY.BookColumns),
-          Storage.getItem(KEY.ChapterColumns)
+          Storage.getItem(KEY.ChapterColumns),
+          Storage.getItem(KEY.ShowPromises),
+          Storage.getItem(KEY.ShowJesusQuotes),
         ]);
 
         if (typeID) dispatch(changeType(typeID));
@@ -47,6 +53,8 @@ const useFetchData = (dispatch, setLoadingStates) => {
         }
         if (bookColumns) dispatch(changeBookColumns(bookColumns));
         if (chapterColumns) dispatch(changeChapterColumns(chapterColumns));
+        if (showPromises !== null) dispatch(updateShowPromises(showPromises));
+        if (showJesusQuotes !== null) dispatch(updateShowJesusQuotes(showJesusQuotes));
 
       } catch (error) {
         console.error('Error fetching data:', error);
