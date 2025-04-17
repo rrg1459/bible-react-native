@@ -25,7 +25,7 @@ const SettingsVerses = ({ language, fontSizeVerse, isTablet }) => {
         </>
       }
       <Slider
-        style={[styles.sizeSlider, !isTablet && { marginTop: 25, }]}
+        style={[styles.sizeSlider, !isTablet && { marginTop: 10, }]}
         minimumValue={10}
         maximumValue={30}
         step={5}
@@ -42,7 +42,7 @@ export default SettingsVerses
 
 const styles = StyleSheet.create({
   label: {
-    color: '#000000', fontSize: 25,
+    color: '#000000', fontSize: 20,
     marginBottom: 20,
     textAlign: 'center',
   },
