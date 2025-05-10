@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: '100%',
-    marginVertical: 10,
+    marginVertical: 5,
     borderBottomColor: '#b1b5b4',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 12,
     borderRadius: 8,
-    margin: 15,
+    margin: 10,
     elevation: 6,
     backgroundColor: '#FCFCFD',
     shadowOpacity: 0.3,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     }
   },
   textButton: {
-    fontSize: 25,
+    fontSize: 20,
     lineHeight: 51,
     fontWeight: 'light',
     letterSpacing: 1.25,

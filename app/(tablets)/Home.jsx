@@ -14,7 +14,9 @@ import {
   updateLanguage,
   updateFavorites,
   changeBookColumns,
+  updateShowPromises,
   updateFontSizeVerse,
+  updateShowJesusQuotes,
   updateRetrieveFavorites,
 } from '../redux/quoteSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,12 +34,16 @@ const useFetchData = (dispatch, setLoadingStates) => {
           favorites,
           book,
           chapter,
+          showPromises,
+          showJesusQuotes,
         ] = await Promise.all([
           Storage.getItem(KEY.Language),
           Storage.getItem(KEY.FontSizeVerse),
           Storage.getItem(KEY.Favorites),
           Storage.getItem(KEY.Book),
           Storage.getItem(KEY.Chapter),
+          Storage.getItem(KEY.ShowPromises),
+          Storage.getItem(KEY.ShowJesusQuotes),
         ]);
 
         if (lang || lang === 0) dispatch(updateLanguage(lang));
@@ -47,10 +53,11 @@ const useFetchData = (dispatch, setLoadingStates) => {
           dispatch(updateRetrieveFavorites(favorites));
         }
         if (chapter) dispatch(updateChapter(chapter));
+        if (showPromises) dispatch(updateShowPromises(showPromises));
+        if (showJesusQuotes) dispatch(updateShowJesusQuotes(showJesusQuotes));
         if (book) {
           dispatch(updateBook(book));
-        }
-        else {
+        } else {
           const tempBook = { id: 1, name: ["Genesis", "Génesis"], chapters: 50 };
           dispatch(updateBook(tempBook));
           dispatch(updateChapter(1));

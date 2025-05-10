@@ -5,6 +5,8 @@ export const KEY = {
   Language: 'language',
   Favorites: 'favorites',
   BookColumns: 'bookColumns',
+  ShowPromises: 'showPromises',
   FontSizeVerse: 'fontSizeVerse',
-  ChapterColumns: ' chapterColumns',
+  ChapterColumns: 'chapterColumns',
+  ShowJesusQuotes: 'showJesusQuotes',
 };

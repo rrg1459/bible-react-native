@@ -21,6 +21,8 @@ const initialState = {
   retrieveFavorites: {},
   device: {},
   loadingVerses: false,
+  showJesusQuotes: true,
+  showPromises: true,
 };
 
 const quoteSlice = createSlice({
@@ -65,6 +67,12 @@ const quoteSlice = createSlice({
     },
     loadingVerses: (state, action) => {
       state.loadingVerses = action.payload;
+    },
+    updateShowJesusQuotes: (state, action) => {
+      state.showJesusQuotes = action.payload;
+    },
+    updateShowPromises: (state, action) => {
+      state.showPromises = action.payload;
     }
   }
 });
@@ -83,6 +91,8 @@ export const {
   updateRetrieveFavorites,
   updateDevice,
   loadingVerses,
+  updateShowJesusQuotes,
+  updateShowPromises,
 } = quoteSlice.actions;
 
 export default quoteSlice.reducer;

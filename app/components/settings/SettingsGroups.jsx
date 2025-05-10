@@ -72,7 +72,7 @@ export default SettingsGroups
 
 const styles = StyleSheet.create({
   label: {
-    color: '#000000', fontSize: 25,
+    color: '#000000', fontSize: 20,
     textAlign: 'center',
   },
   button: {

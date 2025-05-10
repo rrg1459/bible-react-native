@@ -35,8 +35,8 @@ export default SettingsChapters
 
 const styles = StyleSheet.create({
   label: {
-    color: '#000000', fontSize: 25,
-    marginBottom: 65,
+    color: '#000000', fontSize: 20,
+    marginBottom: 20,
     textAlign: 'center',
   },
   sizeSlider: {
