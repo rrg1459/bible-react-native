@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Slider from '@react-native-community/slider';
@@ -11,6 +11,12 @@ const SettingsVerses = ({ language, fontSizeVerse, isTablet }) => {
     dispatch(updateFontSizeVerse(size));
     saveItem({ FontSizeVerse: size });
   }, [dispatch]);
+
+  const sizeSlider = useMemo(() => ({
+    width: isTablet ? 280 : 340,
+    marginTop: !isTablet && 10,
+    height: 40
+  }), [isTablet]);
 
   return (
     <View>
@@ -25,7 +31,7 @@ const SettingsVerses = ({ language, fontSizeVerse, isTablet }) => {
         </>
       }
       <Slider
-        style={[styles.sizeSlider, !isTablet && { marginTop: 10, }]}
+        style={sizeSlider}
         minimumValue={10}
         maximumValue={30}
         step={5}
@@ -45,10 +51,6 @@ const styles = StyleSheet.create({
     color: '#000000', fontSize: 20,
     marginBottom: 20,
     textAlign: 'center',
-  },
-  sizeSlider: {
-    width: 300,
-    height: 40
   },
   thumb: {
     width: 40,
