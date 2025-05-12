@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   },
   favorite: {
     textDecorationLine: 'underline',
+    fontWeight: 'bold',
   }
 });
 
