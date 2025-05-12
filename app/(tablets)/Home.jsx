@@ -53,8 +53,8 @@ const useFetchData = (dispatch, setLoadingStates) => {
           dispatch(updateRetrieveFavorites(favorites));
         }
         if (chapter) dispatch(updateChapter(chapter));
-        if (showPromises) dispatch(updateShowPromises(showPromises));
-        if (showJesusQuotes) dispatch(updateShowJesusQuotes(showJesusQuotes));
+        if (showPromises !== null) dispatch(updateShowPromises(showPromises));
+        if (showJesusQuotes !== null) dispatch(updateShowJesusQuotes(showJesusQuotes));
         if (book) {
           dispatch(updateBook(book));
         } else {
@@ -124,13 +124,17 @@ const Home = () => {
     <View style={styles.main}>
       <View style={styles.left}>
         <Header />
-          <View style={styles.versicules}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <Versicules />
-            </GestureHandlerRootView>
-          </View>
+        <View style={styles.versicules}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Versicules />
+          </GestureHandlerRootView>
+        </View>
+        <View style={styles.footer}>
+          <Footer language={languageValue} />
+        </View>
 
-        <Footer language={languageValue} />
+
+
       </View>
       <View style={styles.right}>
         <View style={styles.books}>
@@ -162,6 +166,9 @@ const styles = StyleSheet.create({
   versicules: {
     flex: 16,
     backgroundColor: 'skyblue', // FOR REMOVE
+  },
+  footer: {
+    flex: 1,
   },
   right: {
     flex: 8,
