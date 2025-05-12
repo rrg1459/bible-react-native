@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'rea
 import Modal from 'react-native-modalbox';
 import { useSelector } from 'react-redux';
 import SettingsLanguage from '../components/settings/SettingsLanguage';
+import SettingsPromises from '../components/settings/SettingsPromises';
+import SettingsJesusQuotes from '../components/settings/SettingsJesusQuotes';
 import SettingsBooks from '../components/settings/SettingsBooks';
 import SettingsChapters from '../components/settings/SettingsChapters';
 import SettingsVerses from '../components/settings/SettingsVerses';
@@ -17,9 +19,11 @@ const SettingsScreen = () => {
   const type_id = useSelector(state => state.quote.type_id);
   const favorites = useSelector(state => state.quote.favorites);
   const languageValue = useSelector(state => state.quote.language);
+  const showPromises = useSelector(state => state.quote.showPromises);
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
   const currentScreen = useSelector(state => state.quote.currentScreen);
   const bookColumnsValue = useSelector(state => state.quote.bookColumns);
+  const showJesusQuotes = useSelector(state => state.quote.showJesusQuotes);
   const chapterColumnsValue = useSelector(state => state.quote.chapterColumns);
   const retrieveFavorites = useSelector(state => state.quote.retrieveFavorites);
 
@@ -70,6 +74,12 @@ const SettingsScreen = () => {
         <SettingsLanguage language={languageValue} />
         {separator}
 
+        <SettingsPromises language={languageValue} showPromises={showPromises} />
+        {separator}
+
+        <SettingsJesusQuotes language={languageValue} showJesusQuotes={showJesusQuotes} />
+        {separator}
+
         {empty(favorites) && !empty(retrieveFavorites) ? (
           <>
             <SettingsRetrievingFavorite language={languageValue} />
@@ -106,7 +116,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>E87.9</Text>
+        <Text style={styles.version}>{'E131.2'}</Text>
       </View>
     </>
   );
@@ -136,7 +146,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: '100%',
-    marginVertical: 10,
+    marginVertical: 5,
     borderBottomColor: '#b1b5b4',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },

@@ -35,7 +35,7 @@ export default SettingsBooks
 
 const styles = StyleSheet.create({
   labelBookColumns: {
-    color: '#000000', fontSize: 25,
+    color: '#000000', fontSize: 20,
     marginBottom: 5,
     textAlign: 'center',
   },

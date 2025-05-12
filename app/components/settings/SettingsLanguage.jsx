@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { updateLanguage } from '../../redux/quoteSlice';
 import { saveItem } from "../../utils/setItems";
@@ -20,9 +20,12 @@ const SettingsLanguage = ({ language, isTablet }) => {
     >
       {isTablet
         ?
-        <Text style={styles.textButtonTablet}>
-          {language ? 'ENG' : 'ESP'}
-        </Text>
+        <View>
+          <Image
+            source={require('../../images/translate.png')}
+            style={styles.imageStyle}
+          />
+        </View>
         :
         <Text style={styles.textButton}>
           {language ? 'Change to english' : 'Cambiar a español'}
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 12,
     borderRadius: 8,
-    margin: 15,
+    margin: 10,
     elevation: 6,
     backgroundColor: '#FCFCFD',
     shadowOpacity: 0.3,
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     }
   },
   textButton: {
-    fontSize: 25,
+    fontSize: 20,
     lineHeight: 51,
     fontWeight: 'light',
     letterSpacing: 1.25,
@@ -61,10 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textButtonTablet: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    letterSpacing: 1.25,
-    color: '#7e7f94',
+  imageStyle: {
+    width: 30,
+    height: 30,
   },
 });

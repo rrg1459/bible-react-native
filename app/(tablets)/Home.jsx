@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Versicules from '../components/Versicules';
@@ -14,7 +14,9 @@ import {
   updateLanguage,
   updateFavorites,
   changeBookColumns,
+  updateShowPromises,
   updateFontSizeVerse,
+  updateShowJesusQuotes,
   updateRetrieveFavorites,
 } from '../redux/quoteSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,12 +34,16 @@ const useFetchData = (dispatch, setLoadingStates) => {
           favorites,
           book,
           chapter,
+          showPromises,
+          showJesusQuotes,
         ] = await Promise.all([
           Storage.getItem(KEY.Language),
           Storage.getItem(KEY.FontSizeVerse),
           Storage.getItem(KEY.Favorites),
           Storage.getItem(KEY.Book),
           Storage.getItem(KEY.Chapter),
+          Storage.getItem(KEY.ShowPromises),
+          Storage.getItem(KEY.ShowJesusQuotes),
         ]);
 
         if (lang || lang === 0) dispatch(updateLanguage(lang));
@@ -47,10 +53,11 @@ const useFetchData = (dispatch, setLoadingStates) => {
           dispatch(updateRetrieveFavorites(favorites));
         }
         if (chapter) dispatch(updateChapter(chapter));
+        if (showPromises !== null) dispatch(updateShowPromises(showPromises));
+        if (showJesusQuotes !== null) dispatch(updateShowJesusQuotes(showJesusQuotes));
         if (book) {
           dispatch(updateBook(book));
-        }
-        else {
+        } else {
           const tempBook = { id: 1, name: ["Genesis", "Génesis"], chapters: 50 };
           dispatch(updateBook(tempBook));
           dispatch(updateChapter(1));
@@ -117,13 +124,17 @@ const Home = () => {
     <View style={styles.main}>
       <View style={styles.left}>
         <Header />
-          <View style={styles.versicules}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <Versicules />
-            </GestureHandlerRootView>
-          </View>
+        <View style={styles.versicules}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Versicules />
+          </GestureHandlerRootView>
+        </View>
+        <View style={styles.footer}>
+          <Footer language={languageValue} />
+        </View>
 
-        <Footer language={languageValue} />
+
+
       </View>
       <View style={styles.right}>
         <View style={styles.books}>
@@ -155,6 +166,9 @@ const styles = StyleSheet.create({
   versicules: {
     flex: 16,
     backgroundColor: 'skyblue', // FOR REMOVE
+  },
+  footer: {
+    flex: 1,
   },
   right: {
     flex: 8,

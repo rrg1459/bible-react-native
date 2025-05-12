@@ -1,13 +1,14 @@
 
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as NavigationBar from "expo-navigation-bar"
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
 import 'react-native-reanimated';
-import * as Device from 'expo-device';
+// import * as Device from 'expo-device';
+import isNineInchTabletOrLarger from './utils/isTablet';
 
 import Tablet from "./(tablets)/Home";
 
@@ -22,11 +23,17 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const device = Device.deviceType; // 1 phone, 2 tablet, 3 web
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  const [isTablet, setIsTablet] = useState(false);
+
+  useLayoutEffect(() => {
+    setIsTablet(isNineInchTabletOrLarger());
+  }
+  , []);
 
   useEffect(() => {
     const hideNavBar = async () => {
@@ -61,9 +68,10 @@ export default function RootLayout() {
     <Provider store={store}>
       <SafeAreaProvider style={styles.content}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          {device > 1
-            ? <Tablet />
-            : <Stack>
+          { isTablet
+          ? <Tablet />
+          :
+            <Stack>
               <Stack.Screen name="(screens)" options={{ headerShown: false }} />
             </Stack>
           }

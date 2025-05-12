@@ -24,7 +24,7 @@ const SettingsFavorite = ({ language, isTablet }) => {
   }, [toggleModal]);
 
   return (
-    <>
+    <View>
       <Modal
         isOpen={isModalVisible}
         testID={'modal'}
@@ -39,7 +39,8 @@ const SettingsFavorite = ({ language, isTablet }) => {
             {language
               ? '¿Está seguro de\nolvidar los favoritos?'
               : 'Are you sure to\nreset favorites?'
-            }</Text>
+            }
+          </Text>
           <View style={styles.buttonsContainer}>
             <Pressable style={styles.yesNoButton}
               onPress={onPressYes}>
@@ -67,7 +68,7 @@ const SettingsFavorite = ({ language, isTablet }) => {
           </Text>
         }
       </Pressable>
-    </>
+    </View>
   )
 };
 
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 6,
     paddingHorizontal: 12,
-    margin: 15,
+    margin: 10,
     shadowOpacity: 0.3,
     shadowRadius: 5,
     shadowOffset: {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: '#36395A',
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'light',
     letterSpacing: 1.25,
     lineHeight: 51,
@@ -146,10 +147,10 @@ const styles = StyleSheet.create({
   },
   yesText: {
     color: 'red',
-    fontSize: 25,
+    fontSize: 20,
   },
   noText: {
     color: 'blue',
-    fontSize: 25,
+    fontSize: 20,
   }
 });

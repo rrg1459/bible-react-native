@@ -1,5 +1,7 @@
 import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import SettingsLanguage from '../components/settings/SettingsLanguage';
+import SettingsPromises from '../components/settings/SettingsPromises';
+import SettingsJesusQuotes from '../components/settings/SettingsJesusQuotes';
 import SettingsFavorite from '../components/settings/SettingsFavorite';
 import SettingsVerses from '../components/settings/SettingsVerses';
 import SettingsRetrievingFavorite from '../components/settings/SettingsRetrievingFavorite';
@@ -12,6 +14,8 @@ const Footer = ({ language }) => {
   const favorites = useSelector(state => state.quote.favorites);
   const retrieveFavorites = useSelector(state => state.quote.retrieveFavorites);
   const fontSizeVerse = useSelector(state => state.quote.fontSizeVerse);
+  const showPromises = useSelector(state => state.quote.showPromises);
+  const showJesusQuotes = useSelector(state => state.quote.showJesusQuotes);
   const [isModalVisible, setModealVisible] = useState(false);
   const handleTap = useCallback(() => {
       setModealVisible(!isModalVisible);
@@ -47,9 +51,6 @@ const Footer = ({ language }) => {
       <View style={styles.fontsize}>
         <SettingsVerses language={language} fontSizeVerse={fontSizeVerse} isTablet={true} />
       </View>
-      <View style={styles.language}>
-        <SettingsLanguage language={language} isTablet={true} />
-      </View>
       {true &&
         empty(favorites) && !empty(retrieveFavorites) ? (
         <SettingsRetrievingFavorite language={language} isTablet={true} />
@@ -57,6 +58,15 @@ const Footer = ({ language }) => {
         <SettingsFavorite language={language} isTablet={true} />
       )
       }
+      <View style={styles.language}>
+        <SettingsLanguage language={language} isTablet={true} />
+      </View>
+      <View style={styles.language}>
+        <SettingsPromises language={language} showPromises={showPromises} isTablet={true} />
+      </View>
+      <View style={styles.language}>
+        <SettingsJesusQuotes language={language} showJesusQuotes={showJesusQuotes} isTablet={true} />
+      </View>
     </View>
   )
 }
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   language: {
-    flex: 1,
+    flex: 0.6,
   },
   fav: {
     flex: 1,
