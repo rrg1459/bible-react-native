@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import { useColorScheme } from '@/app/hooks/useColorScheme';
-import { StyleSheet } from 'react-native';
+import { AppState, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -36,8 +36,18 @@ export default function RootLayout() {
   , []);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') Immersive.on()
-  }, [])
+    const activateImmersiveMode = () => {
+      if (process.env.NODE_ENV === 'production') Immersive.on();
+    };
+    activateImmersiveMode();
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'active') activateImmersiveMode();
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (loaded) {
