@@ -116,7 +116,7 @@ const SettingsScreen = () => {
         }
       </View>
       <View style={styles.footer}>
-        <Text style={styles.version}>{'E139.1'}</Text>
+        <Text style={styles.version}>{'E145.1'}</Text>
       </View>
     </>
   );
