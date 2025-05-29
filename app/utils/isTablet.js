@@ -20,12 +20,12 @@ const isNineInchTabletOrLarger = () => {
 
   // Calcular el tamaño de la pantalla en pulgadas
   const screenDiagonalInches = diagonalPx / estimatedDPI;
-
-  // const isNineInchOrLarger = screenDiagonalInches >= 9 && deviceTypeAsync === Device.DeviceType.TABLET;
-  const isNineInchOrLarger = screenDiagonalInches >= 9 // && deviceTypeAsync === Device.DeviceType.TABLET;
-
-
   const device = Device.deviceType; // 1 phone, 2 tablet, 3 web
+
+  // const isNineInchOrLarger = device === 2;
+  // const isNineInchOrLarger = screenDiagonalInches >= 9 && deviceTypeAsync === Device.DeviceType.TABLET;
+  // const isNineInchOrLarger = screenDiagonalInches >= 9 // && deviceTypeAsync === Device.DeviceType.TABLET;
+  const isNineInchOrLarger = screenDiagonalInches >= 9 && device === Device.DeviceType.TABLET;
 
   console.log('-------------------START-------------------');
   console.log('Tipo de Device:', Device);
@@ -39,7 +39,7 @@ const isNineInchTabletOrLarger = () => {
   console.log('¿Es una tablet de 9 pulgadas o más?', isNineInchOrLarger);
   console.log('Device.DeviceType.TABLET:', Device.DeviceType.TABLET);
   console.log('-------------------END-------------------');
-  
+
   return isNineInchOrLarger;
 };
 
