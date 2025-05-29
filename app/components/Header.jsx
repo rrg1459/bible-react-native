@@ -55,9 +55,10 @@ const Header = () => {
   const handleShare = useCallback(async () => {
     let quote = `${bible}\n${book.name[languageValue]} ${chapter}${verseAbbs}`;
     numVerses.forEach(num => {
-      const text = verses.find(item => item.verse === num).text;
+      const textOriginal = verses.find(item => item.verse === num).text[languageValue];
+      const text = textOriginal.replace(/[\[\]{}‹›]/g, '');
       const prefix = numVerses.length > 1 ? `\n${num / 10}. ` : '\n';
-      quote += prefix + text[languageValue];
+      quote += prefix + text;
     });
 
     try {
