@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import Modal from 'react-native-modalbox';
 import { useSelector } from 'react-redux';
 import SettingsLanguage from '../components/settings/SettingsLanguage';
@@ -69,7 +69,7 @@ const SettingsScreen = () => {
 
       <SettingsRemember language={languageValue} currentScreen={currentScreen} />
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         {separator}
         <SettingsLanguage language={languageValue} />
         {separator}
@@ -114,9 +114,9 @@ const SettingsScreen = () => {
             {separator}
           </>
         }
-      </View>
+      </ScrollView>
       <View style={styles.footer}>
-        <Text style={styles.version}>{'E149.3'}</Text>
+        <Text style={styles.version}>{'E160.3'}</Text>
       </View>
     </>
   );
@@ -140,9 +140,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: '#ebf9f5',
+  },
+  contentContainer: {
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: '#ebf9f5',
+    paddingVertical: 20,
   },
   separator: {
     width: '100%',
