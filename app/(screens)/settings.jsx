@@ -116,7 +116,7 @@ const SettingsScreen = () => {
         }
       </ScrollView>
       <View style={styles.footer}>
-        <Text style={styles.version}>{'E160.3'}</Text>
+        <Text style={styles.version}>{'E165.1'}</Text>
       </View>
     </>
   );
